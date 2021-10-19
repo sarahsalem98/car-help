@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'client'=>[
+            'driver'=>'token',
+            'provider'=>'clients',
+            'hash'=>false
+
+        ],
+        'provider'=>[
+            'driver'=>'token',
+            'provider'=>'providers',
+            'hash'=>false
+
+        ]
     ],
 
     /*
@@ -63,6 +75,14 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        'clients' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Client::class,
+        ],
+        'providers' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Provider::class,
         ],
 
         // 'users' => [
