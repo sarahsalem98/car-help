@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class SubServices extends Model
 {
     use HasFactory;
+    protected $hidden=['pivot'];
     public function provider(){
      return $this->belongsToMany(Provider::class,'provider_subservices','subservice_id','provider_id')->withTimestamps();
     }

@@ -20,13 +20,16 @@ class Client extends Model
     ];
 
     protected $hidden=[
-        'password'
+        'password','pivot'
     ];
 
     public function city(){
-        $this->belongsTo(City::class,'city_id','id');
+      return  $this->belongsTo(City::class,'city_id','id');
     }
     public function car(){
-        $this->hasMany(Car::class,'client_id','id');
+     return   $this->hasMany(Car::class,'client_id','id');
+    }
+    public function favouriteProviders(){
+    return $this->belongsToMany(Provider::class,'user_favourite_providers','client_id','provider_id');
     }
 }

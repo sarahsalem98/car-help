@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Client\AddressController;
 use App\Http\Controllers\Api\Client\CarController;
+use App\Http\Controllers\Api\Provider\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,15 @@ Route::prefix('client')->group(function(){
     Route::middleware('auth:client')->group(function(){
     Route::resource('car',CarController::class);
     Route::resource('address',AddressController::class);
-    Route::get('main/{id}/show/provider','App\Http\Controllers\Api\Client\ProviderController@showProvider');
+    //show main providers for all sub services
+    Route::get('main/{mainId}/show/provider','App\Http\Controllers\Api\Client\ProviderController@mainShowProvider');
+    //favourites
+    Route::get('show/favourite/providers','App\Http\Controllers\Api\Client\ProviderController@showFavouriteProviders');
+    Route::post('favourite/{providerId}','App\Http\Controllers\Api\Client\ProviderController@addProviderToFavourites');
+    //show provider profile
+    Route::get('provider/show/{providerId}','App\Http\Controllers\Api\Client\ProviderController@showProviderProfile');
+ 
+    Route::get('provider/categories/{providerId}','App\Http\Controllers\Api\Client\ProviderController@showProductCategory');
     });
     
 });
@@ -41,6 +50,8 @@ Route::post('subservice/register','App\Http\Controllers\Api\Provider\AuthControl
 Route::post('brandtype/register','App\Http\Controllers\Api\Provider\AuthController@registerBrandTypesForProvider');
 Route::post('address/register','App\Http\Controllers\Api\Provider\AuthController@registerAddressforProvider');
 Route::post('workhoure/register','App\Http\Controllers\Api\Provider\AuthController@registerWorkHoursForProvider');
+Route::resource('product',ProductController::class);
+
 
 });
 });

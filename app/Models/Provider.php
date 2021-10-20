@@ -23,7 +23,7 @@ class Provider extends Model
     
     ];
     protected $hidden=[
-        'password'
+        'password','pivot'
     ];
 
     public function subServices(){
@@ -38,5 +38,8 @@ class Provider extends Model
      }  
      public function workHour(){
          return $this->hasMany(ProviderWorkHour::class);
+     }
+     public function product(){
+         return $this->hasMany(Product::class);
      }
 }
