@@ -26,6 +26,9 @@ class Client extends Model
     public function city(){
       return  $this->belongsTo(City::class,'city_id','id');
     }
+    public function address(){
+        return $this->hasMany(ClientsAddress::class,'client_id','id');
+    }
     public function car(){
      return   $this->hasMany(Car::class,'client_id','id');
     }

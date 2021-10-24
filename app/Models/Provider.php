@@ -42,4 +42,7 @@ class Provider extends Model
      public function product(){
          return $this->hasMany(Product::class);
      }
+     public function publicPrivateOrder(){
+         return $this->hasMany(publicPrivateOrder::class);
+     }
 }

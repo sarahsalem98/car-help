@@ -34,11 +34,23 @@ Route::prefix('client')->group(function(){
     Route::get('main/{mainId}/show/provider','App\Http\Controllers\Api\Client\ProviderController@mainShowProvider');
     //favourites
     Route::get('show/favourite/providers','App\Http\Controllers\Api\Client\ProviderController@showFavouriteProviders');
-    Route::post('favourite/{providerId}','App\Http\Controllers\Api\Client\ProviderController@addProviderToFavourites');
+    Route::post('favourite/provider/{providerId}','App\Http\Controllers\Api\Client\ProviderController@addProviderToFavourites');
     //show provider profile
-    Route::get('provider/show/{providerId}','App\Http\Controllers\Api\Client\ProviderController@showProviderProfile');
+    Route::get('show/provider/{providerId}','App\Http\Controllers\Api\Client\ProviderController@showProviderProfile');
  
-    Route::get('provider/categories/{providerId}','App\Http\Controllers\Api\Client\ProviderController@showProductCategory');
+    Route::get('provider/{providerId}/categories','App\Http\Controllers\Api\Client\ProviderController@showProductCategory');
+    //orders
+    Route::post('order','App\Http\Controllers\Api\Client\OrderController@makePublicPrivateOrder');
+    Route::get('show/public/orders','App\Http\Controllers\Api\Client\OrderController@showPublicOrders');
+    Route::get('show/private/orders','App\Http\Controllers\Api\Client\OrderController@showPrivateOrders');
+    Route::get('show/order/{order_id}','App\Http\Controllers\Api\Client\OrderController@showSpecificPublicOrPrivateOrder');
+    Route::post('accept/order/{price_id}/{order_id}','App\Http\Controllers\Api\Client\OrderController@acceptPrice');
+    Route::post('refuse/order/{price_id}/{order_id}', 'App\Http\Controllers\Api\Client\OrderController@refusePrice');
+    Route::post('cancel/order','App\Http\Controllers\Api\Client\OrderController@cancelOrder');
+
+    //comment
+    Route::post('add/comment/provider/{provider_id}','App\Http\Controllers\Api\Client\OrderController@addCommentToProvider');
+
     });
     
 });
@@ -51,7 +63,8 @@ Route::post('brandtype/register','App\Http\Controllers\Api\Provider\AuthControll
 Route::post('address/register','App\Http\Controllers\Api\Provider\AuthController@registerAddressforProvider');
 Route::post('workhoure/register','App\Http\Controllers\Api\Provider\AuthController@registerWorkHoursForProvider');
 Route::resource('product',ProductController::class);
-
+//orders
+Route::post('add/price','App\Http\Controllers\Api\Provider\OrderController@addPriceToPublicPrivateOrders');
 
 });
 });
