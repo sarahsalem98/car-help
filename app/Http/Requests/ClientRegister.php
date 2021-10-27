@@ -26,8 +26,10 @@ class ClientRegister extends FormRequest
         return [
             'name'=>'required|max:255|alpha',
             'phone_number'=>'required|unique:clients',
-            'city_id'=>'required',
-            'password'=>'required'
+            'city_id'=>'exists:cities,id|required',
+            'password'=>'required',
+            'profile_picture.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
+         
         ];
     }
 }

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePriceForPublicPrivaterders;
 use App\Models\OrderPrice;
 use App\Models\Provider;
-use App\Models\publicPrivateOrder;
+use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,7 +14,7 @@ class OrderController extends Controller
 {
     public function addPriceToPublicPrivateOrders(StorePriceForPublicPrivaterders $request){
         $validatedDate=$request->validated();
-        $order=publicPrivateOrder::where('id',$validatedDate['order_id'])->get()[0];
+        $order=Order::where('id',$validatedDate['order_id'])->get()[0];
         if($order->status==0){
             if($order->provider_id==null || $order->provider_id==Auth::user()->id){
                 $price=new OrderPrice;

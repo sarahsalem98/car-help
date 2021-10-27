@@ -15,7 +15,7 @@ class StorePublicPrivateOrder extends FormRequest
     public function authorize()
 
     {
-        
+
         return Auth::user();
     }
 
@@ -27,10 +27,12 @@ class StorePublicPrivateOrder extends FormRequest
     public function rules()
     {
         return [
-            'car_id'=>'required',
+            'car_id'=>'required|exists:cars,id',
             'details'=>'required',
             'images'=>'required',
-            'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg'
+            'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
+            'order_type'=>'required|numeric'
+
         ];
     }
 }

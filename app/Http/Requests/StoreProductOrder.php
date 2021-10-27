@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreCommentForProvider extends FormRequest
+class StoreProductOrder extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,10 @@ class StoreCommentForProvider extends FormRequest
     public function rules()
     {
         return [
-            'rate'=>'numeric|max:5',
-            'comment'=>'max:255'
+            'provider_id'=>'required|exists:providers,id',
+            'address_id'=>'required|exists:clients_addresses,id',
+            'payement_method'=>'required',
+            'order_type'=>'required|numeric'
         ];
     }
 }

@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreCommentForProvider extends FormRequest
+class ClientUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,10 @@ class StoreCommentForProvider extends FormRequest
     public function rules()
     {
         return [
-            'rate'=>'numeric|max:5',
-            'comment'=>'max:255'
+            'name'=>'max:255|alpha',
+            'phone_number'=>'unique:clients',
+            'city_id'=>'exists:cities,id',
+            'profile_picture.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

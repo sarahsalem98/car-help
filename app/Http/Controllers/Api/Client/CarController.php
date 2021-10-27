@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCar;
 use App\Models\Car;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -28,7 +29,8 @@ class CarController extends Controller
      */
     public function store(StoreCar $request)
     {
-           $validatedData=$request->validated();
+        try{
+      $validatedData=$request->validated();
            $car=new Car;
            $car->fill($validatedData);
            $car->client_id=Auth::user()->id;
@@ -38,7 +40,9 @@ class CarController extends Controller
            ],201);
            }  else{
                return response()->json(['errors'=>'car was not added'],500);
-           }        
+           }  
+        }catch(Exception $e){return $e->getMessage();}
+           
     }
 
     /**
