@@ -26,7 +26,9 @@ class StorePriceForPublicPrivaterders extends FormRequest
     {
         return [
             'order_id'=>'required',
-            'price'=>'required|numeric'
+            'price'=>'required|numeric',
+            'notes'=>'string',
+            'viewing_price'=>'boolean'
         ];
     }
 }

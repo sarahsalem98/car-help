@@ -10,7 +10,9 @@ class OrderPrice extends Model
     use HasFactory;
     protected $fillable=[
         'order_id',
-        'price'
+        'price',
+        'notes',
+        'viewing_price'
     ];
  
     public function provider(){

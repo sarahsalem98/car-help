@@ -15,4 +15,7 @@ class providerAddress extends Model
         'address',
         'city_id'
     ];
+    public function city(){
+        return $this->belongsTo(City::class);
+    }
 }

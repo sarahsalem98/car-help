@@ -27,7 +27,7 @@ class ProviderRegister extends FormRequest
             'workshop_photo_path'=>'required',
             'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
             'enginner_name'=>'required',
-            'phone_number'=>'required|numeric',
+            'phone_number'=>'required|numeric|unique:providers',
             'whatsapp_number'=>'required|numeric',
             'email'=>'required|email',
             'password'=>'required',

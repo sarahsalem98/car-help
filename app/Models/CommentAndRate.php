@@ -10,6 +10,8 @@ class CommentAndRate extends Model
     use HasFactory;
     protected $fillable=[
 'rate',
-'comment'
+'comment',
+'provider_id',
+'order_id'
     ];
 }

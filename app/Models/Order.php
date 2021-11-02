@@ -32,14 +32,24 @@ class Order extends Model
     {
         return $this->hasMany(OrderPrice::class, 'order_id', 'id');
     }
-    public function cancel()
+    public function clientCancel()
     {
         return $this->hasOne(ClientCancellation::class, 'cancel_id', 'id');
+    }
+    public function providerCancel(){
+        return $this->hasOne(ProviderCancellation::class, 'cancel_id', 'id');
+
     }
     public function product(){
         return $this
         ->belongsToMany(Product::class,'product_orders','order_id','product_id')
         ->withPivot('product_id','order_id','qty','total_price')
         ->withTimestamps();
+    }
+    public function address(){
+        return $this->belongsTo(ClientsAddress::class,'address_id','id');
+    }
+    public function comment(){
+       return $this->hasOne(CommentAndRate::class);
     }
 }

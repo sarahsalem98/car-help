@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCommentForProvider;
 use App\Models\Category;
 use App\Models\Client;
+use App\Models\CommentAndRate;
 use App\Models\Product;
 use App\Models\Provider;
 use App\Models\Service;
@@ -50,7 +52,7 @@ class ProviderController extends Controller
      if($provider){
 
          return response()->json(['provider profile'=>
-         Provider::where('id',$providerId)->with('subServices','address','brandTypes','workHour')->get() ],200);
+         Provider::where('id',$providerId)->with('subServices','address.city','brandTypes','workHour','product.category')->get() ],200);
      }else{
          return response()->json(['errors'=>"provider with this id {$providerId} is not found "],404);
      }
@@ -61,6 +63,20 @@ class ProviderController extends Controller
            $products=Product::where('provider_id',$providerId)->with('category')->get();
        
             return response()->json(['all provider products with their categories'=>$products],200);
+    }
+
+    public function addCommentToProvider(StoreCommentForProvider $request)
+    {
+        $validatedData = $request->validated();
+        $comment = new CommentAndRate;
+        $comment->fill($validatedData);
+        $comment->client_id = Auth::user()->id;
+        $comment->save();
+        $allCommentsAvg = CommentAndRate::where('provider_id', $validatedData['provider_id'])->avg('rate');
+        $provider = Provider::find($validatedData['provider_id']);
+        $provider->rate = $allCommentsAvg;
+        $provider->save();
+        return response()->json(['message' => 'comment is added succfully for this provider and provider rate was updated '], 201);
     }
 
 

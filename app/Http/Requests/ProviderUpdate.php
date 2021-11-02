@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rule;
 
-class StorePublicPrivateOrder extends FormRequest
+class ProviderUpdate extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,9 +13,7 @@ class StorePublicPrivateOrder extends FormRequest
      * @return bool
      */
     public function authorize()
-
     {
-
         return Auth::user();
     }
 
@@ -28,13 +25,10 @@ class StorePublicPrivateOrder extends FormRequest
     public function rules()
     {
         return [
-            'provider_id'=>'exists:providers,id',
-            'car_id'=>'required|exists:cars,id',
-            'details'=>'required',
-            'images'=>'required',
-            'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
-            'order_type'=>['required','numeric',Rule::in(['0','1','2']) ]
-
+            'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+            'phone_number'=>'numeric|unique:providers',
+            'whatsapp_number'=>'numeric',
+            'email'=>'email',
         ];
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsVerifiedToClientsTable extends Migration
+class AddStatusToProvidersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddIsVerifiedToClientsTable extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->string('status')->default('not_verified')->after('name');
+        Schema::table('providers', function (Blueprint $table) {
+            $table->string('status')->default('not_verified')->after('enginner_name');
         });
     }
 
@@ -25,7 +25,7 @@ class AddIsVerifiedToClientsTable extends Migration
      */
     public function down()
     {
-        Schema::table('clients', function (Blueprint $table) {
+        Schema::table('providers', function (Blueprint $table) {
             //
         });
     }

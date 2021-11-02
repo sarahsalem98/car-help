@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddIsVerifiedToClientsTable extends Migration
+class AddNotesToOrderPricesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddIsVerifiedToClientsTable extends Migration
      */
     public function up()
     {
-        Schema::table('clients', function (Blueprint $table) {
-            $table->string('status')->default('not_verified')->after('name');
+        Schema::table('order_prices', function (Blueprint $table) {
+            $table->text('notes')->nullable()->after('price');
+            $table->boolean('viewing_price')->default(0)->after('price');
         });
     }
 
@@ -25,7 +26,7 @@ class AddIsVerifiedToClientsTable extends Migration
      */
     public function down()
     {
-        Schema::table('clients', function (Blueprint $table) {
+        Schema::table('order_prices', function (Blueprint $table) {
             //
         });
     }

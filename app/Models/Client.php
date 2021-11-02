@@ -18,7 +18,7 @@ class Client extends Model
         'phone_number',
         'city_id',
         'profile_photo_path',
-        'isVerified'
+        'status'
     ];
 
     protected $hidden=[

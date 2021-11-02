@@ -48,20 +48,22 @@ class AuthController extends Controller
 
     public function register(ClientRegister $request){
         $validatedData=$request->validated();
-        $token = "b62708c08866ef30b39db3ab263e2bfe";
-        $twilio_sid = "AC060466ed6ae6732d8dfe766b525cf879";
-        $twilio_verify_sid ="VA8b9553f392c59fd6e9c99eb728304651";
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_sid = getenv("TWILIO_SID");
+        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
         $twilio = new Client ($twilio_sid, $token);
-       $otp= $twilio->verify->v2->services($twilio_verify_sid)
-            ->verifications
-            ->create($validatedData['phone_number'], "sms");
+     
 
         $client=new userClint;
         $client->fill($validatedData);
         $client->password=bcrypt($request['password']);
         $client->api_token=Str::random(100);
+        $twilio->verify->v2->services($twilio_verify_sid)
+        ->verifications
+        ->create($validatedData['phone_number'], "sms");
        if($client->save()){
-        redirect()->route('verify')->with(['phone_number' => $validatedData['phone_number']]); 
+               return response()->json(['message '=>'client was created succefully and verificaton code has been sent ',
+                                          'the created client '=>$client   ],201);
       
 
        }else{
@@ -76,23 +78,29 @@ class AuthController extends Controller
             'verification_code' => ['required', 'numeric'],
             'phone_number' => ['required', 'string'],
         ]);
-        /* Get credentials from .env */
-        $token = getenv("TWILIO_AUTH_TOKEN");
-        $twilio_sid = getenv("TWILIO_SID");
-        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-        $twilio = new Client($twilio_sid, $token);
-        $verification = $twilio->verify->v2->services($twilio_verify_sid)
-            ->verificationChecks
-            ->create($data['verification_code'], array('to' => $data['phone_number']));
 
-          
-        if ($verification->valid) {
-            $user = tap(userClint::where('phone_number', $data['phone_number']))->update(['isVerified' => 1]);
-            /* Authenticate user */
-            // Auth::login($user->first());
-            return redirect()->route('home')->with(['message' => 'Phone number verified']);
+        /* Get credentials from .env */
+        if(Auth::user()->phone_number==$request->phone_number){
+            $token = getenv("TWILIO_AUTH_TOKEN");
+            $twilio_sid = getenv("TWILIO_SID");
+            $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+            $twilio = new Client($twilio_sid, $token);
+            $verification = $twilio->verify->v2->services($twilio_verify_sid)
+                ->verificationChecks
+                ->create($data['verification_code'], array('to' => $data['phone_number']));
+    
+              
+            if ($verification->valid) {
+                $client = userClint::where('phone_number', $data['phone_number'])->first();
+                $client->update(['status' => 'verified']);
+                return response()->json(['message' => 'Phone number verified',
+                                          'the verified client'=>$client   ],200);
+            }
+            return response()->json([ 'errors' => 'Invalid verification code entered!'],400);
+        }else{
+            return response()->json(['errors'=>'the number you entered is not correct'],400);
         }
-        return back()->with(['phone_number' => $data['phone_number'], 'error' => 'Invalid verification code entered!']);
+  
     }
 
 
@@ -111,31 +119,60 @@ class AuthController extends Controller
   
     }
 
-//     public function forgetPassword(){
-//    $this->verify()
-//     }
+    public function forgetPassword(Request $request){
+        $data = $request->validate([
+            'phone_number' => ['required', 'string'],
+        ]);
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_sid = getenv("TWILIO_SID");
+        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+        $twilio = new Client ($twilio_sid, $token);
+    
+        if(Auth::user()->phone_number==$data['phone_number']){
+            $client = userClint::where('phone_number', $data['phone_number'])->first();
+            $otp= $twilio->verify->v2->services($twilio_verify_sid)
+            ->verifications
+            ->create($data['phone_number'], "sms");
+            $client->update(['status' => 'forget_password']);
+            return response()->json(['client'=>$client],200);
+        }else{
+            return response()->json(['errors'=>'the number you entered is not correct'],400);
+      
+        }
+    }
+
+    public function changePassword(Request $request){
+        $id=Auth::user()->id;
+        $client=userClint::find($id);
+        if($client->status='verified'){
+            $data = $request->validate( [
+                'new_password' => 'required|confirmed',
+            ]);
+            $client->password=bcrypt($data['new_password']);
+     
+            $client->save();
+            return response()->json(['message'=>'success',
+                                      'client'=>$client],200);
+        }else{
+            return response()->json(['message'=>'can not change password for this client '],400); 
+        }
+      
+    }
+
+
 
 
     public function resetPassword(Request $request){
-        $validator = Validator::make($request->all(), [
+        $data = $request->validate( [
             'old_password'=> 'required',
             'new_password' => 'required|confirmed',
         ]);
-        if ($validator->fails())
-        {
-            return response([
-                "message"=>'The given data was invalid.',
-                "errors"=>$validator->errors()
-            
-            ], 422);
-
-
-        }
+      
 
         $id=Auth::user()->id;
         $client=userClint::find($id);
-        if (Hash::check( $request->old_password,$client->password )){
-            $client->password=bcrypt($request->new_password);
+        if (Hash::check( $data['old_password'],$client->password )){
+            $client->password=bcrypt($data['new_password']);
             $client->save();
             return response()->json(['message'=>'the new password is set as your current password'],201);
         }else{
@@ -144,9 +181,7 @@ class AuthController extends Controller
     }
 
 
-  public function resendVerificationCode(){
-      return response()->json(['verification_code'=>0000],200);
-  }
+
 
 
   public function updateProfile(ClientUpdate $request){

@@ -3,9 +3,8 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Auth;
 
-class StoreProviderAddress extends FormRequest
+class ProviderLogin extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +13,7 @@ class StoreProviderAddress extends FormRequest
      */
     public function authorize()
     {
-        return Auth::user();
+        return true;
     }
 
     /**
@@ -25,10 +24,8 @@ class StoreProviderAddress extends FormRequest
     public function rules()
     {
         return [
-           'city_id'=>'required|exists:cities,id',
-           'lat'=>'required',
-           'long'=>'required',
-           'address'=>'max:255'
+            'phone_number'=>'required',
+            'password'=>'required',
         ];
     }
 }
