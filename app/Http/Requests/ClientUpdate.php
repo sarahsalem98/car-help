@@ -28,7 +28,7 @@ class ClientUpdate extends FormRequest
             'name'=>'max:255|alpha',
             'phone_number'=>'unique:clients',
             'city_id'=>'exists:cities,id',
-            'profile_picture.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
+            'profile_photo_path.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
         ];
     }
 }

@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\ClientController;
+use App\Http\Controllers\Dashboard\ProviderController;
+use App\Http\Livewire\Admin\Main;
+use App\Http\Livewire\Admin\Provider as AdminProvider;
+use App\Models\Provider;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,25 +19,32 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
-
 Route::get('/', function () {
-    return view('auth.register');
-})->name('register');
+    return view('welcome');
+});
 
-Route::get('/verify', function () {
-    return view('auth.verify');
-})->name('verify');
+Route::get('/main', Main::class);
 
-Route::get('/home', function () {
-    return view('home');
-})->name('home');
 
-Route::post('/', 'App\Http\Controllers\Api\Client\AuthController@register')->name('register');
-Route::post('/verify', 'App\Http\Controllers\Api\Client\AuthController@verify')->name('verify');
+
+
+Route::prefix('admin')->group(function(){
+    Route::middleware(['auth:sanctum', 'verified'])->group(function(){
+        Route::get('ar',Main::class)->name('dashboard');
+        // Route::get('provider',AdminProvider::class)->name('provider');
+        Route::resource('provider',ProviderController::class);
+        Route::resource('client',ClientController::class);
+        Route::resource('admin',AdminController::class);
+       Route::post('provider/{provider}/update/workHours','App\Http\Controllers\Dashboard\ProviderController@updateWorkHours')->name('workHoure.update');
+        Route::post('provider/{provider}/update/brandtypes','App\Http\Controllers\Dashboard\ProviderController@updateBrandTypes')->name('brand.update');
+        Route::post('provider/{provider}/suspend','App\Http\Controllers\Dashboard\ProviderController@providerSuspend')->name('privider.suspend');
+        
+        Route::get('provider/{provider}/show/products','App\Http\Controllers\Dashboard\ProviderController@showProducts')->name('provider.products.show');
+        Route::post('provider/search/','App\Http\Controllers\Dashboard\ProviderController@search')->name('provider.search');
+        //  Route::put('provider/{provider}','App\Http\Controllers\Dashboard\ProviderController@updateProvider')->name('provider.update');
+        //client
+        Route::post('client/{client}/suspend','App\Http\Controllers\Dashboard\ClientController@clientsuspend')->name('client.suspend');
+        Route::post('client/search/','App\Http\Controllers\Dashboard\ClientController@search')->name('client.search');
+
+    });
+});

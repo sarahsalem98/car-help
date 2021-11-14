@@ -28,7 +28,7 @@ class StoreWorkHoursForProvider extends FormRequest
             'closed'=>'required|between:0,1',
             'day'=>'required|max:20',
             'from'=>'required_if:closed,==,0|date_format:H:i',
-            'to'=>'required_if:closed,==,0|date_format:H:i|after:time_start'
+            'to'=>'required_if:closed,==,0|date_format:H:i|after:from'
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class Provider extends Model
@@ -25,6 +26,12 @@ class Provider extends Model
     protected $hidden=[
         'password','pivot'
     ];
+    public function photoUrl(){
+        return Storage::url($this->workshop_photo_path);
+    }
+    public function registerationUrl(){
+        return Storage::url($this->business_registeration_file);
+    }
 
     public function subServices(){
      return $this->belongsToMany(SubServices::class,'provider_subservices','provider_id','subservice_id')->withTimestamps();

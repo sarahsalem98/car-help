@@ -16,6 +16,7 @@ use App\Models\SubServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Twilio\Rest\Client;
 
@@ -59,6 +60,7 @@ class AuthController extends Controller
     ]);
     $id = Auth::user()->id;
     $provider = Provider::find($id);
+    
     if ($data['subservice']) {
       $provider->subServices()->sync(SubServices::find($data['subservice']));
       $provider->next_step = $this->next_step[1];
@@ -274,10 +276,32 @@ class AuthController extends Controller
     $id = Auth::user()->id;
     $name = Auth::user()->enginner_name;
     $provider = Provider::find($id);
+    $fileName= $provider->workshop_photo_path;
+    $photoName= $provider->business_registeration_file;
+   
+    if ($request->file('workshop_photo_path')) {
+      if(Storage::exists($provider->workshop_photo_path )){
+        Storage::delete($provider->workshop_photo_path );
+      } 
+      $photoName = $request->file('workshop_photo_path')->store('workshoph_Photos');
+
+    }
+    if ($request->file('business_registeration_file')) {
+      if(Storage::exists($provider->business_registeration_file )){
+        Storage::delete($provider->business_registeration_file );
+      } 
+      $fileName = $request->file('business_registeration_file')->store('businessrRegisteration_Files');
+    
+    }
+   
     $provider->fill($validatedData);
+    $provider->workshop_photo_path = $photoName;
+    $provider->business_registeration_file = $fileName;
     $provider->save();
     return response()->json(["provider {$name} updated profile"=>$provider],200);
   }
+
+
 
   public function changeProviderSubServices(Request $request){
     

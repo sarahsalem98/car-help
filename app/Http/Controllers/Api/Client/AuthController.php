@@ -12,6 +12,7 @@ use Twilio\Rest\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -189,11 +190,15 @@ class AuthController extends Controller
     $id=Auth::user()->id;
     $client=userClint::find($id);
     $validatedData=$request->validated();
-    $client->fill($validatedData);
+    $photoName=$client->profile_photo_path;
     if ($request->file('profile_photo_path')) {
+        if(Storage::exists($client->profile_photo_path )){
+            Storage::delete($client->profile_photo_path);
+          } 
         $photoName = $request->file('profile_photo_path')->store('profile_picture_client');
-        $client->profile_photo_path = $photoName;
-      }
+    }
+    $client->fill($validatedData);
+    $client->profile_photo_path = $photoName;
     $client->save();
     return response()->json(['message'=>'clinet information was updated',
                                'the updaet client'=>$client   ],201);

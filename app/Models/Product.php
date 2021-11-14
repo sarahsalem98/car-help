@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
 {
@@ -27,5 +28,13 @@ class Product extends Model
         }
         public function order(){
             return $this->belongsToMany(Order::class,'product_orders','product_id','order_id')->withTimestamps();
+        }
+        public function firstImageUrl(){
+            $image= json_decode( $this->images)[0];
+             return Storage::url( $image);
+        }
+        public function secondImageUrl(){
+            $image= json_decode( $this->images)[1];
+            return Storage::url( $image);
         }
 }

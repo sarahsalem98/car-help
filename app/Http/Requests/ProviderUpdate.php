@@ -29,6 +29,8 @@ class ProviderUpdate extends FormRequest
             'phone_number'=>'numeric|unique:providers',
             'whatsapp_number'=>'numeric',
             'email'=>'email',
+            'business_registeration_file'=>'mimes:pdf,doc,docx'
+
         ];
     }
 }
