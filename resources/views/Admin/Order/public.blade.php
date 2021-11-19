@@ -1,5 +1,5 @@
 @extends('layouts.app2')
-@section('Admin.index')
+@section('public.order')
 <!-- Page-Title -->
 <div class="container">
 
@@ -29,10 +29,10 @@
 
     <div class="row" wire:key="foo">
         <div class="col-sm-12">
-            <h4 class="page-title"> الادمنز</h4>
+            <h4 class="page-title"> الخدمات الرئيسة</h4>
             <ol class="breadcrumb">
                 <li><a href="{{route('dashboard')}}" class="btn btn-link">الرئيسية</a></li>
-                <li class="active"> الادمنز</li>
+                <li class="active">  الطلبات العامة</li>
             </ol>
         </div>
     </div>
@@ -47,19 +47,15 @@
                             @csrf
                             <div class="form-group contact-search m-b-50">
 
-                                <input type="text" name="searchclient" class="form-control" placeholder="بحث........">
+                                <input type="text" name="searchservice" class="form-control" placeholder="بحث........">
                                 <button type="submit" class="btn btn-white m-r-2"><i class="fa fa-search"></i></button>
                             </div> <!-- form-group -->
                         </form>
 
                     </div>
-                    @can('store-admin',$AuthAdmin)
-                    <div class="col-sm-4">
-                             <!-- <a class="btn btn-default btn-md waves-effect waves-light m-b-30 btnopen"><i class="md md-add"></i> اضافه ادمن جديد</a> -->
-                             <a href="#add-admin-modal" class="btn btn-default btn-md waves-effect waves-light m-b-30 btnopen" data-animation="fadein" data-plugin="custommodal" 
-                                                    	data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> اضافة ادمن جديد</a>
-                         </div>
-                         @endcan
+                   
+                 
+                     
                 </div>
 
 
@@ -82,56 +78,64 @@
                                 </th>
 
                                 <th>Id</th>
-                                <th>Name</th>
-                                <th>Email </th>
-                                <th>Status </th>
-                                <th>Action</th>
+                                <th>صورة</th>
+                                <th> مقدم الخدمة</th>
+                                <th>العميل</th>
+                                <th>السيارة</th>
+                                <th>التفاصييل</th>
+                                <th>حالة الطلب</th>
+                                <th>تاريخ الطلب</th>
+                                
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach($admins as $admin)
+                            @foreach($publicOrders as $publicOrder)
 
                             <tr class="active">
-<td></td>
+                                <td></td>
+                                <td>
+                                    {{$publicOrder->id}}
+                                </td>
+                           
+                              <td>
+
+<img src="{{$publicOrder->firstImageUrl()}}" alt="contact-img" title="contact-img" class="img-circle thumb-lg" />
+</td>
                                 <td>
 
-                                    {{$admin->id}}
+                                    {{$publicOrder->provider->enginner_name ?? 'لايوجد'}}
                                 </td>
 
                                 <td>
-                                    {{$admin->name }}
+                                    {{$publicOrder->client->name }}
                                 </td>
                                 
+                             <td>
 
-                                <td>{{$admin->email}}
-                                </td>
-                                <td>
-                                    @if($admin->super_admin==1)
-                                <span class="label label-success">ادمن</span> 
-                                    @elseif($admin->super_admin==0)
-                                    <span class="label label-inverse">ادمن مساعد</span> 
-                                    @endif
-                                </td>
+                             {{$publicOrder->car->name}}
+                             </td>
+                             <td>
+                                 {{$publicOrder->details}}
+                             </td>                             
+                             <td>
+                                 @if($publicOrder->status==0)
+                                 <span class="label label-default">جديدة</span>
 
+                                 @elseif($publicOrder->status==1)
+                                 <span class="label label-primary">قيد التنفيذ</span>
 
-                                 
-                                <td>
-                                    @can('update-admin',$admin)
-                                    <a href="{{route('admin.edit',['admin'=>$admin->id])}}" class="table-action-btn"><i class="md md-edit"></i></a>
-                
-                                    @endcan
-                                    @can('delete-admin',$admin)
-                                    
-                                    <form method="POST" action="{{route('admin.destroy',['admin'=>$admin->id])}}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="table-action-btn"><i class="md md-close"></i></button>
-                                    </form>
+                                 @elseif($publicOrder->status==4)
+                                <span class="label label-success" >مكتملة</span>
+
+                                @elseif($publicOrder->status==5)
+                                <span class="label label-danger">ملغاة</span>
+                                 @endif
+                             </td>
+                             <td>{{$publicOrder->created_at}}</td>
+                             
+
                                 
-                                    @endcan
-                                </td>
-
                             </tr>
 
 

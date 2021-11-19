@@ -1,5 +1,5 @@
 @extends('layouts.app2')
-@section('Admin.index')
+@section('main.index')
 <!-- Page-Title -->
 <div class="container">
 
@@ -29,10 +29,10 @@
 
     <div class="row" wire:key="foo">
         <div class="col-sm-12">
-            <h4 class="page-title"> الادمنز</h4>
+            <h4 class="page-title"> الخدمات الرئيسة</h4>
             <ol class="breadcrumb">
                 <li><a href="{{route('dashboard')}}" class="btn btn-link">الرئيسية</a></li>
-                <li class="active"> الادمنز</li>
+                <li class="active"> الصفحه الرئيسة</li>
             </ol>
         </div>
     </div>
@@ -43,23 +43,23 @@
                 <div class="row">
                     <div class="col-sm-8">
 
-                        <form role="form" action="" method="POST">
+                        <form role="form" action="{{route('service.search')}}" method="POST">
                             @csrf
                             <div class="form-group contact-search m-b-50">
 
-                                <input type="text" name="searchclient" class="form-control" placeholder="بحث........">
+                                <input type="text" name="searchservice" class="form-control" placeholder="بحث........">
                                 <button type="submit" class="btn btn-white m-r-2"><i class="fa fa-search"></i></button>
                             </div> <!-- form-group -->
                         </form>
 
                     </div>
-                    @can('store-admin',$AuthAdmin)
+                   
                     <div class="col-sm-4">
                              <!-- <a class="btn btn-default btn-md waves-effect waves-light m-b-30 btnopen"><i class="md md-add"></i> اضافه ادمن جديد</a> -->
-                             <a href="#add-admin-modal" class="btn btn-default btn-md waves-effect waves-light m-b-30 btnopen" data-animation="fadein" data-plugin="custommodal" 
-                                                    	data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> اضافة ادمن جديد</a>
+                             <a href="#add-main-service-modal" class="btn btn-default btn-md waves-effect waves-light m-b-30 btnopen" data-animation="fadein" data-plugin="custommodal" 
+                                                    	data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> اضافة  عنصر جديد للرئيسة</a>
                          </div>
-                         @endcan
+                     
                 </div>
 
 
@@ -83,53 +83,45 @@
 
                                 <th>Id</th>
                                 <th>Name</th>
-                                <th>Email </th>
-                                <th>Status </th>
                                 <th>Action</th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach($admins as $admin)
+                            @foreach($services as $service)
 
                             <tr class="active">
-<td></td>
+                           
+                              <td>
+
+<img src="{{$service->photoUrl()}}" alt="contact-img" title="contact-img" class="img-circle thumb-lg" />
+</td>
                                 <td>
 
-                                    {{$admin->id}}
+                                    {{$service->id}}
                                 </td>
 
                                 <td>
-                                    {{$admin->name }}
+                                    {{$service->name }}
                                 </td>
                                 
 
-                                <td>{{$admin->email}}
-                                </td>
-                                <td>
-                                    @if($admin->super_admin==1)
-                                <span class="label label-success">ادمن</span> 
-                                    @elseif($admin->super_admin==0)
-                                    <span class="label label-inverse">ادمن مساعد</span> 
-                                    @endif
-                                </td>
-
+                             
 
                                  
                                 <td>
-                                    @can('update-admin',$admin)
-                                    <a href="{{route('admin.edit',['admin'=>$admin->id])}}" class="table-action-btn"><i class="md md-edit"></i></a>
+                                 
+                                    <a href="{{route('service.edit',['service'=>$service->id])}}" class="table-action-btn"><i class="md md-edit"></i></a>
                 
-                                    @endcan
-                                    @can('delete-admin',$admin)
+                                
                                     
-                                    <form method="POST" action="{{route('admin.destroy',['admin'=>$admin->id])}}">
+                                    <form method="POST" action="{{route('service.destroy',['service'=>$service->id])}}">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="table-action-btn"><i class="md md-close"></i></button>
                                     </form>
                                 
-                                    @endcan
+                           
                                 </td>
 
                             </tr>

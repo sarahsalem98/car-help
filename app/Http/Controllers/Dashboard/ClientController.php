@@ -76,7 +76,7 @@ class ClientController extends Controller
      */
     public function update(Request  $request, Client $client)
     {
-        // dd($request);
+         dd($request);
        $photoName=$client->profile_photo_path;
         if(! $request->phone_number==$client->phone_number){
           $data=$request->validate([

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Order extends Model
 {
@@ -19,6 +20,9 @@ class Order extends Model
         'details',
         'images'
     ];
+    public function car(){
+        return $this->belongsTo(Car::class);
+    }
 
     public function provider()
     {
@@ -39,6 +43,10 @@ class Order extends Model
     public function providerCancel(){
         return $this->hasOne(ProviderCancellation::class, 'cancel_id', 'id');
 
+    }
+    public function firstImageUrl(){
+        $image= json_decode( $this->images)[0];
+         return Storage::url( $image);
     }
     public function product(){
         return $this

@@ -1,5 +1,5 @@
 
-<div id="custom-modal" class="modal-demo">
+<div id="add-admin-modal" class="modal-demo">
             <button type="button" class="close btnclose" onclick="Custombox.close();">
                 <span>&times;</span><span class="sr-only">Close</span>
             </button>

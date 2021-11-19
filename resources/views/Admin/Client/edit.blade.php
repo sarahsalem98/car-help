@@ -23,7 +23,7 @@
                     <a href="{{route('dashboard')}}" class="btn btn-link">الرئيسية</a>
                 </li>
                 <li>
-                    <a href="{{route('provider.index')}}" class="btn btn-link"> العملاء</a>
+                    <a href="{{route('client.index')}}" class="btn btn-link"> العملاء</a>
                 </li>
                 <li class="active">
                     تفاصيل العميل :{{$client->name}}
@@ -96,8 +96,8 @@
                                         تعديل</button>
 
                                 </div>
-
-
+                            </form>
+                          
 
 
 

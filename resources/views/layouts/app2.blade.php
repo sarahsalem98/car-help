@@ -16,6 +16,8 @@
     <!-- <link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}"> -->
     <link href="{{asset('plugins/custombox/css/custombox.css')}}" rel="stylesheet">
 
+    <link href="{{asset('plugins/nestable/jquery.nestable.css')}}" rel="stylesheet" />
+
     <link href="{{asset('plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
@@ -255,10 +257,10 @@
 
                         <li class="has_sub">
 
-                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-light-bulb"></i> <span> الرئيسيه والاقسام </span> <span class="menu-arrow"></span> </a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-light-bulb"></i> <span> الخدمات </span> <span class="menu-arrow"></span> </a>
                             <ul class="list-unstyled">
-                                <li><a href="ui-buttons.html">الرئيسيه</a></li>
-                                <li><a href="ui-loading-buttons.html"> الاقسام الفرعيه</a></li>
+                                <li><a href="{{route('service.index')}}">الخدمات الرئيسية</a></li>
+                                <li><a href="{{route('subservice.index')}}">  الخدمات الفرعية</a></li>
 
 
                             </ul>
@@ -268,9 +270,9 @@
 
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-shopping-cart"></i> <span> الطلبات </span> <span class="menu-arrow"></span> </a>
                             <ul class="list-unstyled">
-                                <li><a href="ui-buttons.html">طلبات عامه </a></li>
-                                <li><a href="ui-loading-buttons.html"> طلبات خاصه </a></li>
-                                <li><a href="ui-loading-buttons.html"> طلبات المنتجات </a></li>
+                                <li><a href="{{route('public.order.index')}}">طلبات عامه </a></li>
+                                <li><a href="{{route('private.order.index')}}"> طلبات خاصه </a></li>
+                                <li><a href="{{route('product.order.index')}}"> طلبات المنتجات </a></li>
 
 
                             </ul>
@@ -501,8 +503,14 @@
                 @yield ('client.edit')
                 @yield('Admin.index')
                 @yield('Admin.edit')
-
-
+                @yield('main.index')
+                @yield('submain.index')
+                @yield('submain.edit')
+                @yield('main.search')
+                @yield('main.edit')
+               @yield('public.order')
+               @yield('private.order')
+               @yield('product.order')
 
                 <!-- end row -->
 
@@ -519,8 +527,10 @@
             </footer>
 
         </div>
+       
 
         @include('Admin.modals.addAdmin')
+        @include('Admin.modals.addMainService')
         <!-- ============================================================== -->
         <!-- End Right content here -->
         <!-- ============================================================== -->
@@ -689,6 +699,8 @@
     <script src="{{asset('plugins/custombox/js/custombox.min.js')}}"></script>
     <script src="{{asset('plugins/custombox/js/legacy.min.js')}}"></script>
 
+        <script src="{{asset('plugins/nestable/jquery.nestable.js')}}"></script>
+        <script src="{{asset('pages/nestable.js')}}"></script>
 
 
     <!-- <script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.js"></script>

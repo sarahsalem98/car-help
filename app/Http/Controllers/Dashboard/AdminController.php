@@ -87,7 +87,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $admin)
     {
-        // dd($request);
+    //    dd($request);
         $authAdmin=Auth::user();
         $this->authorize('update-admin',$authAdmin);
         if(!$admin->email==$request->email){
