@@ -22,7 +22,7 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        return view('Admin.Provider.index', ['providers' => Provider::all()]);
+        return view('Admin.Provider.index', ['providers' => Provider::paginate(5)]);
     }
 
     /**

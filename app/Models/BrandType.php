@@ -9,4 +9,8 @@ class BrandType extends Model
 {
     use HasFactory;
     protected $hidden=['pivot'];
+    protected $fillable=[
+        'name',
+        'name_en'
+    ];
 }

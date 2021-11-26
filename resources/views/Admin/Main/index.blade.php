@@ -83,6 +83,7 @@
 
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Name_en</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -105,7 +106,10 @@
                                     {{$service->name }}
                                 </td>
                                 
-
+                                <td>
+                                    {{$service->name_en }}
+                                </td>
+                                
                              
 
                                  
@@ -135,6 +139,9 @@
 
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center">
+                        {!!$services->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

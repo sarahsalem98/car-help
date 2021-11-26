@@ -17,7 +17,7 @@ class SubMainController extends Controller
      */
     public function index()
     {
-        return view('Admin.SubMain.index',['subervices'=>SubServices::all(),'services'=>Service::all()]);
+        return view('Admin.SubMain.index',['subervices'=>SubServices::all(),'services'=>Service::paginate(5)]);
     }
 
     /**

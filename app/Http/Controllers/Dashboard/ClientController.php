@@ -18,7 +18,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        return view('Admin.Client.index', ['clients' => Client::all()]);
+        return view('Admin.Client.index', ['clients' => Client::paginate(5)]);
 
     }
 
@@ -76,7 +76,7 @@ class ClientController extends Controller
      */
     public function update(Request  $request, Client $client)
     {
-         dd($request);
+        //  dd($request);
        $photoName=$client->profile_photo_path;
         if(! $request->phone_number==$client->phone_number){
           $data=$request->validate([
@@ -123,9 +123,9 @@ class ClientController extends Controller
         $AuthClient = Client::findOrFail($client);
         $AuthClient->suspended=$request->suspended;
         if($request->suspended==1){
-            $message='تم ايقاف مقدم الخدمه 👍';
+            $message='تم ايقاف  العميل 👍';
         }elseif($request->suspended==0){
-            $message='تم تفعيل مقدم الخدمه 😃';
+            $message='تم تفعيل  العميل 😃';
         }
         $AuthClient->save();
         return redirect()->back()->with('message', $message);

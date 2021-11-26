@@ -147,6 +147,9 @@
 
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center">
+                        {!!$publicOrders->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

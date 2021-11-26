@@ -168,6 +168,9 @@
 
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center">
+                        {!!$productOrders->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

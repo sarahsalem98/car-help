@@ -150,7 +150,7 @@
                                      </td>
 
                                      <td>
-                                         <a href="" type="button" class="btn btn-primary waves-effect waves-light">{{$product->category->name}} </a>
+                                         <span class="label label-primary"> {{$product->category->name}}</span>
                                      </td>
                                      <td>
                                          <a href="" class="table-action-btn"><i class="md md-edit"></i></a>
@@ -168,6 +168,9 @@
 
                              </tbody>
                          </table>
+                         <div class="d-flex justify-content-center">
+                        {!!$products->links() !!}
+                    </div>
                      </div>
                  </div>
              </div>

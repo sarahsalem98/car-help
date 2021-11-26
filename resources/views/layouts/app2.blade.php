@@ -8,15 +8,16 @@
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
     <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
-    <link rel="shortcut icon" href="{{asset('images/favicon_1.ico')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo.png')}}">
 
-    <title>Ubold - Responsive Admin Dashboard Template</title>
+    <title>car help</title>
 
     <!--Morris Chart CSS -->
     <!-- <link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}"> -->
     <link href="{{asset('plugins/custombox/css/custombox.css')}}" rel="stylesheet">
 
-    <link href="{{asset('plugins/nestable/jquery.nestable.css')}}" rel="stylesheet" />
+    <link href="{{asset('plugins/footable/css/footable.core.css')}}" rel="stylesheet">
+		<link href="{{asset('plugins/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" />
 
     <link href="{{asset('plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
     <link href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
@@ -34,7 +35,6 @@
     <link href="{{asset('css/pages.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('css/responsive.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('css/app.css')}}" rel="stylesheet" type="text/css" />
-
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> -->
 
@@ -63,7 +63,7 @@
             <!-- LOGO -->
             <div class="topbar-left">
                 <div class="text-center">
-                    <a href="index.html" class="logo"><i class="icon-magnet icon-c-logo"></i><span>car<i class="md md-album"></i>help</span></a>
+                    <a href="index.html" class="logo"><img  src="{{asset('images/logo.png')}}"class="icon-magnet icon-c-logo"/><span>car<i class="md md-album"></i>help</span></a>
                     <!-- Image Logo here -->
                     <!-- <a href="index.html" class="logo">
                     <i class="icon-c-logo"> <img src="{{asset('images/logo.png')}}" height="42"/></i>
@@ -369,21 +369,16 @@
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-files"></i><span> المزيد </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
-                                <li><a href="page-starter.html">البراندات </a></li>
-                                <li><a href="page-login.html">اسباب الرفض</a></li>
-                                <li><a href="page-login-v2.html"> موديلات السيارات</a></li>
-                                <li><a href="page-register.html">المدن</a></li>
-                                <li><a href="page-register-v2.html">البنرات</a></li>
-                                <li><a href="page-signup-signin.html"> الكوبونات </a></li>
-                                <li><a href="page-400.html">العمولات </a></li>
-                                <li><a href="page-recoverpw.html">سياسه الاستخدام </a></li>
-                                <li><a href="page-lock-screen.html">من نحن </a></li>
-                                <li><a href="page-400.html">Error 400</a></li>
-                                <li><a href="page-403.html">Error 403</a></li>
-                                <li><a href="page-404.html">Error 404</a></li>
-                                <li><a href="page-404_alt.html">Error 404-alt</a></li>
-                                <li><a href="page-500.html">Error 500</a></li>
-                                <li><a href="page-503.html">Error 503</a></li>
+                                <li><a href="{{route('brandType.index')}}">البراندات </a></li>
+                                <li><a href="{{route('cancellationReason.index')}}">اسباب الرفض</a></li>
+                                <li><a href="{{route('carModel.index')}}"> موديلات السيارات</a></li>
+                                <li><a href="{{route('city.index')}}">المدن</a></li>
+                                <li><a href="{{route('banner.index')}}">البنرات</a></li>
+                                <li><a href="{{route('copoun.index')}}"> الكوبونات </a></li>
+                                <li><a href="{{route('commession.index')}}">العمولات </a></li>
+                                <li><a href="{{route('howToUse.index')}}">سياسه الاستخدام </a></li>
+                                <li><a href="{{route('whoWeAre.index')}}">من نحن </a></li>
+                          
                             </ul>
                         </li>
 
@@ -511,7 +506,15 @@
                @yield('public.order')
                @yield('private.order')
                @yield('product.order')
-
+               @yield('brand.index')
+               @yield('cancel.index')
+               @yield('carModel.index')
+               @yield('city.index')
+               @yield('banner.index')
+               @yield('copoun.index')
+               @yield('howtoUse.index')
+               @yield('whoWeAre.index')
+               @yield('commession.index')
                 <!-- end row -->
 
 
@@ -675,9 +678,12 @@
     <script src="{{asset('js/wow.min.js')}}"></script>
     <script src="{{asset('js/jquery.nicescroll.js')}}"></script>
     <script src="{{asset('js/jquery.scrollTo.min.js')}}"></script>
+    
+    <script src="{{asset('js/jquery.core.js')}}"></script>
+    <script src="{{asset('js/jquery.app.js')}}"></script>
 
     <script src="{{asset('plugins/peity/jquery.peity.min.js')}}"></script>
-
+   
     <!-- jQuery  -->
     <script src="{{asset('plugins/waypoints/lib/jquery.waypoints.js')}}"></script>
     <script src="{{asset('plugins/counterup/jquery.counterup.min.js')}}"></script>
@@ -691,8 +697,6 @@
 
     <script src="{{asset('pages/jquery.dashboard.js')}}"></script>
 
-    <script src="{{asset('js/jquery.core.js')}}"></script>
-    <script src="{{asset('js/jquery.app.js')}}"></script>
     <script src="{{asset('plugins/timepicker/bootstrap-timepicker.js')}}"></script>
     <script src="{{asset('plugins/clockpicker/js/bootstrap-clockpicker.min.js')}}"></script>
 
@@ -702,7 +706,14 @@
         <script src="{{asset('plugins/nestable/jquery.nestable.js')}}"></script>
         <script src="{{asset('pages/nestable.js')}}"></script>
 
+        <script src="{{asset('plugins/magnific-popup/js/jquery.magnific-popup.min.js')}}"></script>
+	    <script src="{{asset('plugins/jquery-datatables-editable/jquery.dataTables.js')}}"></script> 
+	    <script src="{{asset('plugins/datatables/dataTables.bootstrap.js')}}"></script>
+	    <script src="{{asset('plugins/tiny-editable/mindmup-editabletable.js')}}"></script>
+	    <script src="{{asset('plugins/tiny-editable/numeric-input-example.js')}}"></script>
 
+       
+	
     <!-- <script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.js"></script>
 <script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.time.js"></script>
 <script src="https://amsul.ca/pickadate.js/vendor/pickadate/lib/picker.date.js"></script> -->
@@ -752,6 +763,7 @@
 
         $('.clockpicker').clockpicker();
 
+        
       
     
     </script>

@@ -16,7 +16,7 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('Admin.Main.index', ['services' => Service::all()]);
+        return view('Admin.Main.index', ['services' => Service::paginate(5)]);
     }
 
     /**

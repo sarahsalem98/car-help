@@ -17,7 +17,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-       return view('Admin.Admin.index',['admins'=>User::all(),'AuthAdmin'=>Auth::user()]);
+       return view('Admin.Admin.index',['admins'=>User::paginate(5),'AuthAdmin'=>Auth::user()]);
     }
 
     /**

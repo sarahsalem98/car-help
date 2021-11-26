@@ -187,6 +187,9 @@
 
                              </tbody>
                          </table>
+                         <div class="d-flex justify-content-center">
+                        {!!$providers->links() !!}
+                    </div>
                      </div>
                  </div>
              </div>

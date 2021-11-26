@@ -83,6 +83,7 @@
 
                                 <th>Id</th>
                                 <th>Name</th>
+                                <th>Name_en</th>
                                 <th>Main service</th>
                                 <th>Action</th>
                             </tr>
@@ -104,6 +105,9 @@
 
                                 <td>
                                     {{$subservice->name }}
+                                </td>
+                                <td>
+                                    {{$subservice->name_en }}
                                 </td>
                               
                                 
@@ -139,6 +143,9 @@
 
                         </tbody>
                     </table>
+                    <div class="d-flex justify-content-center">
+                        {!!$subervices->links() !!}
+                    </div>
                 </div>
             </div>
         </div>

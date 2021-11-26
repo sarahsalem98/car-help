@@ -9,6 +9,7 @@ use App\Http\Requests\ProviderUpdate;
 use App\Http\Requests\StoreProviderAddress;
 use App\Http\Requests\StoreWorkHoursForProvider;
 use App\Models\BrandType;
+use App\Models\City;
 use App\Models\Provider;
 use App\Models\providerAddress;
 use App\Models\ProviderWorkHour;
@@ -26,7 +27,11 @@ class AuthController extends Controller
 {
   public  $next_step = ['service_type', 'brand_type', 'address', 'work_houres', 'finished'];
  
-
+public function getCities(){
+//  dd(app()->getLocale());
+  $cities=City::all('id','name'.(app()->getLocale()=='ar'?'':'_en'));
+  return response()->json($cities);
+}
 
   public function register(ProviderRegister $request)
   {

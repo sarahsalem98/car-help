@@ -1,7 +1,13 @@
 <?php
 
 use App\Http\Controllers\Dashboard\AdminController;
+use App\Http\Controllers\Dashboard\BannerController;
+use App\Http\Controllers\Dashboard\BrandController;
+use App\Http\Controllers\Dashboard\CancelController;
+use App\Http\Controllers\Dashboard\CarModelsController;
+use App\Http\Controllers\Dashboard\CityController;
 use App\Http\Controllers\Dashboard\ClientController;
+use App\Http\Controllers\Dashboard\CopounController;
 use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Dashboard\ProviderController;
 use App\Http\Controllers\Dashboard\SubMainController;
@@ -39,6 +45,12 @@ Route::prefix('admin')->group(function(){
         Route::resource('admin',AdminController::class);
         Route::resource('service',MainController::class);
         Route::resource('subservice',SubMainController::class);
+        Route::resource('brandType',BrandController::class);
+        Route::resource('cancellationReason',CancelController::class);
+        Route::resource('carModel',CarModelsController::class);
+        Route::resource('city',CityController::class);
+        Route::resource('banner',BannerController::class);
+        Route::resource('copoun',CopounController::class);
         
        Route::post('provider/{provider}/update/workHours','App\Http\Controllers\Dashboard\ProviderController@updateWorkHours')->name('workHoure.update');
         Route::post('provider/{provider}/update/brandtypes','App\Http\Controllers\Dashboard\ProviderController@updateBrandTypes')->name('brand.update');
@@ -56,6 +68,16 @@ Route::prefix('admin')->group(function(){
         Route::get('public/orders','App\Http\Controllers\Dashboard\OrderController@publicOrderIndex')->name('public.order.index');
         Route::get('private/orders','App\Http\Controllers\Dashboard\OrderController@privateOrderIndex')->name('private.order.index');
         Route::get('product/orders','App\Http\Controllers\Dashboard\OrderController@productOrderIndex')->name('product.order.index');
+
+    Route::get('howToUse','App\Http\Controllers\Dashboard\HowToUseAndWhoWeAreController@howToUseIndex')->name('howToUse.index');
+    Route::post('update/howToUse','App\Http\Controllers\Dashboard\HowToUseAndWhoWeAreController@howToUseUpdate')->name('howToUse.update');
+
+    Route::get('whoWeAre','App\Http\Controllers\Dashboard\HowToUseAndWhoWeAreController@whoWeareIndex')->name('whoWeAre.index');
+    Route::post('update/whoWeAre','App\Http\Controllers\Dashboard\HowToUseAndWhoWeAreController@whoWeAreUpdate')->name('whoWeAre.update');
+
+   Route::get('commession','App\Http\Controllers\Dashboard\HowToUseAndWhoWeAreController@commessionIndex')->name('commession.index') ;
+   Route::post('update/commission','App\Http\Controllers\Dashboard\HowToUseAndWhoWeAreController@commessionUpdate')->name('commession.update');
+
  
     });
 });
