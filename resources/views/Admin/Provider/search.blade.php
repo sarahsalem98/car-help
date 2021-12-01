@@ -4,40 +4,6 @@
 <div class="container">
 
 
-    <div class="my-modal-wrapper">
-
-        <div id="custom-modal" class="modal-demo">
-            <button type="button" class="close btnclose" onclick="Custombox.close();">
-                <span>&times;</span><span class="sr-only">Close</span>
-            </button>
-            <h4 class="custom-modal-title ">Add Customer</h4>
-            <div class="custom-modal-text text-right">
-                <form role="form" method="POST" action="{{route('provider.store')}}">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" placeholder="Enter name">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="position">Contact number</label>
-                        <input type="text" class="form-control" id="position" placeholder="Enter number">
-                    </div>
-
-
-                    <button type="submit" class="btn btn-default waves-effect waves-light">Save</button>
-                    <button type="button" class="btn btn-danger waves-effect waves-light m-l-10 btnclose">Cancel</button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-
-
 
 
     @if (count($errors) > 0)
@@ -72,18 +38,7 @@
         <div class="col-lg-12">
             <div class="card-box">
                 <div class="row">
-                    <!-- <div class="col-sm-8">
-                        <form role="form">
-                            <div class="form-group contact-search m-b-50">
-                                <input type="text" id="search" class="form-control" placeholder="بحث........">
-                                <button type="submit" class="btn btn-white m-r-2"><i class="fa fa-search"></i></button>
-                            </div> 
-                        </form>
-                    </div> -->
-                    <!-- <div class="col-sm-4">
-                             <a class="btn btn-default btn-md waves-effect waves-light m-b-30 btnopen"><i class="md md-add"></i> اضافه مقدم خدمه جديد</a>
-
-                         </div> -->
+             
                 </div>
 
 
@@ -93,24 +48,15 @@
                             <tr>
                                 <th>
 
-                                    <div class="btn-group dropdown">
-                                        <button type="button" class="btn btn-white btn-xs dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a href="#">Action</a></li>
-                                            <li><a href="#">Another action</a></li>
-                                            <li><a href="#">Something else here</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">Separated link</a></li>
-                                        </ul>
-                                    </div>
+                                
                                 </th>
-                                <th>Name</th>
+                                <th>الاسم</th>
 
-                                <th>Email</th>
-                                <th>Number</th>
-                                <th>Whats number</th>
-                                <th>rate</th>
-                                <th>Action</th>
+                                <th>الايميل</th>
+                                <th>رقم الجوال</th>
+                                <th>رقم الواتساب </th>
+                                <th>التقييم</th>
+                                <th>#</th>
                             </tr>
                         </thead>
 

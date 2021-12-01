@@ -98,4 +98,13 @@ class CancelController extends Controller
         $cancellationReason->delete();
         return redirect()->back()->with('message','this reason is deleted succefully 🙂');
     }
+
+    public function searchCancel(Request $request){
+        $word = $request->input('searchCancel');
+          
+        //    dd($word);
+            $clients = CancellationReasons::where('name', 'LIKE', '%' . $word . '%')
+            ->orWhere('name_en', 'LIKE', '%' . $word . '%')->get();
+            return view('Admin.CancelationReasons.search', ['cancellationReasons' => $clients,'word'=>$word]);
+    }
 }

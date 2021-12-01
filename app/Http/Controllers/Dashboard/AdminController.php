@@ -95,18 +95,20 @@ class AdminController extends Controller
             $data=$request->validate([
                 'name'=>'string|max:255',
                 'email'=>'string|email|max:255|unique:users',
-                'password'=>'string',
+                // 'password'=>'string',
+                'super_admin'=>'boolean'
             ]);
         }else{
             $data=$request->validate([
                 'name'=>'string|max:255',
                 'email'=>'string|email|max:255',
-                'password'=>'string',
+                // 'password'=>'string',
+                'super_admin'=>'boolean'
             ]);
         }
          
          $admin->fill($data);
-         $admin->password=bcrypt($data['password']);
+        //  $admin->password=bcrypt($data['password']);
          $admin->save();
          return redirect()->back()->with('message','admin has been updated successfully 😃');
 
@@ -126,5 +128,13 @@ class AdminController extends Controller
         
         $admin->delete();
         return redirect()->back()->with('message','admin has been deleted succefully👌');
+    }
+    public function searchAdmin(Request $request){
+           //  dd($request);
+           $word = $request->input('searchAdmin');
+          
+           //    dd($word);
+               $clients = User::where('name', 'LIKE', '%' . $word . '%')->get();
+               return view('Admin.Admin.search', ['admins' => $clients,'word'=>$word]);
     }
 }

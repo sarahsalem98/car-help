@@ -27,11 +27,7 @@ class AuthController extends Controller
 {
   public  $next_step = ['service_type', 'brand_type', 'address', 'work_houres', 'finished'];
  
-public function getCities(){
-//  dd(app()->getLocale());
-  $cities=City::all('id','name'.(app()->getLocale()=='ar'?'':'_en'));
-  return response()->json($cities);
-}
+
 
   public function register(ProviderRegister $request)
   {

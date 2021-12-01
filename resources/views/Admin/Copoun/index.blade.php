@@ -5,7 +5,7 @@
 
 
 
-    @include('Admin.Modals.Copoun.addCopoun')
+    @include('Admin.modals.Copoun.addCopoun')
 
 
 
@@ -43,11 +43,11 @@
                 <div class="row">
                     <div class="col-sm-8">
 
-                        <form role="form" action="" method="POST">
+                        <form role="form" action="{{route('search.copoun')}}" method="GET">
                             @csrf
                             <div class="form-group contact-search m-b-50">
 
-                                <input type="text" name="searchservice" class="form-control" placeholder="بحث........">
+                                <input type="text" name="searchCopoun" class="form-control" placeholder="بحث........">
                                 <button type="submit" class="btn btn-white m-r-2"><i class="fa fa-search"></i></button>
                             </div> <!-- form-group -->
                         </form>
@@ -85,7 +85,7 @@
                                 <td> <span class="label label-inverse"> {{ $value??" " }} </span></td>
                                 @endforeach
                                 <td>
-                                @include('Admin.Modals.Copoun.updateCopoun')
+                                @include('Admin.modals.Copoun.updateCopoun')
                                     <!-- <a href="#update-copoun" class="table-action-btn"><i class="md md-edit"></i></a> -->
                                     <a href="#update-copoun{{$copoun->id}}" class="table-action-btn" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-edit"></i> </a>
 

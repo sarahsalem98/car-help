@@ -27,7 +27,7 @@
                     </div>
                     <div class="form-group">
                         <label for="position"> تحديد وظيفة الادمن</label>
-                        <select name="super_admin" class="form-select m-t-10 m-r-293" aria-label="Default select example">
+                        <select name="super_admin" class="form-select m-t-10 m-r-10" aria-label="Default select example">
                                     <option value="">اختر</option>
                                    
                                     <option name="super_admin" value="1">ادمن</option>
@@ -37,7 +37,7 @@
 
 
                     <button type="submit" class="btn btn-default waves-effect waves-light">Save</button>
-                    <button type="button" class="btn btn-danger waves-effect waves-light m-l-10 btnclose">Cancel</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light m-l-10 btnclose"onclick="Custombox.close();">Cancel</button>
                 </form>
             </div>
         </div>

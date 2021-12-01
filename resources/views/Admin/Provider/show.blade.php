@@ -76,33 +76,33 @@
                             <form role="form" method="POST" action="{{route('provider.update',['provider'=>$provider])}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <label for="enginner_name">Name</label>
+                                <label for="enginner_name">الاسم</label>
                                 <input type="text" class="form-control font-900" value="{{old('enginner_name',$provider->enginner_name ?? null)}}" placeholder="Enter name" name="enginner_name">
 
-                                <label for="phone_number">Phone number</label>
+                                <label for="phone_number">رقم الجوال </label>
                                 <input type="text" class="form-control font-900" value="{{old('phone_number',$provider->phone_number ?? null)}}" placeholder="Enter name" name="phone_number">
 
-                                <label for="whatsapp_number">Whatsapp number</label>
+                                <label for="whatsapp_number"> رقم الواتساب</label>
                                 <input type="text" class="form-control font-900" value="{{old('whatsapp_number',$provider->whatsapp_number??null)}}" placeholder="Enter name" name="whatsapp_number">
 
-                                <label for="email">Email</label>
+                                <label for="email">الايميل</label>
                                 <input type="text" class="form-control font-9" value="{{old('email',$provider->email??null)}}" placeholder="Enter name" name="email">
-                                <label for="name">registeration file</label>
+                                <label for="name"> السجل التجارى</label>
 
                                 <a href="{{$provider->registerationUrl()}}" class="btn-link">pdf.السجل التجارى الخاص بالمقدم الخدمه</a>
                                 <input name="business_registeration_file" type="file" accept="application/pdf, application/vnd.ms-excel" />
 
-                                <label for="workshop_photo_path">workshop photo</label>
+                                <label for="workshop_photo_path">صورة للمكان </label>
                                 <input name="workshop_photo_path" type="file" />
 
                                 <!-- <input type="hidden" class="form-control font-9" value="{{old('id',$provider->id??null)}}" placeholder="Enter name" name="id"> -->
                                 <div class="m-t-20">
                                     <button type="submit" class="btn btn-info waves-effect waves-light m-l-10">
                                         تعديل</button>
-                                        
-                                    </div>
-                                
-                  
+
+                                </div>
+
+                            </form>
 
 
 
@@ -121,7 +121,7 @@
                                 <tbody>
                                     <tr>
 
-                                        <td class=" btn-warning ">
+                                        <td class="label label-inverse">
                                             الماركات
                                         </td>
                                     </tr>
@@ -137,7 +137,7 @@
                                             <div id="list1" class="dropdown-check-list" tabindex="100">
                                                 <span class="anchor btn-purple">تعديل الماركات</span>
                                                 <ul class="items">
-                                                    <form method="POST" action="{{route('brand.update',['provider'=>$provider])}}">
+                                                    <form enctype="multipart/form-data" role="form" method="POST" action="{{route('brand.update',['provider'=>$provider])}}">
                                                         @csrf
                                                         @foreach($brands as $brand)
                                                         <li>
@@ -159,17 +159,17 @@
                                                 </ul>
                                             </div>
                                         </td>
-
+<!-- 
                                         <td>
                                             <div class="panel">
                                                 <p>Lorem ipsum...</p>
                                             </div>
-                                        </td>
+                                        </td> -->
 
 
                                     </tr>
                                     <tr>
-                                        <td class=" btn-warning ">ساعات العمل</td>
+                                        <td class="label label-inverse">ساعات العمل</td>
                                         <td>
 
                                             <!-- <button type="submit" class="btn btn-purple" >تعديل ساعات العمل</button> -->
@@ -179,65 +179,70 @@
 
                                     <form method="POST" action="{{route('workHoure.update',['provider'=>$provider])}}">
                                         @csrf
-                                    @foreach($provider->workHour as $hour)
-                                    <tr>
-                                        <td> {{$hour->day }}</td>
-                                        <td>
-                                            <div class="input-group clockpicker m-b-15">
-													<input type="text" class="form-control" value="09:30">
-													<span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> </span>
-												</div>
-                                            <input type="time" class="m-wrap" value="{{$hour->from}}" name="from[{{$provider->id}}][{{$hour->id}}]">
-                                            : from <br><br>
-                                            <input type="time" class="m-wrap" value="{{ $hour->to }}" name="to[{{$provider->id}}][{{$hour->id}}]">
-                                            : to
+                                        @foreach($provider->workHour as $hour)
+                                        <tr>
+                                            <td> {{$hour->day }}</td>
+                                            <td>
+                                                <!-- <div class="input-group clockpicker m-b-15">
+                                                    <input type="text" class="form-control "  value="{{$hour->from}}" name="from[{{$provider->id}}][{{$hour->id}}]">
+                                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> from</span>
+                                                </div>
 
-                                        </td>
-                                        <td>
-                                          
-                                            <div class="radio radio-danger radio-inline">
-                                                        <input type="radio" name="closed[{{$provider->id}}][{{$hour->id}}]" id="radio{{$hour->id}}" value="1" {{($hour->closed=='1') ? 'checked' : '' }}>
-                                                        <label for="radio{{$hour->id}}">
-		                                                        closed
-		                                                    </label>
-                                                    </div>
-                                                    <div class="radio radio-success radio-inline">
-                                                        <input type="radio" name="closed[{{$provider->id}}][{{$hour->id}}]" id="radio{{$hour->id}}" value="0" {{ ($hour->closed=='0') ? 'checked' : '' }}>
-                                                        <label for="radio{{$hour->id}}">
-		                                                        open
-		                                                    </label>
-                                                    </div>
-                                          
+                                                <div class="input-group clockpicker m-b-15">
+                                                    <input type="text" class="form-control " value="{{ $hour->to }}" name="to[{{$provider->id}}][{{$hour->id}}]">
+                                                    <span class="input-group-addon"> <span class="glyphicon glyphicon-time"></span> to</span>
+                                                </div> -->
+                                                <input type="time" class="m-wrap" value="{{$hour->from}}" name="from[{{$provider->id}}][{{$hour->id}}]">
+                                                : من <br><br>
+                                                <input type="time" class="m-wrap" value="{{ $hour->to }}" name="to[{{$provider->id}}][{{$hour->id}}]">
+                                                : الى
 
-                                        </td>
+                                            </td>
+                                            <td>
+
+                                                <div class="radio radio-danger radio-inline">
+                                                    <input type="radio" name="closed[{{$provider->id}}][{{$hour->id}}]" id="radio{{$hour->id}}" value="1" {{($hour->closed=='1') ? 'checked' : '' }}>
+                                                    <label for="radio{{$hour->id}}">
+                                                        مغلق
+                                                    </label>
+                                                </div>
+                                                <div class="radio radio-success radio-inline">
+                                                    <input type="radio" name="closed[{{$provider->id}}][{{$hour->id}}]" id="radio{{$hour->id}}" value="0" {{ ($hour->closed=='0') ? 'checked' : '' }}>
+                                                    <label for="radio{{$hour->id}}">
+                                                        مفتوح
+                                                    </label>
+                                                </div>
+
+
+                                            </td>
 
 
 
-                                    </tr>
-                                    @endforeach
+                                        </tr>
+                                        @endforeach
 
-                                    <tr>
-                                        <td> </td>
+                                        <tr>
+                                            <td> </td>
 
-                                        <td>
-                                           
-                                            <button type="submit" class="btn btn-purple">   تعديل ساعات العمل</button>
-                                        </td>
+                                            <td>
 
-                                    </tr>
+                                                <button type="submit" class="btn btn-purple"> تعديل ساعات العمل</button>
+                                            </td>
+
+                                        </tr>
 
                                     </form>
 
 
-                                    <tr>
-                                    <td class=" btn-warning ">العنوان </td>
-                                      
+                                    <!-- <tr>
+                                        <td class=" btn-warning ">العنوان </td>
+
                                     </tr>
                                     <tr>
                                         <td>555555 </td>
 
-                                    </tr>
-                                  
+                                    </tr> -->
+
                                 </tbody>
                             </table>
                         </div>

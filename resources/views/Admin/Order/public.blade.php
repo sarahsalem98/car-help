@@ -63,7 +63,7 @@
                     <table class="table table-hover mails m-0 table table-actions-bar">
                         <thead>
                             <tr>
-                                <th>
+                                <!-- <th>
 
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-white btn-xs dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
@@ -75,7 +75,7 @@
                                             <li><a href="#">Separated link</a></li>
                                         </ul>
                                     </div>
-                                </th>
+                                </th> -->
 
                                 <th>Id</th>
                                 <th>صورة</th>

@@ -79,11 +79,14 @@ class ProviderController extends Controller
      */
     public function update(Request $request, $provider)
     {
+       
         $AuthProvider = Provider::findOrFail($provider);
-        $fileName = $AuthProvider->workshop_photo_path;
-        $photoName = $AuthProvider->business_registeration_file;
+        // dd($AuthProvider->phone_number);
+        $photoName = $AuthProvider->workshop_photo_path;
+       $fileName = $AuthProvider->business_registeration_file;
 
-        if (!$request->phone_number == $AuthProvider->phone_number) {
+        if ($request->phone_number !=$AuthProvider->phone_number) {
+            // dd($request);
             $data = $request->validate([
                 'enginner_name' => 'string',
                 'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
@@ -98,7 +101,6 @@ class ProviderController extends Controller
                 'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
                 'whatsapp_number' => 'numeric',
                 'email' => 'email',
-
                 'business_registeration_file' => 'mimes:pdf,doc,docx'
             ]);
         }
@@ -136,13 +138,15 @@ class ProviderController extends Controller
         $provider->delete();
         return redirect()->back()->with('message','provider has been deleted succefully👌');
     }
-
+ 
     public function updateBrandTypes(Request $request, $provider)
     {
+      
         $ids = array_keys($request->brandtyps);
         $data = $request->validate([
             'brandtyps' => 'required'
         ]);
+        // dd($data);
         $found = true;
         foreach ($ids as $id) {
 
@@ -186,7 +190,7 @@ public function providerSuspend(Request $request,$provider){
 
 
 public function showProducts(Request $request,$provider){
-$products=Product::where('provider_id',$provider)->get();
+$products=Product::where('provider_id',$provider)->paginate(5);
 //  dd(json_decode( $products[0]->images)[0]);
 $AuthProvider = Provider::findOrFail($provider);
 return view('Admin.Product.index',['products'=>$products,'provider'=>$AuthProvider]);

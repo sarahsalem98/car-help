@@ -9,7 +9,7 @@
 <div class="container">
 
     <!-- Page-Title -->
-    @include('Admin.Modals.updateCommession')
+    @include('Admin.modals.updateCommession')
 
     
     @if (count($errors) > 0)

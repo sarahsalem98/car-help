@@ -19,7 +19,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-default waves-effect waves-light">Save</button>
-                    <button type="button" class="btn btn-danger waves-effect waves-light m-l-10 btnclose">Cancel</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light m-l-10 btnclose" onclick="Custombox.close();">Cancel</button>
                 </form>
             </div>
         </div>

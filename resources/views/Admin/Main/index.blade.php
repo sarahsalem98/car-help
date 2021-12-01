@@ -8,7 +8,7 @@
 
 
 
-
+@include('Admin.modals.addMainService')
 
     @if (count($errors) > 0)
     <div class="alert alert-danger">
@@ -68,7 +68,7 @@
                         <thead>
                             <tr>
                                 <th>
-
+<!-- 
                                     <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-white btn-xs dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
                                         <ul class="dropdown-menu" role="menu">
@@ -78,13 +78,13 @@
                                             <li class="divider"></li>
                                             <li><a href="#">Separated link</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </th>
 
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Name_en</th>
-                                <th>Action</th>
+                                <th>الرقم التعريفى</th>
+                                <th>الاسم</th>
+                                <th>الاسم بالانجليزية</th>
+                                <th>#</th>
                             </tr>
                         </thead>
 

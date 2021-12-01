@@ -17,7 +17,7 @@ class SubMainController extends Controller
      */
     public function index()
     {
-        return view('Admin.SubMain.index',['subervices'=>SubServices::all(),'services'=>Service::paginate(5)]);
+        return view('Admin.SubMain.index',['subervices'=>SubServices::paginate(5),'services'=>Service::all()]);
     }
 
     /**
@@ -121,5 +121,11 @@ class SubMainController extends Controller
     {
        $subservice->delete();
        return redirect()->back()->with('message','you have deleted this subservice successfully🙂');
+    }
+    public function searchSubMain(Request $request){
+        $word = $request->input('searchSubMain');
+        //    dd($word);
+            $clients = SubServices::where('name', 'LIKE', '%' . $word . '%')->get();
+            return view('Admin.SubMain.search', ['subservices' => $clients,'word'=>$word]);
     }
 }

@@ -50,7 +50,7 @@
                             <tr>
                                 <th>
 
-                                    <div class="btn-group dropdown">
+                                    <!-- <div class="btn-group dropdown">
                                         <button type="button" class="btn btn-white btn-xs dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="#">Action</a></li>
@@ -59,12 +59,12 @@
                                             <li class="divider"></li>
                                             <li><a href="#">Separated link</a></li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </th>
 
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Action</th>
+                                <th>الرقم التعريفى</th>
+                                <th>الاسم</th>
+                                <th>#</th>
                             </tr>
                         </thead>
 

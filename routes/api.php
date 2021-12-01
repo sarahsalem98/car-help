@@ -67,7 +67,8 @@ Route::middleware('checkLang')->group(function(){
     Route::prefix('provider')->group(function () {
         Route::post('register', 'App\Http\Controllers\Api\Provider\AuthController@register');
         Route::post('login', 'App\Http\Controllers\Api\Provider\AuthController@login');
-        Route::get('cities','App\Http\Controllers\Api\Provider\AuthController@getCities');
+        
+
     
         Route::middleware(['auth:provider','SuspendProvider'])->group(function () {
             //provider
@@ -103,5 +104,15 @@ Route::middleware('checkLang')->group(function(){
             Route::post('update/Address', 'App\Http\Controllers\Api\Provider\AuthController@changeProviderAddress');
         });
     });
-    
+//more
+    Route::get('cities','App\Http\Controllers\Api\MoreController@getCities');
+    Route::get('brands','App\Http\Controllers\Api\MoreController@getBrands');
+    Route::get('cancelation/reasons','App\Http\Controllers\Api\MoreController@getCancellationReasons');
+    Route::get('car/models','App\Http\Controllers\Api\MoreController@getCarModels');
+    Route::get('banners','App\Http\Controllers\Api\MoreController@getBanners');
+    Route::get('commession','App\Http\Controllers\Api\MoreController@getCommession');
+    Route::get('how/to/use','App\Http\Controllers\Api\MoreController@getHowToUse');
+    Route::get('who/we/are','App\Http\Controllers\Api\MoreController@getWhoWeAre');
+ 
+
 });

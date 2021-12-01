@@ -7,7 +7,7 @@
     
 
 
-@include('Admin.Modals.City.add')
+@include('Admin.modals.City.add')
 
 
     @if (count($errors) > 0)
@@ -43,11 +43,11 @@
                 <div class="row">
                     <div class="col-sm-8">
 
-                        <form role="form" action="" method="POST">
+                        <form role="form" action="{{route('search.city')}}" method="GET">
                             @csrf
                             <div class="form-group contact-search m-b-50">
 
-                                <input type="text" name="searchservice" class="form-control" placeholder="بحث........">
+                                <input type="text" name="searchCity" class="form-control" placeholder="بحث........">
                                 <button type="submit" class="btn btn-white m-r-2"><i class="fa fa-search"></i></button>
                             </div> <!-- form-group -->
                         </form>
@@ -69,10 +69,10 @@
                             <tr>
      
 
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Name_en</th>
-                                <th>Action</th>
+                            <th>الرقم التعريفى</th>
+                                <th>الاسم</th>
+                                <th>الاسم بالانجليزية </th>
+                                <th>#</th>
                             </tr>
                         </thead>
 
@@ -97,7 +97,7 @@
 
                                  
                                 <td>
-                                 @include('Admin.Modals.City.update')
+                                 @include('Admin.modals.City.update')
                                
                                  <a href="#update-city{{$city->id}}" class="table-action-btn" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-edit"></i> </a>
 

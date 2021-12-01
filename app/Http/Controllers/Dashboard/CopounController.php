@@ -121,4 +121,24 @@ class CopounController extends Controller
       return redirect()->back()->with('message','copoun is deleted successfully🙂');
 
     }
+    public function searchCopoun(Request $request){
+        $word = $request->input('searchCopoun');
+      $copounArray=array();
+        $allCopouns=More::whereNotNull('coupons')
+        // ->whereJsonContains('coupons->name','sar')
+        ->get(['coupons','id']);
+        // dd($allCopouns);
+
+       foreach($allCopouns as $copoun){
+          $name= json_decode($copoun->coupons)->name;
+          
+          if(str_contains($name ,$word)){
+              $copounArray[]=$copoun;
+        }
+       }
+    //    dd($copounArray);
+            // $clients = Co::where('name', 'LIKE', '%' . $word . '%')
+            // ->orWhere('name_en', 'LIKE', '%' . $word . '%')->get();
+          return view('Admin.Copoun.search', ['copouns' => $copounArray,'word'=>$word]);
+    }
 }

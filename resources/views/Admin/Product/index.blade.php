@@ -92,7 +92,7 @@
                              <thead>
                                  <tr>
                                      <th>
-
+<!-- 
                                          <div class="btn-group dropdown">
                                              <button type="button" class="btn btn-white btn-xs dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false"><i class="caret"></i></button>
                                              <ul class="dropdown-menu" role="menu">
@@ -102,17 +102,17 @@
                                                  <li class="divider"></li>
                                                  <li><a href="#">Separated link</a></li>
                                              </ul>
-                                         </div>
+                                         </div> -->
                                      </th>
                                      <th></th>
-                                     <th>Name</th>
+                                     <th>الاسم</th>
 
-                                     <th>Details</th>
-                                     <th>Price</th>
-                                     <th>Price after discount</th>
-                                     <th>Qty</th>
-                                     <th>Category</th>
-                                     <th>Action</th>
+                                     <th>التفاصيل</th>
+                                     <th>السعر</th>
+                                     <th>السعر بعد الخصم</th>
+                                     <th>الكمية</th>
+                                     <th>القسم</th>
+                                     <th>#</th>
                                  </tr>
                              </thead>
 

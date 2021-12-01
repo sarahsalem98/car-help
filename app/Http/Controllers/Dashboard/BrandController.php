@@ -96,4 +96,12 @@ class BrandController extends Controller
         $brandType->delete();
         return redirect()->back()->with('message','this brand type is deleted succefully 😀');
     }
+    public function searchBrand(Request $request){
+        $word = $request->input('searchBrand');
+          
+        //    dd($word);
+            $clients = BrandType::where('name', 'LIKE', '%' . $word . '%')
+            ->orWhere('name_en', 'LIKE', '%' . $word . '%')->get();
+            return view('Admin.Brand.search', ['brandTypes' => $clients,'word'=>$word]);
+    }
 }

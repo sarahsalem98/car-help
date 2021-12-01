@@ -96,4 +96,13 @@ class CarModelsController extends Controller
         $carModel->delete();
         return redirect()->back()->with('message','this carModel is deleted succefully 🙂');
     }
+
+    public function searchCarModel(Request $request){
+        $word = $request->input('searchCarModel');
+          
+        //    dd($word);
+            $clients = CarModel::where('name', 'LIKE', '%' . $word . '%')
+            ->orWhere('name_en', 'LIKE', '%' . $word . '%')->get();
+            return view('Admin.CarModel.search', ['carModels' => $clients,'word'=>$word]);
+    }
 }

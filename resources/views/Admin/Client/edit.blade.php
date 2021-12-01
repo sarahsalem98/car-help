@@ -71,14 +71,14 @@
                             <form role="form" method="POST" action="{{route('client.update',['client'=>$client->id])}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
-                                <label for="enginner_name">Name</label>
+                                <label for="enginner_name">الاسم</label>
                                 <input type="text" class="form-control font-900" value="{{old(' name',$client->name ?? null)}}" placeholder="Enter name" name="name">
 
-                                <label for="phone_number">Phone number</label>
+                                <label for="phone_number">رقم الجوال </label>
                                 <input type="text" class="form-control font-900" value="{{old('phone_number',$client->phone_number ?? null)}}" placeholder="Enter name" name="phone_number">
-                                <label for="profile_photo_path">workshop photo</label>
+                                <label for="profile_photo_path"> الصورة </label>
                                 <input name="profile_photo_path" type="file" />
-                                <label for="city">city </label>
+                                <label for="city">المدينة </label>
 
                                 <select name="city_id" class="form-select m-t-20" aria-label="Default select example">
                                     <option value="{{$client->city->id}}">{{$client->city->name}}</option>

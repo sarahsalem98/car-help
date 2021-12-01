@@ -2,18 +2,32 @@
 
 <html>
 
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
     <meta name="author" content="Coderthemes">
     <!-- <meta name="csrf-token" content="{{ csrf_token() }}"> -->
-    <link rel="shortcut icon" href="{{asset('images/favicon_1.ico')}}">
+    <link rel="shortcut icon" href="{{asset('images/logo.png')}}">
 
-    <title>Ubold - Responsive Admin Dashboard Template</title>
+    <title>car help</title>
 
     <!--Morris Chart CSS -->
-    <link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}">
+    <!-- <link rel="stylesheet" href="{{asset('plugins/morris/morris.css')}}"> -->
+    <link href="{{asset('plugins/custombox/css/custombox.css')}}" rel="stylesheet">
+
+    <link href="{{asset('plugins/footable/css/footable.core.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/bootstrap-select/css/bootstrap-select.min.css')}}" rel="stylesheet" />
+
+    <link href="{{asset('plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/clockpicker/css/bootstrap-clockpicker.min.css')}}" rel="stylesheet">
+    <link href="{{asset('plugins/bootstrap-daterangepicker/daterangepicker.css')}}" rel="stylesheet">
+
+    <link href="{{asset('plugins/multiselect/css/multi-select.css')}}" rel="stylesheet" type="text/css" />
+
 
     <link href="{{asset('css/bootstrap-rtl.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('css/core.css')}}" rel="stylesheet" type="text/css" />
@@ -37,6 +51,10 @@
     <livewire:scripts />
     <livewire:styles />
 </head>
+
+
+
+
 
 
 <body class="fixed-left">
@@ -236,33 +254,35 @@
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-user"></i> <span> المستخدميين </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="{{ route('provider.index') }}"> مقدمى الخدمه</a></li>
-                                <li><a href="dashboard_2.html">العملاء</a></li>
-                                <li><a href="dashboard_3.html">الادمنز</a></li>
+                                <li><a href="{{route('client.index')}}">العملاء</a></li>
+                                <li><a href="{{route('admin.index')}}">الادمنز</a></li>
 
                             </ul>
                         </li>
 
                         <li class="has_sub">
 
-                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-paint-bucket"></i> <span> UI Kit </span> <span class="menu-arrow"></span> </a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-light-bulb"></i> <span> الخدمات </span> <span class="menu-arrow"></span> </a>
                             <ul class="list-unstyled">
-                                <li><a href="ui-buttons.html">Buttons</a></li>
-                                <li><a href="ui-loading-buttons.html">Loading Buttons</a></li>
-                                <li><a href="ui-panels.html">Panels</a></li>
-                                <li><a href="ui-portlets.html">Portlets</a></li>
-                                <li><a href="ui-checkbox-radio.html">Checkboxs-Radios</a></li>
-                                <li><a href="ui-tabs.html">Tabs</a></li>
-                                <li><a href="ui-modals.html">Modals</a></li>
-                                <li><a href="ui-progressbars.html">Progress Bars</a></li>
-                                <li><a href="ui-notification.html">Notification</a></li>
-                                <li><a href="ui-images.html">Images</a></li>
-                                <li><a href="ui-carousel.html">Carousel</a>
-                                <li><a href="ui-video.html">Video</a>
-                                <li><a href="ui-bootstrap.html">Bootstrap UI</a></li>
-                                <li><a href="ui-typography.html">Typography</a></li>
+                                <li><a href="{{route('service.index')}}">الخدمات الرئيسية</a></li>
+                                <li><a href="{{route('subservice.index')}}"> الخدمات الفرعية</a></li>
+
+
                             </ul>
                         </li>
 
+                        <li class="has_sub">
+
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-shopping-cart"></i> <span> الطلبات </span> <span class="menu-arrow"></span> </a>
+                            <ul class="list-unstyled">
+                                <li><a href="{{route('public.order.index')}}">طلبات عامه </a></li>
+                                <li><a href="{{route('private.order.index')}}"> طلبات خاصه </a></li>
+                                <li><a href="{{route('product.order.index')}}"> طلبات المنتجات </a></li>
+
+
+                            </ul>
+                        </li>
+                        <!-- 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-light-bulb"></i><span class="label label-primary pull-right">9</span><span> Components </span> </a>
                             <ul class="list-unstyled">
@@ -347,31 +367,27 @@
                                 <li><a href="map-google.html"> Google Map</a></li>
                                 <li><a href="map-vector.html"> Vector Map</a></li>
                             </ul>
-                        </li>
+                        </li> -->
 
                         <li class="text-muted menu-title">More</li>
 
                         <li class="has_sub">
-                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-files"></i><span> Pages </span> <span class="menu-arrow"></span></a>
+                            <a href="javascript:void(0);" class="waves-effect"><i class="ti-files"></i><span> المزيد </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
-                                <li><a href="page-starter.html">Starter Page</a></li>
-                                <li><a href="page-login.html">Login</a></li>
-                                <li><a href="page-login-v2.html">Login v2</a></li>
-                                <li><a href="page-register.html">Register</a></li>
-                                <li><a href="page-register-v2.html">Register v2</a></li>
-                                <li><a href="page-signup-signin.html">Signin - Signup</a></li>
-                                <li><a href="page-recoverpw.html">Recover Password</a></li>
-                                <li><a href="page-lock-screen.html">Lock Screen</a></li>
-                                <li><a href="page-400.html">Error 400</a></li>
-                                <li><a href="page-403.html">Error 403</a></li>
-                                <li><a href="page-404.html">Error 404</a></li>
-                                <li><a href="page-404_alt.html">Error 404-alt</a></li>
-                                <li><a href="page-500.html">Error 500</a></li>
-                                <li><a href="page-503.html">Error 503</a></li>
+                                <li><a href="{{route('brandType.index')}}">البراندات </a></li>
+                                <li><a href="{{route('cancellationReason.index')}}">اسباب الرفض</a></li>
+                                <li><a href="{{route('carModel.index')}}"> موديلات السيارات</a></li>
+                                <li><a href="{{route('city.index')}}">المدن</a></li>
+                                <li><a href="{{route('banner.index')}}">البنرات</a></li>
+                                <li><a href="{{route('copoun.index')}}"> الكوبونات </a></li>
+                                <li><a href="{{route('commession.index')}}">العمولات </a></li>
+                                <li><a href="{{route('howToUse.index')}}">سياسه الاستخدام </a></li>
+                                <li><a href="{{route('whoWeAre.index')}}">من نحن </a></li>
+                                <li><a href="{{route('others.index')}}"> السوشيال ميديا وجهات الاتصال </a></li>
                             </ul>
                         </li>
 
-                        <li class="has_sub">
+                        <!-- <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-gift"></i><span> Extras </span> <span class="menu-arrow"></span></a>
                             <ul class="list-unstyled">
                                 <li><a href="extra-profile.html">Profile</a></li>
@@ -431,9 +447,9 @@
                                     <a href="javascript:void(0);"><span>Menu Level 1.2</span></a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> -->
 
-                        <li class="text-muted menu-title">Extra</li>
+                        <!-- <li class="text-muted menu-title">Extra</li>
 
                         <li class="has_sub">
                             <a href="javascript:void(0);" class="waves-effect"><i class="ti-user"></i><span> Crm </span> <span class="menu-arrow"></span></a>
@@ -456,7 +472,7 @@
                                 <li><a href="ecommerce-orders.html"> Orders</a></li>
                                 <li><a href="ecommerce-sellers.html"> Sellers</a></li>
                             </ul>
-                        </li>
+                        </li> -->
 
                     </ul>
                     <div class="clearfix"></div>

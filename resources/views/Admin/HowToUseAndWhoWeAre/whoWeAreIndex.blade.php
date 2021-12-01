@@ -9,7 +9,8 @@
 <div class="container">
 
     <!-- Page-Title -->
-    @include('Admin.Modals.updateWhoWeAre')
+    @include('Admin.modals.updateWhoWeAre')
+    @include('Admin.modals.updateWhoWeAreEN')
 
 
     @if (count($errors) > 0)
@@ -36,10 +37,10 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <h4 class="page-title">  المزيد </h4>
+            <h4 class="page-title"> المزيد </h4>
             <ol class="breadcrumb">
                 <li><a href="{{route('dashboard')}}" class="btn btn-link">الرئيسية</a></li>
-                <li class="active">  من نحن </li>
+                <li class="active"> من نحن </li>
             </ol>
         </div>
     </div>
@@ -51,8 +52,8 @@
 
             <div class="mini-stat clearfix card-box">
                 <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> -->
-                <!-- <h4>Big one!</h4> -->
-                <p >{{$whoWeAre->who_are_we}}
+                <span class="label label-pink">  من نحن بالعربية</span>
+                <p>{{$whoWeAre->who_are_we}}
                 </p>
                 <p>
                     <!-- <button type="button" class="btn btn-info waves-effect waves-light">Wanna do this</button> -->
@@ -61,4 +62,20 @@
                 </p>
             </div>
         </div>
-        @endsection
+        <div class="col-sm-6">
+
+            <div class="mini-stat clearfix card-box">
+                <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button> -->
+                <span class="label label-pink">  من نحن بالانجليزية</span>
+                <p>{{$whoWeAre->who_are_we_en}}
+                </p>
+                <p>
+                    <!-- <button type="button" class="btn btn-info waves-effect waves-light">Wanna do this</button> -->
+                    <!-- <a href="#update-howToUse" type="button" class="btn btn-purple waves-effect">تعديل  </a> -->
+                    <a href="#update-whoWeAreEn" class="btn btn-inverse btn-md waves-effect waves-light m-b-0 m-t-15  btnopen" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"> تعديل </a>
+                </p>
+            </div>
+        </div>
+
+    </div>
+    @endsection

@@ -72,8 +72,8 @@
                                 <label for="phone_number">الايميل </label>
                                 <input type="text" class="form-control font-900" value="{{old('email',$admin->email ?? null)}}" placeholder="Enter name" name="email">
                                 
-                                <label for="phone_number">الرقم السرى </label>
-                                <input type="text" class="form-control font-900" value="{{old('password',$admin->password ?? null)}}" placeholder="Enter name" name="password">
+                                <!-- <label for="phone_number">الرقم السرى </label>
+                                <input type="text" class="form-control font-900" value="{{old('password',$admin->password ?? null)}}" placeholder="Enter name" name="password"> -->
                                 <label for="position"> تحديد وظيفة الادمن</label>
                                 <select name="super_admin" class="form-select m-t-10" aria-label="Default select example">
                                     <option value="{{$admin->super_admin==1}}">@if($admin->super_admin==1)

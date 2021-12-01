@@ -1,5 +1,6 @@
 <x-guest-layout>
     <x-jet-authentication-card>
+        <x-slot name="title">sfsd</x-slot>
         <x-slot name="logo">
         <img src="{{asset('images/logo.png')}}" height="20"/>
         </x-slot>

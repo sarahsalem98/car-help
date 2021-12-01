@@ -93,6 +93,15 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+       $city->delete();
+       return redirect()->back()->with('message','city is deleted successfully 😊');
+    }
+    public function searchCity (Request $request){
+        $word = $request->input('searchCity');
+          
+        //    dd($word);
+            $clients = City::where('name', 'LIKE', '%' . $word . '%')
+            ->orWhere('name_en', 'LIKE', '%' . $word . '%')->get();
+            return view('Admin.City.search', ['cities' => $clients,'word'=>$word]);
     }
 }

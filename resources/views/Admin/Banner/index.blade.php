@@ -7,7 +7,7 @@
 
 
 
-    @include('Admin.Modals.Banner.addBanner')
+    @include('Admin.modals.Banner.addBanner')
 
 
 
@@ -71,8 +71,8 @@
                             <tr>
 
 
-                                <th>picture</th>
-                                <th>Id</th>
+                                <th>صورة البنر</th>
+                                <th>الرقم التعريفى</th>
 
                             </tr>
                         </thead>
@@ -89,7 +89,7 @@
                                      
          
                                 <td>
-                                @include('Admin.Modals.Banner.updateBanner')
+                                @include('Admin.modals.Banner.updateBanner')
                                  
                                    
                 
