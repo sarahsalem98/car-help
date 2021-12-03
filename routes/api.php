@@ -58,7 +58,7 @@ Route::middleware('checkLang')->group(function(){
             //client
             Route::post('update/client', 'App\Http\Controllers\Api\Client\AuthController@updateProfile');
             Route::post('reset/password', 'App\Http\Controllers\Api\Client\AuthController@resetPassword');
-            Route::post('verify/client', 'App\Http\Controllers\Api\Client\AuthController@verify');
+            Route::post('verify', 'App\Http\Controllers\Api\Client\AuthController@verify');
             Route::get('forget/password', 'App\Http\Controllers\Api\Client\AuthController@forgetPassword');
             Route::post('change/password', 'App\Http\Controllers\Api\Client\AuthController@changePassword');
         });
@@ -73,7 +73,7 @@ Route::middleware('checkLang')->group(function(){
         Route::middleware(['auth:provider','SuspendProvider'])->group(function () {
             //provider
             Route::post('reset/password', 'App\Http\Controllers\Api\Provider\AuthController@resetPassword');
-            Route::post('verify/provider', 'App\Http\Controllers\Api\Provider\AuthController@verify');
+            Route::post('verify', 'App\Http\Controllers\Api\Provider\AuthController@verify');
             Route::get('forget/password', 'App\Http\Controllers\Api\Provider\AuthController@forgetPassword');
             Route::post('change/password', 'App\Http\Controllers\Api\Provider\AuthController@changePassword');
     

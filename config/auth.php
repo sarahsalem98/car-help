@@ -51,6 +51,18 @@ return [
             'provider'=>'providers',
             'hash'=>false
 
+        ],
+        'clientWeb'=>[
+            'driver'=>'session',
+            'provider'=>'clients',
+           
+
+        ],
+        'providerWeb'=>[
+            'driver'=>'session',
+            'provider'=>'providers',
+          
+
         ]
     ],
 

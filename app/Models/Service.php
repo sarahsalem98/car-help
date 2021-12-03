@@ -14,10 +14,12 @@ class Service extends Model
     'name_en',
     'service_photo_path'
     ];
+    public $en='_en';
     public function photoUrl(){
         return Storage::url($this->service_photo_path);
     }
     public function subservice(){
         return $this->hasMany(SubServices::class);
     }
+
 }

@@ -167,8 +167,8 @@ class AuthController extends Controller
       $token = getenv("TWILIO_AUTH_TOKEN");
       $twilio_sid = getenv("TWILIO_SID");
       $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-      $twilio = new Client($twilio_sid, $token);
-      $verification = $twilio->verify->v2->services($twilio_verify_sid)
+      $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', 'f4e8e86159d4d247347fedd5195aad0d');
+      $verification = $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
         ->verificationChecks
         ->create($data['verification_code'], array('to' => $data['phone_number']));
 
@@ -212,11 +212,11 @@ class AuthController extends Controller
     $token = getenv("TWILIO_AUTH_TOKEN");
     $twilio_sid = getenv("TWILIO_SID");
     $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-    $twilio = new Client($twilio_sid, $token);
-
+    // $twilio = new Client($twilio_sid, $token);
+    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', 'f4e8e86159d4d247347fedd5195aad0d');
     if (Auth::user()->phone_number == $data['phone_number']) {
       $provider = Provider::where('phone_number', $data['phone_number'])->first();
-      $twilio->verify->v2->services($twilio_verify_sid)
+      $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
         ->verifications
         ->create($data['phone_number'], "sms");
       $provider->update(['status' => 'forget_password']);

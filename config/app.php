@@ -15,11 +15,11 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
-    'twilio' => [
-        'TWILIO_AUTH_TOKEN'  => env('TWILIO_AUTH_TOKEN'),
-        'TWILIO_ACCOUNT_SID' => env('TWILIO_ACCOUNT_SID'),
-        'TWILIO_NUMBER'      => env('TWILIO_NUMBER')
-    ],
+    // 'twilio' => [
+    //     'TWILIO_AUTH_TOKEN'  => env('TWILIO_AUTH_TOKEN'),
+    //     'TWILIO_ACCOUNT_SID' => env('TWILIO_ACCOUNT_SID'),
+    //     'TWILIO_NUMBER'      => env('TWILIO_NUMBER')
+    // ],
 
     /*
     |--------------------------------------------------------------------------
@@ -86,7 +86,7 @@ return [
     |
     */
 
-    'locale' => 'ar',
+    'locale'=>'ar',
 
     /*
     |--------------------------------------------------------------------------
@@ -99,7 +99,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'en',
+    'fallback_locale' => 'ar',
 
     /*
     |--------------------------------------------------------------------------

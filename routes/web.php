@@ -28,9 +28,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Route::get('/main', Main::class);
 
@@ -49,6 +47,26 @@ Route::get('/route-cache',function(){
 Route::get('/cache-clear',function(){
     Artisan::call('cache:clear');
 });
+
+
+
+
+Route::get('language/{locale}', 'App\Http\Controllers\website\MoreController@setLocale')->name('change.lang');
+Route::get('/','App\Http\Controllers\website\MoreController@getMainPage')->name('main');
+
+
+Route::prefix('provider')->group(function(){
+    Route::get('login','App\Http\Controllers\website\Provider\AuthController@loginPage')->name('provider.login.page');
+    Route::post('register','App\Http\Controllers\website\Provider\Auth\RegisterController@register')->name('provider.register.first.page.post');
+    Route::get('register','App\Http\Controllers\website\Provider\Auth\RegisterController@registerFirstPage')->name('provider.register.first.page');
+   Route::get('register/service/types','App\Http\Controllers\website\Provider\Auth\RegisterController@registerServiceType')->name('provider.register.service.type');
+});
+Route::prefix('client')->group(function(){
+    Route::get('client/register','App\Http\Controllers\website\Client\AuthController@registerPage')->name('client.register.page');
+    Route::get('client/login','App\Http\Controllers\website\Client\AuthController@loginPage')->name('client.login.page');
+});
+
+
 
 
 Route::prefix('admin')->group(function () {
