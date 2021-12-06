@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProviderWorkHour extends Model
 {
     use HasFactory;
-    protected $fiilable = [
+    protected $fillable  = [
         'day',
         'from',
         'to',

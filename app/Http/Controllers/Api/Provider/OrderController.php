@@ -29,11 +29,11 @@ class OrderController extends Controller
        $finishedOrdersCount=Order::where('status',3)->where('provider_id',$id)->count();
        $canceledOrdersCount=Order::where('status',4)->where('provider_id',$id)->count();
        $providerProducts=Product::where('provider_id',$id)->sum('qty');
-    return response()->json(['newOrdersCount '=>$newOrdersCount,
-                              'nowOrdersCount'=>$nowOrdersCount,
-                              'finishedOrdersCount'=>$finishedOrdersCount,
-                              'canceledOrdersCount'=>$canceledOrdersCount,
-                              'providerProducts'=>$providerProducts
+    return response()->json(['new_orders_count '=>$newOrdersCount,
+                              'now_orders_count'=>$nowOrdersCount,
+                              'finished_orders_count'=>$finishedOrdersCount,
+                              'canceled_orders_count'=>$canceledOrdersCount,
+                              'provider_products'=>$providerProducts
    ],200);
 
    }
@@ -52,7 +52,7 @@ class OrderController extends Controller
                 $price->provider_id=Auth::user()->id;
                 $price->save();
                 return response()->json(['message'=>"price added successfully to this order {$request->order_id}",
-                                         'price added'=>$price ],201);
+                                         'price'=>$price ],201);
             }else{
                 return response()->json(['message'=>'you are not allowed to add price this order'],405);
             }
@@ -69,7 +69,7 @@ class OrderController extends Controller
         $name=Auth::user()->enginner_name;
    
         $orders=Order::where('provider_id',$id)->where('order_type',0)->orWhere('order_type',1)->orWhere('provider_id',null)->get();
-        return response()->json(["all services for {$name} provider"=>$orders],200);
+        return response()->json(["orders"=>$orders],200);
     }
 
 
@@ -77,7 +77,7 @@ class OrderController extends Controller
     public function showSpecificOrder($order_id){
         $id=Auth::user()->id;
         $order=Order::where('id',$order_id)->with('client','price','address','providerCancel.reason','comment','product')->get();
-        return response()->json(["service  {$order_id} "=>$order],200);
+        return response()->json(["order"=>$order],200);
     }
 
 
@@ -124,7 +124,7 @@ public function showProductOrders(){
     $id=Auth::user()->id;
     $name=Auth::user()->enginner_name;
     $orders=Order::where('provider_id',$id)->where('order_type',2)->get();
-    return response()->json(["all product orders for {$name} provider"=>$orders],200);
+    return response()->json(["orders"=>$orders],200);
 }
 
 

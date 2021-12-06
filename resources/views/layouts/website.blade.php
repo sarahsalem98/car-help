@@ -277,6 +277,10 @@
     @yield('website.main')
     @yield('provider.first.register.page')
     @yield('provider.register.servicetype')
+    @yield('provider.register.brand_type')
+    @yield('provider.register.address')
+    @yield('provider.register.work.hours')
+    @yield('provider.login.page')
 
     <!--start top section-->
 

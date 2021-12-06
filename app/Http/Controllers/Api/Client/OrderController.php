@@ -58,7 +58,7 @@ class OrderController extends Controller
 
             return response()->json([
                 'message' => 'order was created successfully',
-                'the created order' => $order
+                'order' => $order
             ], 201);
 
             //دفع          
@@ -98,7 +98,7 @@ class OrderController extends Controller
 
                 return response()->json([
                     'message' => 'product order has been made succefully',
-                    'created order ' => $order->where('id', $order->id)->with('product')->get()
+                    'order' => $order->where('id', $order->id)->with('product')->get()
                 ], 201);
             }else{
                 return response()->json(['errors'=>'this order type is not product order'],400);
@@ -116,9 +116,9 @@ class OrderController extends Controller
         $orders = Order::where('order_type', 0)->where('client_id', $id)->with('client.city')->get();
         if ($orders) {
 
-            return response()->json(['all public orders ' => $orders], 200);
+            return response()->json(['orders' => $orders], 200);
         } else {
-            return response()->json(['errors ' => "no public orders found"], 404);
+            return response()->json(['errors' => "no public orders found"], 404);
         }
     }
 
@@ -128,7 +128,7 @@ class OrderController extends Controller
         $orders = Order::where('order_type',1)->where('client_id', $id)->with('client.city')->get();
         if ($orders) {
 
-            return response()->json(['all private orders ' => $orders], 200);
+            return response()->json(['orders' => $orders], 200);
         } else {
             return response()->json(['errors ' => "no private orders found"], 404);
         }
@@ -138,7 +138,7 @@ class OrderController extends Controller
     public function showSpecificPublicOrPrivateOrder($order_id)
     {
         $order = Order::where('id', $order_id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason')->get();
-        return response()->json(["the order with {$order_id} id" => $order], 200);
+        return response()->json(["order" => $order], 200);
     }
 
 

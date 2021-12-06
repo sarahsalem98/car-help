@@ -23,7 +23,7 @@ class ProviderController extends Controller
             ->whereHas('provider')
             ->with('provider.address')
             ->get();
-        return response()->json(["all provider for {$service->name} main service"  => $providers], 200);
+        return response()->json(["providers"  => $providers], 200);
     }
 
     public function addProviderToFavourites($providerId)
@@ -44,14 +44,14 @@ class ProviderController extends Controller
     public function showFavouriteProviders(){
         $clientid = Auth::user()->id;
         $client = Client::find($clientid);
-      return  response()->json(['all favourite providers'=> $client->favouriteProviders()->get()],200);
+      return  response()->json(['providers'=> $client->favouriteProviders()->get()],200);
     }
 
     public function showProviderProfile($providerId){
      $provider= Provider::find($providerId);
      if($provider){
 
-         return response()->json(['provider profile'=>
+         return response()->json(['provider'=>
          Provider::where('id',$providerId)->with('subServices','address.city','brandTypes','workHour','product.category')->get() ],200);
      }else{
          return response()->json(['errors'=>"provider with this id {$providerId} is not found "],404);
@@ -62,7 +62,7 @@ class ProviderController extends Controller
      
            $products=Product::where('provider_id',$providerId)->with('category')->get();
        
-            return response()->json(['all provider products with their categories'=>$products],200);
+            return response()->json(['provider'=>$products],200);
     }
 
     public function addCommentToProvider(StoreCommentForProvider $request)

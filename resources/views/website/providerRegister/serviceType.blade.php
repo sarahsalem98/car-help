@@ -3,21 +3,27 @@
 
 <div class="login_section">
         <div class="container">
-            <form action="" class="login_form">
+            <form method="POST" action="{{route('provider.register.service.type.post')}}" class="login_form">
+                @csrf
                 <h3 class="main-pages-title">حدد نوع الخدمة المقدمة</h3>
                 <p class="main-center-des">هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر</p>
                 <div class="row">
+                    <input type="hidden" name="provider_id" value="{{$provider_id}}">
                     @foreach($services as $service)
                     <div class="col-xs-12 checkbox service_checkbox">
                         <label> 
-                          <input type="checkbox" value="" name="service">
+                          <input type="checkbox" value="{{$service->id}}" name="subservice[]">
                           <span class="check_yellow"></span>
+                          @if(app()->getLocale()=='ar')
                          {{$service->name}}
+                         @else
+                         {{$service->name_en}}
+                         @endif
                         </label>
                     </div>
                     @endforeach
                    
-                    <a href="signup_provider_brand.html" class="btn main_btn moving_bk submit_btn">التالي</a>
+                    <button type="submit"  class="btn main_btn moving_bk submit_btn">التالي</button>
                   </div>
             </form>
         </div>

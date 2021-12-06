@@ -11,5 +11,9 @@ class LoginController extends Controller
     {
       $this->middleware('guest:providerWeb', ['except' => ['logout']]);
     }
+
+    public function loginPage(){
+      return view('website.provider.login');
+    }
     
 }

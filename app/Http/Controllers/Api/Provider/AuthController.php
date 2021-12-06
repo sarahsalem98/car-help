@@ -48,8 +48,8 @@ class AuthController extends Controller
     if ($provider->save()) {
       return response()->json([
         'message' => 'new provider was added succesully',
-        'registeration next step' => $provider->next_step,
-        "the created provider " => $provider
+        'next_step' => $provider->next_step,
+        'provider' => $provider
       ], 201);
     }
   }
@@ -68,7 +68,7 @@ class AuthController extends Controller
       $provider->save();
       return response()->json([
         'message' => 'services have been added successfully',
-        'registeration next step' => $provider->next_step
+        'next_step' => $provider->next_step
       ], 201);
     } else {
       return response()->json(['errors' => 'subserice field does not have value'], 400);
@@ -76,15 +76,18 @@ class AuthController extends Controller
   }
   public function registerBrandTypesForProvider(Request $request)
   {
+    $data = $request->validate([
+      'brandType' => 'required|exists:brand_types,id'
+  ]);
     $id = Auth::user()->id;
     $provider = Provider::find($id);
-    if ($request['brandType']) {
-      $provider->brandTypes()->sync(BrandType::find($request['brandType']));
+    if ($data['brandType']) {
+      $provider->brandTypes()->sync(BrandType::find($data['brandType']));
       $provider->next_step = $this->next_step[2];
       $provider->save();
       return response()->json([
         'message' => 'brand types have been added successfully',
-        'registeration next step' => $provider->next_step
+        'next_step' => $provider->next_step
       ], 201);
     } else {
       return response()->json(['errors' => 'brandType field does not have value'], 400);
@@ -105,8 +108,7 @@ class AuthController extends Controller
       $provider->save();
       return response()->json([
         'message' => 'address has been added successfully',
-        "address {{$providerAddress->id}}" => $providerAddress,
-        'registeration next step' => $provider->next_step
+        'next_step' => $provider->next_step
       ], 201);
     } else {
       return response()->json(['errors' => 'provider is not found'], 400);
@@ -121,8 +123,7 @@ class AuthController extends Controller
     $token = getenv("TWILIO_AUTH_TOKEN");
     $twilio_sid = getenv("TWILIO_SID");
     $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-    $twilio = new Client($twilio_sid, $token);
-
+    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '4b76447a66c86ebb0f4651acc7ed89b7');
 
     foreach ($times as $time) {
       $data = json_decode($time);
@@ -134,20 +135,16 @@ class AuthController extends Controller
       $workHourProvider->provider_id = $id;
       $workHourProvider->save();
     }
-  
     $provider->next_step = $this->next_step[4];
     $provider->save();
-
     //twillio
-
-    $otp = $twilio->verify->v2->services($twilio_verify_sid)
+     $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
       ->verifications
       ->create($provider->phone_number, "sms");
 
     return response()->json([
-      'registeration next step' => $provider->next_step,
-      'all work houres added for this provider ' =>
-      ProviderWorkHour::where('provider_id', $id)->get()
+      'message' => 'work hours are added successfully',
+      'next_step' => $provider->next_step,
     ], 201);
   }
 
@@ -167,7 +164,7 @@ class AuthController extends Controller
       $token = getenv("TWILIO_AUTH_TOKEN");
       $twilio_sid = getenv("TWILIO_SID");
       $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-      $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', 'f4e8e86159d4d247347fedd5195aad0d');
+      $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '4b76447a66c86ebb0f4651acc7ed89b7');
       $verification = $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
         ->verificationChecks
         ->create($data['verification_code'], array('to' => $data['phone_number']));
@@ -178,7 +175,7 @@ class AuthController extends Controller
         $provider->update(['status' => 'verified']);
         return response()->json([
           'message' => 'Phone number verified',
-          'the verified client' => $provider
+          'provider' => $provider
         ], 200);
       }
       return response()->json(['errors' => 'Invalid verification code entered!'], 400);
@@ -194,7 +191,7 @@ class AuthController extends Controller
     $provider = Provider::where('phone_number', $validatedData['phone_number'])->first();
     if ($provider) {
       if (Hash::check($validatedData['password'], $provider->password)) {
-        return response()->json(['client' => $provider], 200);
+        return response()->json(['provider' => $provider], 200);
       } else {
         return response()->json(['errors' => 'password mismach'], 401);
       }
@@ -213,7 +210,7 @@ class AuthController extends Controller
     $twilio_sid = getenv("TWILIO_SID");
     $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
     // $twilio = new Client($twilio_sid, $token);
-    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', 'f4e8e86159d4d247347fedd5195aad0d');
+    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '4b76447a66c86ebb0f4651acc7ed89b7');
     if (Auth::user()->phone_number == $data['phone_number']) {
       $provider = Provider::where('phone_number', $data['phone_number'])->first();
       $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
@@ -239,7 +236,7 @@ class AuthController extends Controller
       $provider->save();
       return response()->json([
         'message' => 'success',
-        'client' => $provider
+        'provider' => $provider
       ], 200);
     } else {
       return response()->json(['message' => 'can not change password for this client '], 400);
@@ -299,7 +296,7 @@ class AuthController extends Controller
     $provider->workshop_photo_path = $photoName;
     $provider->business_registeration_file = $fileName;
     $provider->save();
-    return response()->json(["provider {$name} updated profile"=>$provider],200);
+    return response()->json(['provider'=>$provider],200);
   }
 
 
@@ -313,7 +310,7 @@ class AuthController extends Controller
        $name = Auth::user()->enginner_name;
           $name = Auth::user()->enginner_name;  $provider = Provider::find($id);
       $provider->subServices()->sync(SubServices::find($data['subservice']));
-       return response()->json(["provider {$name}  updated sub services"=>Provider::where('id',$id)->with('subServices')->get()],200);
+       return response()->json(["provider"=>Provider::where('id',$id)->with('subServices')->get()],200);
       
 
   }
@@ -334,7 +331,7 @@ class AuthController extends Controller
       $workHourProvider->provider_id = $id;
       $workHourProvider->save();
     }
-    return response()->json(["provider {$name}  updated sub workhours"=>Provider::where('id',$id)->with('workHour')->get()],200);
+    return response()->json(["provider"=>Provider::where('id',$id)->with('workHour')->get()],200);
   }
 
   public function changeProviderbrandTypes(Request $request){
@@ -345,7 +342,7 @@ class AuthController extends Controller
     $provider = Provider::find($id);
     $name = Auth::user()->enginner_name;
     $provider->brandTypes()->sync(BrandType::find($data['brandType']));
-    return response()->json(["provider {$name}  updated  brandTypes"=>Provider::where('id',$id)->with('brandTypes')->get()],200);
+    return response()->json(["provider"=>Provider::where('id',$id)->with('brandTypes')->get()],200);
   
   }
 
@@ -360,7 +357,7 @@ class AuthController extends Controller
    $providerAddress = providerAddress::where('provider_id',$id)->first();
    $name = Auth::user()->enginner_name;
    $providerAddress->update($request->all());
-   return response()->json(["provider {$name}  updated  address"=>Provider::where('id',$id)->with('address.city')->get()],200);
+   return response()->json(["provider"=>Provider::where('id',$id)->with('address.city')->get()],200);
 
 
   }

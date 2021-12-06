@@ -6,15 +6,19 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\SubServices;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\MoreController;
 
 class Services extends Controller
 {
+  
  
 public function getMainServices(){
-    return response()->json(['main services'=>Service::all()]);
+    $more=new MoreController();
+    return response()->json(['main services'=>$more->getLocaleData(Service::all())]);
 }
 public function getSubServices(){
-    return response()->json(['sub services'=>SubServices::all()]);
+    $more=new MoreController();
+    return response()->json(['sub services'=>$more->getLocaleData(SubServices::all())]);
 }
 
 }

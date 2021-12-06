@@ -18,7 +18,7 @@ class CarController extends Controller
      */
     public function index()
     {
-        return response()->json(['client cars'=>Car::where('client_id',Auth::user()->id)->get()],200);
+        return response()->json(['cars'=>Car::where('client_id',Auth::user()->id)->get()],200);
     }
 
     /**
@@ -36,7 +36,7 @@ class CarController extends Controller
            $car->client_id=Auth::user()->id;
            if($car->save()){
                return response()->json(['message'=>'car has been added successfully ',
-                                        'added car '=>$car   
+                                        'car '=>$car   
            ],201);
            }  else{
                return response()->json(['errors'=>'car was not added'],500);
@@ -54,7 +54,7 @@ class CarController extends Controller
     public function show(Car $car)
     {
       
-        return response()->json(['the required car '=>
+        return response()->json(['car '=>
         Car::where('id',$car->id)
         ->where('client_id',Auth::user()->id)
         ->get()],200);

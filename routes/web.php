@@ -33,18 +33,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/main', Main::class);
 
 
-Route::get('/config-clear',function(){
+Route::get('/config-clear', function () {
     Artisan::call('config:clear');
 });
-Route::get('/config-cache',function(){
+Route::get('/config-cache', function () {
     Artisan::call('config:cache');
 });
 
-Route::get('/route-cache',function(){
+Route::get('/route-cache', function () {
     Artisan::call('route:cache');
 });
 
-Route::get('/cache-clear',function(){
+Route::get('/cache-clear', function () {
     Artisan::call('cache:clear');
 });
 
@@ -52,19 +52,44 @@ Route::get('/cache-clear',function(){
 
 
 Route::get('language/{locale}', 'App\Http\Controllers\website\MoreController@setLocale')->name('change.lang');
-Route::get('/','App\Http\Controllers\website\MoreController@getMainPage')->name('main');
+Route::get('/', 'App\Http\Controllers\website\MoreController@getMainPage')->name('main');
 
 
-Route::prefix('provider')->group(function(){
-    Route::get('login','App\Http\Controllers\website\Provider\AuthController@loginPage')->name('provider.login.page');
-    Route::post('register','App\Http\Controllers\website\Provider\Auth\RegisterController@register')->name('provider.register.first.page.post');
-    Route::get('register','App\Http\Controllers\website\Provider\Auth\RegisterController@registerFirstPage')->name('provider.register.first.page');
-   Route::get('register/service/types','App\Http\Controllers\website\Provider\Auth\RegisterController@registerServiceType')->name('provider.register.service.type');
+Route::prefix('provider')->group(function () {
+    Route::get('login', 'App\Http\Controllers\website\Provider\Auth\LoginController@loginPage')->name('provider.login.page');
+    Route::post('login', 'App\Http\Controllers\website\Provider\Auth\LoginController@login')->name('provider.login.page.post');
+
+    Route::post('register', 'App\Http\Controllers\website\Provider\Auth\RegisterController@register')->name('provider.register.first.page.post');
+    Route::get('register', 'App\Http\Controllers\website\Provider\Auth\RegisterController@registerFirstPage')->name('provider.register.first.page');
+    
+    Route::get('register/{provider_id}/service/types', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerServiceTypesPage')->name('provider.register.service.type');
+    Route::post('register/service/types', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerServiceTypeForProvider')->name('provider.register.service.type.post');
+    
+    Route::get('register/{provider_id}/brand/types','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerBrandTypesPage')->name('provider.register.brand.type');
+    Route::post('register/brand/types','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerBrandTypes')->name('provider.register.brand.type.post');
+
+    Route::get('register/{provider_id}/address','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerAddressPage')->name('provider.register.address');
+    Route::post('register/address','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerAddress')->name('provider.register.address.post');
+
+
+    Route::get('register/{provider_id}/work/hours','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHoursPage')->name('provider.register.work_hours');
+    Route::post('register/work/hours','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHours')->name('provider.register.work_hours.post');
+    
+    // Route::middleware(['auth:providerWeb'])->group(function () {
+    // });
 });
-Route::prefix('client')->group(function(){
-    Route::get('client/register','App\Http\Controllers\website\Client\AuthController@registerPage')->name('client.register.page');
-    Route::get('client/login','App\Http\Controllers\website\Client\AuthController@loginPage')->name('client.login.page');
+Route::prefix('client')->group(function () {
+    Route::get('client/register', 'App\Http\Controllers\website\Client\AuthController@registerPage')->name('client.register.page');
+    Route::get('client/login', 'App\Http\Controllers\website\Client\AuthController@loginPage')->name('client.login.page');
 });
+
+
+
+
+
+
+
+
 
 
 
@@ -85,14 +110,14 @@ Route::prefix('admin')->group(function () {
         Route::resource('banner', BannerController::class);
         Route::resource('copoun', CopounController::class);
 
-        Route::get('search/admin','App\Http\Controllers\Dashboard\AdminController@searchAdmin')->name('search.admin');
-        Route::get('search/submain','App\Http\Controllers\Dashboard\SubMainController@searchSubMain')->name('search.submain');
-        Route::get('search/brand','App\Http\Controllers\Dashboard\BrandController@searchbrand')->name('search.brand');
-        Route::get('search/Cancel','App\Http\Controllers\Dashboard\CancelController@searchCancel')->name('search.cancel');
-        Route::get('search/carModel','App\Http\Controllers\Dashboard\CarModelsController@searchCarModel')->name('search.carModel');
-        Route::get('search/city','App\Http\Controllers\Dashboard\CityController@searchCity')->name('search.city');
-        Route::get('search/banner','App\Http\Controllers\Dashboard\BannerController@searchbanner')->name('search.banner');
-        Route::get('search/copoun','App\Http\Controllers\Dashboard\CopounController@searchCopoun')->name('search.copoun');
+        Route::get('search/admin', 'App\Http\Controllers\Dashboard\AdminController@searchAdmin')->name('search.admin');
+        Route::get('search/submain', 'App\Http\Controllers\Dashboard\SubMainController@searchSubMain')->name('search.submain');
+        Route::get('search/brand', 'App\Http\Controllers\Dashboard\BrandController@searchbrand')->name('search.brand');
+        Route::get('search/Cancel', 'App\Http\Controllers\Dashboard\CancelController@searchCancel')->name('search.cancel');
+        Route::get('search/carModel', 'App\Http\Controllers\Dashboard\CarModelsController@searchCarModel')->name('search.carModel');
+        Route::get('search/city', 'App\Http\Controllers\Dashboard\CityController@searchCity')->name('search.city');
+        Route::get('search/banner', 'App\Http\Controllers\Dashboard\BannerController@searchbanner')->name('search.banner');
+        Route::get('search/copoun', 'App\Http\Controllers\Dashboard\CopounController@searchCopoun')->name('search.copoun');
 
 
         Route::post('provider/{provider}/update/workHours', 'App\Http\Controllers\Dashboard\ProviderController@updateWorkHours')->name('workHoure.update');

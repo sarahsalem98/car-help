@@ -19,4 +19,5 @@ class MoreController extends Controller
         session()->put('locale', $locale);
         return redirect()->back();
     }
+    
 }

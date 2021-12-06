@@ -249,6 +249,10 @@ textarea:active {
     color: #303030 !important;
 }
 
+.moving_bk:hover>a {
+    color: #303030 !important;
+}
+
 .moving_bk:hover::before,
 .moving_bk:hover::after {
     transform: scaleX(0.5);
@@ -789,6 +793,10 @@ a.lang-link::after {
 .mobile_wrapper_nav .sign_up_btn {
     border: 1px solid #fff;
     background-color: transparent;
+    color: #fff;
+}
+
+.btn.moving_bk.sign_up_btn>a {
     color: #fff;
 }
 
@@ -4904,5 +4912,13 @@ body:not(.common-home) header {
 }
 
 .wallet_wrapper .all_price {
+    margin-bottom: 40px;
+}
+
+wallet_wrapper .all_price {
+    margin-bottom: 40px;
+}
+
+allet_wrapper .all_price {
     margin-bottom: 40px;
 }

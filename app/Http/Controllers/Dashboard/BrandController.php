@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\BrandType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BrandController extends Controller
 {
@@ -38,10 +39,17 @@ class BrandController extends Controller
     {
        $data=$request->validate([
            'name'=>'required|string|max:255',
-           'name_en'=>'required|string|max:255'
+           'name_en'=>'required|string|max:255',
+           'picture'=>'required',
+           'picture.*'=>'image|mimes:jpeg,png,jpg,gif,svg'
        ]);
+       if ($request->hasfile('picture')) {
+        $name = $request->file('picture')->store('brand_pictures');
+       }
        $brand=new BrandType;
-       $brand->create($data);
+       $brand->fill($data);
+       $brand->picture=$name;
+       $brand->save();
        return redirect()->back()->with('message','the new brand type has been added successfully😃');
     }
 
@@ -76,11 +84,21 @@ class BrandController extends Controller
      */
     public function update(Request $request, BrandType $brandType)
     {
+        $name=$brandType->picture;
         $data=$request->validate([
-            'name'=>'required|string|max:255',
-            'name_en'=>'required|string|max:255'
+            'name'=>'string|max:255',
+            'name_en'=>'string|max:255',
+            'picture.*'=>'image|mimes:jpeg,png,jpg,gif,svg'
         ]);
-        $brandType->update($data);
+        if ($request->hasfile('picture')) {
+            if (Storage::exists($brandType->picture)) {
+                Storage::delete($brandType->picture);
+            }
+            $name = $request->file('picture')->store('brand_pictures');
+        }
+        $brandType->fill($data);
+        $brandType->picture=$name;
+        $brandType->save();
         return redirect()->back()->with('message','this brand has been updated successfully😆');
        
     }

@@ -32,10 +32,10 @@ class CartController extends Controller
                   
               }
           }
-          return response()->json([" {$name}'s cart"=>Cart::where('client_id',$id)->get(),
+          return response()->json(["cart"=>Cart::where('client_id',$id)->get(),
                                   "info"=>$message],200);
       }else{
-        return response()->json([" {$name}'s cart"=>'no items were found in this cart'
+        return response()->json(["cart"=>'no items were found in this cart'
         ],204);
       }
   }

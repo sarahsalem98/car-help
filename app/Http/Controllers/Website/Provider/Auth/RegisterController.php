@@ -7,29 +7,29 @@ use App\Http\Requests\ProviderRegister;
 use App\Models\Provider;
 use App\Models\SubServices;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use PhpParser\Node\Stmt\Return_;
 
 class RegisterController extends Controller
 {
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('guest:providerWeb');
     }
-    
-   public  $next_step = ['service_type', 'brand_type', 'address', 'work_houres', 'finished'];
- 
 
-    public function registerFirstPage(){
+    public  $next_step = ['service_type', 'brand_type', 'address', 'work_houres', 'finished'];
+
+
+    public function registerFirstPage()
+    {
         // dd(Session::get('locale'));
         return view('website.providerRegister.first');
     }
-    public function registerServiceType(){
-        $services=SubServices::all();
-        return view('website.providerRegister.serviceType',['services'=>$services]);
-    }
-        public function register()
-        {
-            // dd($request);
+ 
+    public function register(Request $request)
+    {
+        // dd($request);
         //   $validatedData = $request->validated();
         //   $provider = new Provider;
         //   $provider->fill($validatedData);
@@ -45,8 +45,9 @@ class RegisterController extends Controller
         //     $provider->business_registeration_file = $fileName;
         //   }
         //   if ($provider->save()) {
-            return redirect()->route('provider.register.service.type');
+            $provider=Provider::find(3);
+        return redirect()->route('provider.register.service.type',['provider_id'=>$provider]);
         //   }
-        }
-
+    }
+ 
 }

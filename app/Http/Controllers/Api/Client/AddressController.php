@@ -18,7 +18,7 @@ class AddressController extends Controller
     public function index()
     {
         
-        return response()->json(['all client addresss'=>ClientsAddress::where('client_id',Auth::user()->id)->get()],200);
+        return response()->json(['addresses'=>ClientsAddress::where('client_id',Auth::user()->id)->get()],200);
     }
 
     /**
@@ -50,7 +50,7 @@ class AddressController extends Controller
      */
     public function show(ClientsAddress $address)
     {
-        return response()->json(['the required address '=>
+        return response()->json(['address'=>
         ClientsAddress::where('id',$address->id)
         ->where('client_id',Auth::user()->id)
         ->get()],200);
@@ -70,8 +70,8 @@ class AddressController extends Controller
             $validatedData=$request->validated();    
             $address->fill($validatedData);
             if($address->save()){
-                return response()->json(['message'=>"address{$address->id} was updated successfuly "
-                                    ,   'the updated address'=>$address],200);
+                return response()->json(['message'=>"address was updated successfuly "
+                                    ,   'address'=>$address],200);
             }else{
                 return response()->json(['errors'=>"address {$address->id} was not updated"],400);
             }

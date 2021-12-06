@@ -68,7 +68,7 @@
                         <thead>
                             <tr>
 
-
+                                <th></th>
                                 <th>الرقم التعريفى</th>
                                 <th>الاسم</th>
                                 <th>الاسم بالانجليزية </th>
@@ -80,7 +80,10 @@
                             @foreach($brandTypes as $brandType)
 
                             <tr class="active">
+                                <td>
+                                    <img src="{{$brandType->photoUrl()}}" alt="{{$brandType->photoUrl()}}" title="{{$brandType->photoUrl()}}" class="img-circle thumb-lg" />
 
+                                </td>
                                 <td>
 
                                     {{$brandType->id}}

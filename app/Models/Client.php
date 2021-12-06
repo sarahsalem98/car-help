@@ -11,7 +11,7 @@ class Client extends Model
 {
     use HasFactory;
     use HasApiTokens;
-
+    protected $guard ='clientWeb';
     protected $fillable=[
 
         'name',

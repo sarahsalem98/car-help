@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         $id=Auth::user()->id;
         $name=Provider::find($id)->enginner_name;
-        return response()->json(["all products for provider {$name} id {$id} "=>
+        return response()->json(["products"=>
                                 Product::where('provider_id',$id)->get() 
     ],200);
     }
@@ -71,7 +71,7 @@ class ProductController extends Controller
 
         
         $id=Auth::user()->id;
-        return response()->json(['the required product '=>
+        return response()->json(['product'=>
         Product::where('id',$product->id)
         ->where('provider_id',$id)
         ->get()],200);  

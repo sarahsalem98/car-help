@@ -8,9 +8,14 @@
                 <form role="form" method="POST" action="{{route('brandType.store')}}" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group">
+                        <label for="name">الصورة</label>
+                        <input type="file" class="form-control" id="name" name="picture" placeholder="ادخل  صورة للبراند هنا">
+                    </div>
+                    <div class="form-group">
                         <label for="name">الاسم</label>
                         <input type="text" class="form-control" id="name" name="name" placeholder="ادخل الاسم بالعربى هنا">
                     </div>
+                 
                
                     <div class="form-group">
                         <label for="name"> الاسم بالانجليزية</label>

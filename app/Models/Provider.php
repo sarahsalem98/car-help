@@ -11,10 +11,13 @@ class Provider extends Model
 {
     use HasFactory;
     use HasApiTokens;
+    protected $guard ='providerWeb';
+
 
     protected $fillable=[
     'workshop_photo_path',
     'enginner_name',
+    'workshop_name',
     'phone_number',
     'whatsapp_number',
     'email',
