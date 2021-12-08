@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> car help</title>
-    <link href="{{asset('websit/image/logo.png')}}" rel="icon" type="image/png" sizes="16x16">
+    <link  rel="shortcut icon"  href="{{asset('websit/image/logo.png')}}" type="image/png" sizes="16x16">
     <link href="{{asset('website/css/animate.min.css')}}" rel="stylesheet" />
     <link href="{{asset('website/css/hover.css')}}" rel="stylesheet">
     <link href="{{asset('website/css/slick.css')}}" rel="stylesheet">
@@ -281,7 +281,11 @@
     @yield('provider.register.address')
     @yield('provider.register.work.hours')
     @yield('provider.login.page')
-
+    @yield('who.we.are')
+    @yield('categories')
+    @yield('contact.us')
+    @yield('provider.statistics')
+    @yield('provider.profile.update')
     <!--start top section-->
 
     <!--Start footer -->
@@ -412,7 +416,7 @@
             <span class="trans"><i class="fa fa-lightbulb-o"></i></span>
         </a>
     </div>
-    
+
     <script src="{{asset('website/js/jquery-3.2.1.min.js')}}"></script>
     <script src="{{asset('website/js/slick.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
@@ -431,7 +435,7 @@
         });
     </script>
     @stack('script')
- 
+
 
 </body>
 

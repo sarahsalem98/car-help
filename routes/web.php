@@ -51,11 +51,14 @@ Route::get('/cache-clear', function () {
 
 
 
-Route::get('language/{locale}', 'App\Http\Controllers\website\MoreController@setLocale')->name('change.lang');
-Route::get('/', 'App\Http\Controllers\website\MoreController@getMainPage')->name('main');
-
+Route::get('language/{locale}', 'App\Http\Controllers\website\MainController@setLocale')->name('change.lang');
+Route::get('/', 'App\Http\Controllers\website\MainController@getMainPage')->name('main');
+Route::get('about/us','App\Http\Controllers\website\MainController@getWhoWeArePage')->name('about.us');
+Route::get('/categories','App\Http\Controllers\website\MainController@getCategoryPage')->name('categories');
+Route::get('contact/us','App\Http\Controllers\website\MainController@getContactUsPage')->name('contact.us');
 
 Route::prefix('provider')->group(function () {
+    Route::get('logout','App\Http\Controllers\website\Provider\Auth\LoginController@logout')->name('provider.logout');
     Route::get('login', 'App\Http\Controllers\website\Provider\Auth\LoginController@loginPage')->name('provider.login.page');
     Route::post('login', 'App\Http\Controllers\website\Provider\Auth\LoginController@login')->name('provider.login.page.post');
 
@@ -75,8 +78,14 @@ Route::prefix('provider')->group(function () {
     Route::get('register/{provider_id}/work/hours','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHoursPage')->name('provider.register.work_hours');
     Route::post('register/work/hours','App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHours')->name('provider.register.work_hours.post');
     
-    // Route::middleware(['auth:providerWeb'])->group(function () {
-    // });
+    Route::middleware(['auth:providerWeb'])->group(function () {
+        Route::get('statistics','App\Http\Controllers\website\Provider\ProfileController@showStatistics')->name('provider.statistics');
+
+
+        Route::get('profile/update','App\Http\Controllers\website\Provider\ProfileController@updateProfilePage')->name('provider.profile.update');
+        Route::post('profile/update','App\Http\Controllers\website\Provider\ProfileController@updateProfile')->name('provider.profile.update.post');
+
+    });
 });
 Route::prefix('client')->group(function () {
     Route::get('client/register', 'App\Http\Controllers\website\Client\AuthController@registerPage')->name('client.register.page');

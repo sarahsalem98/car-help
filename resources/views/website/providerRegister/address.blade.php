@@ -12,6 +12,7 @@
      <div class="login_section">
         <div class="container">
             <form action="{{route('provider.register.address.post')}}" method="POST" class="login_form">
+                @csrf
                 <h3 class="main-pages-title">انشاء حساب</h3>
                 <p class="main-center-des">سجل بياناتك من اجل انشاء حساب جديد</p>
                 <div class="row">
@@ -34,7 +35,7 @@
                         <input type="text" class="form-control mb-3" id="country" placeholder="الرجاء ادخال المدينة">
                         <i class="fa fa-map-marker map_icon"></i>
                     </div>
-                    <a  class="btn main_btn moving_bk submit_btn" href="signup_verify_code.html">تأكيد</a>
+                    <button type="submit"  class="btn main_btn moving_bk submit_btn" >تأكيد</button>
                   </div>
             </form>
         </div>

@@ -2,13 +2,16 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
-class Provider extends Model
+class Provider extends Model implements AuthenticatableContract
 {
+    use Authenticatable;
     use HasFactory;
     use HasApiTokens;
     protected $guard ='providerWeb';

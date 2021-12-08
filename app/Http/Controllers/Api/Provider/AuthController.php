@@ -123,7 +123,7 @@ class AuthController extends Controller
     $token = getenv("TWILIO_AUTH_TOKEN");
     $twilio_sid = getenv("TWILIO_SID");
     $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '4b76447a66c86ebb0f4651acc7ed89b7');
+    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '8c5400ed57ece1ab37fc17281d917562');
 
     foreach ($times as $time) {
       $data = json_decode($time);
@@ -164,7 +164,7 @@ class AuthController extends Controller
       $token = getenv("TWILIO_AUTH_TOKEN");
       $twilio_sid = getenv("TWILIO_SID");
       $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-      $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '4b76447a66c86ebb0f4651acc7ed89b7');
+      $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '8c5400ed57ece1ab37fc17281d917562');
       $verification = $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
         ->verificationChecks
         ->create($data['verification_code'], array('to' => $data['phone_number']));
@@ -210,7 +210,7 @@ class AuthController extends Controller
     $twilio_sid = getenv("TWILIO_SID");
     $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
     // $twilio = new Client($twilio_sid, $token);
-    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '4b76447a66c86ebb0f4651acc7ed89b7');
+    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '8c5400ed57ece1ab37fc17281d917562');
     if (Auth::user()->phone_number == $data['phone_number']) {
       $provider = Provider::where('phone_number', $data['phone_number'])->first();
       $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')

@@ -76,21 +76,21 @@ class RegisterCompleteController extends Controller
     }
 
     public function registerWorkHours(Request $request){
-
+           
           $times = $request['time'];
+          $cities=City::all();
           $id=$request->provider_id;
           $provider=Provider::find($id);
-          dd($request);
-        foreach($times['day'] as $k => $v) {
-
-            $provider->workHour()->create([
-                'day' => $times['day'][$k],
-                'from' => $times['from'][$k] ??null ,
-                'to' =>  $times['to'][$k] ??null,
-                'closed' =>  $times['closed'][$k]??0
-             ]);
-        }
-        return 'gg';
+        //   dd($times[0]);
+        // foreach($times as $time) {
+        //     $provider->workHour()->create([
+        //         'day' => $time['day'],
+        //         'from' => $time['from'] ??null ,
+        //         'to' =>  $time['to'] ??null,
+        //         'closed' =>  $time['closed']
+        //      ]);
+        // }
+        return redirect()->route('provider.register.address',['provider_id'=>$id,'cities'=>$cities]);
     // $id = Auth::user()->id;
     // $provider = Provider::find($id);
     // $token = getenv("TWILIO_AUTH_TOKEN");
@@ -135,7 +135,9 @@ class RegisterCompleteController extends Controller
         $cities = City::all();
         return view('website.providerRegister.address', ['cities' => $cities, 'provider_id' => $provider_id]);
     }
-    public function registerAddress()
+    public function registerAddress(Request $request)
     {
+
+        return redirect()->route('provider.login.page');
     }
 }

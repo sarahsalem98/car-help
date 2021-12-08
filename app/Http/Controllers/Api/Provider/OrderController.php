@@ -25,7 +25,7 @@ class OrderController extends Controller
    public  function mainPage(){
        $id=Auth::user()->id;
        $newOrdersCount=Order::where('status',0)->where('provider_id',$id)->orWhere('provider_id',null)->count();
-       $nowOrdersCount=Order::where('status',1)->orWhere('status',2)->where('provider_id',$id)->count();
+       $nowOrdersCount=Order::where('provider_id',$id)->whereIn('status',[1,2])->count();
        $finishedOrdersCount=Order::where('status',3)->where('provider_id',$id)->count();
        $canceledOrdersCount=Order::where('status',4)->where('provider_id',$id)->count();
        $providerProducts=Product::where('provider_id',$id)->sum('qty');
