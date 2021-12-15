@@ -6,13 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\More;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
     public function getMainPage()
     {
         $mainservices = Service::all();
-        return view('website.main.mainpage', ['mainServices' => $mainservices]);
+        // if (Auth::guard('providerWeb')->check()) {
+        //  dd(Auth::guard('providerWeb')->user());
+        //     return view('website.main.mainpage', ['mainServices' => $mainservices,'provider'=>Auth::user()->id]);
+  
+        // }
+        //else{
+
+            return view('website.main.mainpage', ['mainServices' => $mainservices]);
+      
     }
     public function setLocale($locale)
     {

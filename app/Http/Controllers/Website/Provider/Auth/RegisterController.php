@@ -29,7 +29,7 @@ class RegisterController extends Controller
  
     public function register(Request $request)
     {
-        // dd($request);
+    //  dd($request);
         //   $validatedData = $request->validated();
         //   $provider = new Provider;
         //   $provider->fill($validatedData);

@@ -16,7 +16,7 @@ class CartController extends Controller
       $name=Auth::user()->name;
     //   $message[]='';
       $carts=Cart::where('client_id',$id)->get();
-      if (!$carts->isEmpty()) {
+    //   if (!$carts->isEmpty()) {
           foreach($carts as $cart){
               $product=Product::find($cart->product_id);
               if($cart->qty>$product->qty){
@@ -32,12 +32,12 @@ class CartController extends Controller
                   
               }
           }
-          return response()->json(["cart"=>Cart::where('client_id',$id)->get(),
+          return response()->json(["cart"=>Cart::where('client_id',$id)->with('product')->get(),
                                   "info"=>$message],200);
-      }else{
-        return response()->json(["cart"=>'no items were found in this cart'
-        ],204);
-      }
+    //   }else{
+    //     return response()->json(["cart"=>'no items were found in this cart'
+    //     ],204);
+    //   }
   }
 
   
@@ -63,8 +63,8 @@ class CartController extends Controller
                         "total_price" => $product->price_after_discount * $data['qty']
                     ]);
                     return response()->json([
-                        "the updated product  in the cart of  client {$name}" => $cart,
-                        "{$name}'s cart" => Cart::where('client_id', $id)->get()
+                        "product" => $cart,
+                        "cart" => Cart::where('client_id', $id)->get()
                     ], 201);
                 } else {
                     $cart->delete();
@@ -80,7 +80,7 @@ class CartController extends Controller
     
                 return response()->json([
                     "message" => "this product has been added successfully to {$name} cart ",
-                    "{$name}'s cart" => Cart::where('client_id', $id)->get()
+                    "cart" => Cart::where('client_id', $id)->get()
                 ], 201);
             }
         }else{

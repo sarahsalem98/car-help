@@ -53,6 +53,7 @@ Route::get('/cache-clear', function () {
 
 Route::get('language/{locale}', 'App\Http\Controllers\website\MainController@setLocale')->name('change.lang');
 Route::get('/', 'App\Http\Controllers\website\MainController@getMainPage')->name('main');
+
 Route::get('about/us','App\Http\Controllers\website\MainController@getWhoWeArePage')->name('about.us');
 Route::get('/categories','App\Http\Controllers\website\MainController@getCategoryPage')->name('categories');
 Route::get('contact/us','App\Http\Controllers\website\MainController@getContactUsPage')->name('contact.us');
@@ -85,11 +86,43 @@ Route::prefix('provider')->group(function () {
         Route::get('profile/update','App\Http\Controllers\website\Provider\ProfileController@updateProfilePage')->name('provider.profile.update');
         Route::post('profile/update','App\Http\Controllers\website\Provider\ProfileController@updateProfile')->name('provider.profile.update.post');
 
+        Route::get('password/update','App\Http\Controllers\website\Provider\ProfileController@updatePasswordPage')->name('provider.password.update');
+        Route::post('password/update','App\Http\Controllers\website\Provider\ProfileController@updatePassword')->name('provider.password.update.post');
+
+        Route::get('service/types/update','App\Http\Controllers\website\Provider\ProfileController@updateServicesPage')->name('provider.services.update');
+        Route::Post('service/types/update','App\Http\Controllers\website\Provider\ProfileController@updateServices')->name('provider.services.update.post');
+
+        Route::get('brand/types/update','App\Http\Controllers\website\Provider\ProfileController@updateBrandsPage')->name('provider.brands.update');
+        Route::post('brand/types/update','App\Http\Controllers\website\Provider\ProfileController@updateBrands')->name('provider.brands.update.post');
+
+        Route::get('services','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicePrivateOrders')->name('provider.services');
+
     });
 });
 Route::prefix('client')->group(function () {
-    Route::get('client/register', 'App\Http\Controllers\website\Client\AuthController@registerPage')->name('client.register.page');
-    Route::get('client/login', 'App\Http\Controllers\website\Client\AuthController@loginPage')->name('client.login.page');
+    Route::get('register', 'App\Http\Controllers\website\Client\Auth\RegisterController@registerPage')->name('client.register');
+    Route::post('register','App\Http\Controllers\website\Client\Auth\RegisterController@register')->name('client.register.post');
+    
+
+    Route::get('verify/{client_id}','App\Http\Controllers\website\Client\Auth\RegisterController@verifyPage')->name('client.verify');
+    Route::post('verify','App\Http\Controllers\website\Client\Auth\RegisterController@verify')->name('client.verify.post');
+
+
+    Route::get('login', 'App\Http\Controllers\website\Client\Auth\LoginController@loginPage')->name('client.login');
+    Route::post('login','App\Http\Controllers\website\Client\Auth\LoginController@login')->name('client.login.post');
+
+    Route::get('logout','App\Http\Controllers\website\Client\Auth\LoginController@logout')->name('client.logout');
+    Route::middleware(['auth:clientWeb'])->group(function(){
+
+     Route::get('profile/update','App\Http\Controllers\website\Client\Profile\UpdateController@updateProfilePage')->name('client.profile.update');
+     Route::post('profile/update','App\Http\Controllers\website\Client\Profile\UpdateController@updateProfile')->name('client.profile.update.post');
+
+     Route::get('password/update','App\Http\Controllers\website\Client\Profile\UpdateController@updatePasswordPage')->name('client.password.update');
+     Route::post('password/update','App\Http\Controllers\website\Client\Profile\UpdateController@updatePassword')->name('client.password.update.post');
+
+
+
+    });
 });
 
 

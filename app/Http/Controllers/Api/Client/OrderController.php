@@ -113,7 +113,7 @@ class OrderController extends Controller
     public function showPublicOrders()
     {
         $id = Auth::user()->id;
-        $orders = Order::where('order_type', 0)->where('client_id', $id)->with('client.city')->get();
+        $orders = Order::where('order_type', 0)->where('client_id', $id)->with('client.city','car')->get();
         if ($orders) {
 
             return response()->json(['orders' => $orders], 200);
@@ -125,7 +125,7 @@ class OrderController extends Controller
     public function showPrivateOrders()
     {
         $id = Auth::user()->id;
-        $orders = Order::where('order_type',1)->where('client_id', $id)->with('client.city')->get();
+        $orders = Order::where('order_type',1)->where('client_id', $id)->with('client.city','car')->get();
         if ($orders) {
 
             return response()->json(['orders' => $orders], 200);
@@ -137,7 +137,7 @@ class OrderController extends Controller
 
     public function showSpecificPublicOrPrivateOrder($order_id)
     {
-        $order = Order::where('id', $order_id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason')->get();
+        $order = Order::where('id', $order_id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason','car')->get();
         return response()->json(["order" => $order], 200);
     }
 

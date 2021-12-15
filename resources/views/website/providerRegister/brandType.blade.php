@@ -16,6 +16,7 @@
                 @csrf
                 <h3 class="main-pages-title">حدد الماركات المقدمة</h3>
                 <p class="main-center-des">هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر</p>
+                @include('website.allErrors')
                 <div class="row">
                     <input type="hidden" name="provider_id" value="{{$provider_id}}">
                     @foreach($brandTypes as $brandType)

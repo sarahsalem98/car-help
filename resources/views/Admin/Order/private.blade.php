@@ -94,7 +94,7 @@
                             @foreach($privateOrders as $privateOrder)
 
                             <tr class="active">
-                                <td></td>
+                              
                                 <td>
                                     {{$privateOrder->id}}
                                 </td>

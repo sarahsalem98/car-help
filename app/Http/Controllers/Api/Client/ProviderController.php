@@ -33,7 +33,7 @@ class ProviderController extends Controller
         $provider=Provider::find($providerId);
         if($provider){
             $client->favouriteProviders()->syncWithoutDetaching(Provider::find($providerId));
-            return response()->json(["message" => "this Provider{$provider->id} was added to favourites"],201);
+            return response()->json(["provider" =>$provider],201);
 
         }else{
             return response()->json(['errors'=>'this provider is not found '],404);
@@ -44,7 +44,7 @@ class ProviderController extends Controller
     public function showFavouriteProviders(){
         $clientid = Auth::user()->id;
         $client = Client::find($clientid);
-      return  response()->json(['providers'=> $client->favouriteProviders()->get()],200);
+      return  response()->json(['providers'=> $client->favouriteProviders()->with('address.city')->get()],200);
     }
 
     public function showProviderProfile($providerId){

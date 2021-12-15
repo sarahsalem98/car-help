@@ -67,8 +67,7 @@ class OrderController extends Controller
     public function showProviderServices(){
         $id=Auth::user()->id;
         $name=Auth::user()->enginner_name;
-   
-        $orders=Order::where('provider_id',$id)->where('order_type',0)->orWhere('order_type',1)->orWhere('provider_id',null)->get();
+        $orders=Order::where('provider_id',$id)->whereIn('order_type',[0,1])->orWhere('provider_id',null)->with('car')->get();
         return response()->json(["orders"=>$orders],200);
     }
 
@@ -76,7 +75,7 @@ class OrderController extends Controller
 
     public function showSpecificOrder($order_id){
         $id=Auth::user()->id;
-        $order=Order::where('id',$order_id)->with('client','price','address','providerCancel.reason','comment','product')->get();
+        $order=Order::where('id',$order_id)->with('car','client','price','address','providerCancel.reason','comment','product')->get();
         return response()->json(["order"=>$order],200);
     }
 
@@ -109,7 +108,7 @@ class OrderController extends Controller
 
     public function completeService($service_id){
             $service=Order::find($service_id);
-            if($service->status==$this->orderStatus[0]){
+            if($service->status==$this->orderStatus[1]||$service->status==$this->orderStatus[2]){
                 $service->status=$this->orderStatus[3];
                 $service->save();
                 return response()->json(['message'=>"service {$service_id} is completed"],200);
@@ -154,7 +153,7 @@ public function isPrepared($order_id){
 public function isDeliverd($order_id){
     $order=Order::find($order_id);
     if($order->status==$this->orderStatus[1]){
-        $order->status=$this->orderStatus[3];
+        $order->status=$this->orderStatus[2];
         $order->save();
         return response()->json(['message'=>"order {$order_id} is deliverd and completed "],200);    
     }else{

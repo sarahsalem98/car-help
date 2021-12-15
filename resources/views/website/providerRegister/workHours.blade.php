@@ -1,21 +1,14 @@
 @extends('layouts.website')
 @section('provider.register.work.hours')
 
-@if (count($errors) > 0)
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+
 <div class="login_section">
     <div class="container">
         <form method="POST" action="{{route('provider.register.work_hours.post')}}" class="login_form">
             @csrf
             <h3 class="main-pages-title">حدد أوقات العمل</h3>
             <p class="main-center-des">هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر</p>
+            @include('website.allErrors')
             <h5 class="provider-time-title">الوقت</h5>
             <input type="hidden" name="provider_id" value="{{$provider_id}}">
             <div class="provider_items">

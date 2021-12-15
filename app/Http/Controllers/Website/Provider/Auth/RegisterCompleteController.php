@@ -76,12 +76,22 @@ class RegisterCompleteController extends Controller
     }
 
     public function registerWorkHours(Request $request){
-           
+         
+        $data=$request->validate([
+            'time.*.day'=>'string',
+            'time.*.from'=>'nullable|before:time.*.to',
+            'time.*.to'=>'nullable|after:time.*.from',
+            'time.*.closed'=>'required'
+        ],[],[
+            'time.*.from'=>'وقت البداية' ,
+            'time.*.to'=>'وقت النهاية' 
+        ]);
+
           $times = $request['time'];
           $cities=City::all();
           $id=$request->provider_id;
           $provider=Provider::find($id);
-        //   dd($times[0]);
+        //  dd($times);
         // foreach($times as $time) {
         //     $provider->workHour()->create([
         //         'day' => $time['day'],

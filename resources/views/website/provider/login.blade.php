@@ -1,10 +1,10 @@
 @extends('layouts.website')
 @section('provider.login.page')
 <div class="inner_pages_top">
-    <h3 class="inner-pages-title">تسجيل الدخول</h3>
+    <h3 class="inner-pages-title">تسجيل الدخول لمقدم الخدمة</h3>
     <ol class="breadcrumb">
         <li><a href="index.html"> <i class="flaticon-home"></i> الرئيسية</a></li>
-        <li class="active">تسجيل الدخول</li>
+        <li class="active"> تسجيل الدخول لمقدم الخدمة</li>
     </ol>
 </div>
 <!--start contact us-->
@@ -16,15 +16,12 @@
             @csrf
             <h3 class="main-pages-title"> مرحبا بعودتك مرة أخري</h3>
             <p class="main-center-des">هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة</p>
-            @if(session()->has('message'))
-            <div class="alert-danger">
-                {{ session()->get('message') }}
-            </div>
-            @endif
+   @include('website.alertDanger')
             <div class="row">
                 <div class="form-group col-xs-12">
                     <label for="phoneNumber">رقم الجوال</label>
-                    <input type="tel" class="form-control" name="phone_number" id="phone">
+                    <input type="hidden"  id="country_code_set" value="sa">
+                    <input type="tel" class="form-control"   id="phone" placeholder="الرجاء ادخال رقم الجوال ">
 
                 </div>
                 <div class="form-group col-xs-12">

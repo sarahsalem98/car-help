@@ -29,7 +29,8 @@ class ClientRegister extends FormRequest
             'city_id'=>'exists:cities,id|required',
             'password'=>'required',
             'profile_picture.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
-         
+            'phone_number_without_country_code'=>'required',
+            'country_code_name'=>'required'
         ];
     }
 }

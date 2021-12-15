@@ -27,11 +27,26 @@ class Provider extends Model implements AuthenticatableContract
     'password',
     'business_registeration_file',
     'agreed',
+    'phone_number_without_country_code',
+    'country_code_name'
     
     ];
     protected $hidden=[
         'password','pivot'
     ];
+
+    // protected $brandTypes=null;
+    // public function getBrandTypes(){
+    //     if(is_null($this->brandTypes) ){
+    //         $this->loadBrandTypes();
+    //     }
+    //     return $this->brandTypes;
+    // }
+    // public function loadBrandTypes(){
+    //     $this->brandTypes=
+    // }
+
+
     public function photoUrl(){
         return Storage::url($this->workshop_photo_path);
     }
@@ -58,4 +73,6 @@ class Provider extends Model implements AuthenticatableContract
      public function publicPrivateOrder(){
          return $this->hasMany(publicPrivateOrder::class);
      }
+
+
 }

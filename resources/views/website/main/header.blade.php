@@ -33,29 +33,56 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav">
-                    <li class="nav-item active">
+                    <li class="nav-item @if(Route::current()->getName() == 'main') active @endif">
                         <a class="nav-link" href="{{route('main')}}">{{__('main')}}</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::current()->getName() == 'about.us') active @endif">
                         <a class="nav-link" href="{{route('about.us')}}">{{__('who we are')}} </a>
                     </li>
                     <!-- <li class="nav-item">
                                 <a class="nav-link" href="#">{{__('our features')}}</a>
                             </li> -->
-                    <li class="nav-item">
+                    <li class="nav-item @if(Route::current()->getName() == 'categories') active @endif">
                         <a class="nav-link" href="{{route('categories')}}">{{__('categories')}}</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('contact.us')}}">{{__('contact us')}} </a>
+                    <li class="nav-item @if(Route::current()->getName() == 'contact.us') active @endif">
+                        <a class="nav-link" href="{{route('contact.us')}}"> {{__('contact us')}} </a>
                     </li>
                 </ul>
                 <button class="search_btn" data-toggle="modal" data-target="#searchModal"> <i class="fa fa-search"></i> </button>
             </div>
         </nav>
         <div class="mobile_wrapper_nav d-flex justify-content-between align-items-center">
+            @if(Auth::guard('clientWeb')->check())
+            <a href="general_order.html" class="btn general_order_btn moving_bk d_mob_none"> <i class="fa fa-plus"></i> طلب عام</a>
+            @endif
             <button class="btn toggle-dark-mode ">
                 <span class="trans"><i class="fa fa-lightbulb-o"></i></span>
             </button>
+            @if(Auth::guard('clientWeb')->check())
+            <div class="after_login_wrapper d-flex align-items-center">
+                        <a href="favourites.html" class="social-link rel_icon d_mob_none">
+                            <i class="fa fa-heart-o"></i>
+                        </a>
+                        <a href="cart.html" class="social-link rel_icon">
+                            <span class="noti_num">3</span>
+                            <img src="{{asset('website/image/shopping-cart.png')}}" alt="">
+                        </a>
+                        <a href="notifications.html" class="social-link rel_icon d_mob_none">
+                            <span class="noti_num">3</span>
+                            <i class="fa fa-bell-o"></i>
+                        </a>
+                        <span class="divider_span d_mob_none"></span>
+                        <a href="{{route('client.profile.update')}}" class="profile_icon d_mob_none">
+                            <img src="@if(Auth::guard('clientWeb')->user()->profile_photo_path==null)
+                            {{asset('website/image/avatar2.png')}} 
+                            @else
+                            {{Auth::guard('clientWeb')->user()->photoUrl()}}
+                            @endif" alt="">
+                        </a>
+                    </div>
+            @endif
+
             @if(Auth::guard('providerWeb')->check())
             <div class="after_login_wrapper d-flex align-items-center">
                 <a href="notifications.html" class="social-link rel_icon d_mob_none">
@@ -63,11 +90,13 @@
                     <i class="fa fa-bell-o"></i>
                 </a>
                 <span class="divider_span d_mob_none"></span>
+
                 <a href="{{route('provider.statistics')}}" class="profile_icon d_mob_none">
-                    <img src="{{Auth::user()->photoUrl()}}" alt="">
+                    <img src="{{Auth::guard('providerWeb')->user()->photoUrl()}}" alt="">
                 </a>
             </div>
-            @else
+            @endif
+            @if(!(Auth::guard('providerWeb')->check()||Auth::guard('clientWeb')->check()))
 
             <div class="login_wrapper d-flex justify-content-between d_mob_none">
                 <!-- <a href="signup.html" class="btn moving_bk sign_up_btn"> {{__('register')}}</a> -->
@@ -75,7 +104,7 @@
                     <a class="dropdown-toggle " href="#" id="droplog" role="button" data-toggle="dropdown"> {{__('register')}} </a>
                     <div class="dropdown-menu" aria-labelledby="droplog">
                         <a class="dropdown-item" href="{{route('provider.register.first.page')}}"> <img src="{{asset('website/image/company.png')}}" alt=""> {{__('provider')}} </a>
-                        <a class="dropdown-item" href="{{route('client.register.page')}}"> <img src="{{asset('website/image/user.png')}}" alt=""> {{__('user')}}</a>
+                        <a class="dropdown-item" href="{{route('client.register')}}"> <img src="{{asset('website/image/user.png')}}" alt=""> {{__('user')}}</a>
                     </div>
                 </div>
 
@@ -83,7 +112,7 @@
                     <a class="dropdown-toggle" href="#" id="droplog" role="button" data-toggle="dropdown"> {{__('login')}} </a>
                     <div class="dropdown-menu" aria-labelledby="droplog">
                         <a class="dropdown-item" href="{{route('provider.login.page')}}"> <img src="{{asset('website/image/company.png')}}" alt=""> {{__('provider')}}</a>
-                        <a class="dropdown-item" href="{{route('client.login.page')}}"> <img src="{{asset('website/image/user.png')}}" alt=""> {{__('user')}}</a>
+                        <a class="dropdown-item" href="{{route('client.login')}}"> <img src="{{asset('website/image/user.png')}}" alt=""> {{__('user')}}</a>
                     </div>
                 </div>
             </div>

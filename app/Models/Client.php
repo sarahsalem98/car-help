@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
-
-class Client extends Model
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+class Client extends Model implements AuthenticatableContract
 {
+    use Authenticatable;
     use HasFactory;
     use HasApiTokens;
     protected $guard ='clientWeb';
@@ -19,7 +20,9 @@ class Client extends Model
         'phone_number',
         'city_id',
         'profile_photo_path',
-        'status'
+        'status',
+        'phone_number_without_country_code',
+    'country_code_name'
     ];
 
     protected $hidden=[
@@ -38,7 +41,7 @@ class Client extends Model
      return   $this->hasMany(Car::class,'client_id','id');
     }
     public function favouriteProviders(){
-    return $this->belongsToMany(Provider::class,'user_favourite_providers','client_id','provider_id');
+    return $this->belongsToMany(Provider::class,'user_favourite_providers','client_id','provider_id')->withTimestamps();
     }
 
 }

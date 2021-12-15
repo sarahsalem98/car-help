@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> car help</title>
-    <link  rel="shortcut icon"  href="{{asset('websit/image/logo.png')}}" type="image/png" sizes="16x16">
+    <link rel="shortcut icon" href="{{asset('websit/image/logo.png')}}" type="image/png" sizes="16x16">
     <link href="{{asset('website/css/animate.min.css')}}" rel="stylesheet" />
     <link href="{{asset('website/css/hover.css')}}" rel="stylesheet">
     <link href="{{asset('website/css/slick.css')}}" rel="stylesheet">
@@ -23,6 +23,12 @@
     <link href="{{asset('website/css/style-en.css')}}" rel="stylesheet">
 
     @endif
+    <style>
+        #map {
+            height: 350px;
+            width: 610px;
+        }
+    </style>
 
     <script src="https://use.fontawesome.com/d10920a460.js"></script>
 </head>
@@ -286,6 +292,15 @@
     @yield('contact.us')
     @yield('provider.statistics')
     @yield('provider.profile.update')
+    @yield('provider.password.update')
+    @yield('provider.services.update')
+    @yield('provider.brands.update')
+    @yield('provider.order.public.private')
+    @yield('client.register')
+    @yield('verify')
+    @yield('client.login')
+    @yield('client.profile.update')
+    @yield('client.profile.password')
     <!--start top section-->
 
     <!--Start footer -->
@@ -425,16 +440,46 @@
     <script src="{{asset('website/js/bootstrap-3.min.js')}}"></script>
     <script src="{{asset('website/js/main.js')}}"></script>
     <script src="{{asset('website/js/wow.min.js')}}"></script>
+
+
     <script>
         new WOW().init();
     </script>
     <script>
-        var input = document.querySelector('#phone');
-        var iti = window.intlTelInput(input, {
-            utilsScript: 'js/utils.js'
+        var phone_number = window.intlTelInput(document.querySelector("#phone"), {
+            separateDialCode: true,
+            preferredCountries: ["eg", "sa"],
+            hiddenInput: "phone_number",
+            initialCountry: document.getElementById('country_code_set').value,
+            utilsScript: 'https://intl-tel-input.com/node_modules/intl-tel-input/build/js/utils.js',
+            //   utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/utils.js"
+            // utilsScript:  "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.4/js/utils.js"
+            // formatOnDisplay: true,
+            // autoHideDialCode: true,
+        });
+        // var iti = intlTelInput(document.querySelector("#phone"));
+        $('.login_form').on('submit', function() {
+            var data = phone_number.getSelectedCountryData()['iso2'];
+            document.getElementById('country_code_get').value = data;
+        });
+        $('.car_form').on('submit', function() {
+            var data = phone_number.getSelectedCountryData()['iso2'];
+            document.getElementById('country_code_get').value = data;
+        });
+    </script>
+    <script>
+        $(document).ready(function(e) {
+            $('#fileUploader').change(function() {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    $('#preview').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(this.files[0]);
+            });
         });
     </script>
     @stack('script')
+    @stack('map')
 
 
 </body>

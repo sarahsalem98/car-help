@@ -27,6 +27,7 @@ class ClientLogin extends FormRequest
         return [
             'phone_number'=>'required',
             'password'=>'required',
+            
         ];
     }
 }

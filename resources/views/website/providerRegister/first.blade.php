@@ -19,7 +19,7 @@
 <!--start contact us-->
 <div class="login_section">
     <div class="container">
-        <form action="{{route('provider.register.first.page.post')}}" method="POST" enctype="multipart/form-data" class="login_form">
+        <form id="my_form" action="{{route('provider.register.first.page.post')}}" method="POST" enctype="multipart/form-data" class="login_form">
             @csrf
             <h3 class="main-pages-title"> {{__('register')}}</h3>
             <p class="main-center-des">{{__('register for a new account')}}</p>
@@ -33,7 +33,7 @@
                 <div class="form-group col-xs-12">
                     <label for="yourName"> {{__('work shop name')}}</label>
                     <input type="text" class="form-control" name="workshop_name" id="yourName" value="{{old('workshop_name')}}" placeholder="الرجاء ادخال اسم الورشة">
-                  @include('website.more',['field'=>'workshop_name'])
+                    @include('website.more',['field'=>'workshop_name'])
                 </div>
                 <div class="form-group col-xs-12">
                     <label for="engName">{{__('engineer name')}}</label>
@@ -42,12 +42,15 @@
                 </div>
                 <div class="form-group col-xs-12">
                     <label for="phoneNumber"> {{__('phone number')}}</label>
-                    <input type="tel" class="form-control" name="phone_number" value="{{old('phone_number')}}" id="phone" placeholder="الرجاء ادخال رقم الجوال">
+                    <input type="tel" class="form-control" name="phone_number_without_country_code" id="phone" value="{{old('phone_number')}}" placeholder="الرجاء ادخال رقم الجوال">
+                    <input type="hidden"  id="country_code_get" name ="country_code_name"  >
+                        <input type="hidden"  id="country_code_set" value="sa">
+
                     @include('website.more',['field'=>'phone_number'])
                 </div>
                 <div class="form-group col-xs-12">
                     <label for="phoneNumber"> {{__('whatsapp number')}}</label>
-                    <input type="tel" class="form-control" name="whatsapp_number" id="phone" value="{{old('whatsapp_number')}}" placeholder="الرجاء ادخال رقم الجوال">
+                    <input type="text" class="form-control" name="whatsapp_number" value="{{old('whatsapp_number')}}" placeholder="الرجاء ادخال رقم الجوال">
                     @include('website.more',['field'=>'whatsapp_number'])
                 </div>
                 <div class="form-group col-xs-12">
@@ -74,7 +77,7 @@
                         <input type="checkbox" name="agreed" value="1">
                         <span class="check_yellow"></span>
                         {{__('with register you approve on ')}} <a href="index.html">{{__('terms and conditions')}} </a>
-                       
+
                     </label>
                     @include('website.more',['field'=>'agreed'])
                 </div>
@@ -87,17 +90,7 @@
 </div>
 
 @push('script')
-<script>
-    $(document).ready(function(e) {
-        $('#fileUploader').change(function() {
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#preview').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);
-        });
-    });
-</script>
+
 <script>
     $('#yourCommercial').on('change', function() {
         var fileName = $(this).val();

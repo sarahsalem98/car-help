@@ -93,7 +93,7 @@
                             @foreach($productOrders as $productOrder)
 
                             <tr class="active">
-                                <td></td>
+                            
                                 <td>
                                     {{$productOrder->id}}
                                 </td>

@@ -27,10 +27,10 @@ class RedirectIfAuthenticated
         //     }
         // }
         if ($guard == "providerWeb" && Auth::guard($guard)->check()) {
-            return redirect('/admin');
+            return redirect('/provider');
         }
         if ($guard == "clientWeb" && Auth::guard($guard)->check()) {
-            return redirect('/writer');
+            return redirect('/client');
         }
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
