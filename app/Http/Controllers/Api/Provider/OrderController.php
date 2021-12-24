@@ -67,7 +67,7 @@ class OrderController extends Controller
     public function showProviderServices(){
         $id=Auth::user()->id;
         $name=Auth::user()->enginner_name;
-        $orders=Order::where('provider_id',$id)->whereIn('order_type',[0,1])->orWhere('provider_id',null)->with('car')->get();
+        $orders=Order::where('provider_id',$id)->whereIn('order_type',[0,1])->orWhere('provider_id',null)->with('car','client','price','comment','providerCancel.reason')->get();
         return response()->json(["orders"=>$orders],200);
     }
 
@@ -108,7 +108,7 @@ class OrderController extends Controller
 
     public function completeService($service_id){
             $service=Order::find($service_id);
-            if($service->status==$this->orderStatus[1]||$service->status==$this->orderStatus[2]){
+            if($service->status==$this->orderStatus[0] ||$service->status==$this->orderStatus[2] ){
                 $service->status=$this->orderStatus[3];
                 $service->save();
                 return response()->json(['message'=>"service {$service_id} is completed"],200);
@@ -119,10 +119,11 @@ class OrderController extends Controller
 
 
 
+
 public function showProductOrders(){
     $id=Auth::user()->id;
     $name=Auth::user()->enginner_name;
-    $orders=Order::where('provider_id',$id)->where('order_type',2)->get();
+    $orders=Order::where('provider_id',$id)->where('order_type',2)->with('comment','providerCancel.reason')->get();
     return response()->json(["orders"=>$orders],200);
 }
 

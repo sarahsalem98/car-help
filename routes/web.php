@@ -11,6 +11,7 @@ use App\Http\Controllers\Dashboard\CopounController;
 use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Dashboard\ProviderController;
 use App\Http\Controllers\Dashboard\SubMainController;
+use App\Http\Controllers\Website\Client\Profile\CarController;
 use App\Http\Livewire\Admin\Main;
 use App\Http\Livewire\Admin\Provider as AdminProvider;
 use App\Models\Provider;
@@ -120,6 +121,26 @@ Route::prefix('client')->group(function () {
      Route::get('password/update','App\Http\Controllers\website\Client\Profile\UpdateController@updatePasswordPage')->name('client.password.update');
      Route::post('password/update','App\Http\Controllers\website\Client\Profile\UpdateController@updatePassword')->name('client.password.update.post');
 
+     Route::get('orders','App\Http\Controllers\website\Client\Profile\OrderController@orderIndex')->name('client.orders');
+
+
+     Route::get('addresses','App\Http\Controllers\website\Client\Profile\AddressController@addressIndex')->name('client.address');
+
+
+     Route::resource('cars',CarController::class);
+
+     Route::get('sub/categories/{mainCategoryId}','App\Http\Controllers\website\SubCategories\ShowController@indexProvider')->name('subCategories.index');
+     Route::get('sub/categories/{mainCategory_id}/provider/{provider_id}','App\Http\Controllers\website\SubCategories\ShowController@showProvider')->name('subCategories.provider.show');
+
+
+     //order
+     Route::post('order','App\Http\Controllers\website\Client\OrderController@makeOrder')->name('public.private.order.post');
+     Route::post('car/order','App\Http\Controllers\website\Client\OrderController@makeOrderCar')->name('public.private.car.order.post');
+
+     //product
+     Route::get('product/{mainCategory_id}/{provider_id}/{product_id}','App\Http\Controllers\website\Client\ProductController@showProduct')->name('client.product.show');
+     //favouriteProviders
+     Route::get('favourite/providers','App\Http\Controllers\website\Client\ProviderController@showFavouriteProviders')->name('client.favourite.providers.show');
 
 
     });

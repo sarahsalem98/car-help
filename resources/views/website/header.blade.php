@@ -61,26 +61,28 @@
             </button>
             @if(Auth::guard('clientWeb')->check())
             <div class="after_login_wrapper d-flex align-items-center">
-                        <a href="favourites.html" class="social-link rel_icon d_mob_none">
-                            <i class="fa fa-heart-o"></i>
-                        </a>
-                        <a href="cart.html" class="social-link rel_icon">
-                            <span class="noti_num">3</span>
-                            <img src="{{asset('website/image/shopping-cart.png')}}" alt="">
-                        </a>
-                        <a href="notifications.html" class="social-link rel_icon d_mob_none">
-                            <span class="noti_num">3</span>
-                            <i class="fa fa-bell-o"></i>
-                        </a>
-                        <span class="divider_span d_mob_none"></span>
-                        <a href="{{route('client.profile.update')}}" class="profile_icon d_mob_none">
-                            <img src="@if(Auth::guard('clientWeb')->user()->profile_photo_path==null)
+            
+                <a href="{{route('client.favourite.providers.show')}}" class="social-link rel_icon d_mob_none">
+                    <i class="fa @if(Route::current()->getName() == 'client.favourite.providers.show')fa-heart @else fa-heart-o @endif"></i>
+                </a>
+              
+                <a href="cart.html" class="social-link rel_icon">
+                    <span class="noti_num">3</span>
+                    <img src="{{asset('website/image/shopping-cart.png')}}" alt="">
+                </a>
+                <a href="notifications.html" class="social-link rel_icon d_mob_none">
+                    <span class="noti_num">3</span>
+                    <i class="fa fa-bell-o"></i>
+                </a>
+                <span class="divider_span d_mob_none"></span>
+                <a href="{{route('client.profile.update')}}" class="profile_icon d_mob_none">
+                    <img src="@if(Auth::guard('clientWeb')->user()->profile_photo_path==null)
                             {{asset('website/image/avatar2.png')}} 
                             @else
                             {{Auth::guard('clientWeb')->user()->photoUrl()}}
                             @endif" alt="">
-                        </a>
-                    </div>
+                </a>
+            </div>
             @endif
 
             @if(Auth::guard('providerWeb')->check())

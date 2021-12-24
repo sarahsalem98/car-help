@@ -4,13 +4,13 @@
 
  @extends('layouts.website')
 @section('client.profile.password')
- @include('website.client.layout.profileTop')
+ @include('website.client.profile.layout.profileTop')
 
      <!--start profile-->
      <div class="profile-section">
         <div class="container">
             <div class="row">
-            @include('website.client.layout.profileMenu')
+            @include('website.client.profile.layout.profileMenu')
 
                 <div class="col-xs-12 col-sm-8 profile_content">
                     @include('website.allErrors')

@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Auth;
 class CartController extends Controller
 {
 
+
+
+    public function clearCart(){
+        $id=Auth::user()->id;
+        $cart=Cart::where('client_id',$id);
+        $cart->delete();
+        return response()->json(['message'=>'cart is emptyed'],200);
+    }
   public function cart(){
       $id=Auth::user()->id;
       $name=Auth::user()->name;
@@ -27,12 +35,13 @@ class CartController extends Controller
                 $cart->save();
               }else{
                   $message[]=(array("message"=>"product {$product->name} qty is in the stock ;)",
-                  "product_id"=>$product->id  )) ;
+                  "product_id"=>$product->id ,
+                  "provider_id"=>$product->provider_id )) ;
 
                   
               }
           }
-          return response()->json(["cart"=>Cart::where('client_id',$id)->with('product')->get(),
+          return response()->json(["cart"=>Cart::where('client_id',$id)->with('product.provider')->get(),
                                   "info"=>$message],200);
     //   }else{
     //     return response()->json(["cart"=>'no items were found in this cart'

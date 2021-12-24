@@ -30,7 +30,8 @@ class ClientRegister extends FormRequest
             'password'=>'required',
             'profile_picture.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
             'phone_number_without_country_code'=>'required',
-            'country_code_name'=>'required'
+            'country_code_name'=>'required',
+            'device_token'=>'required'
         ];
     }
 }

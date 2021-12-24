@@ -10,10 +10,10 @@
                     <h3 class="profile-title">{{Auth::user()->name}}</h3>
                 </div>
                 <div class="profile_menu">
-                    <a href="profile.html" class="profile_link active_link"> <i class="icon-user"></i> تعديل حسابي</a>
-                    <a href="my_orders.html" class="profile_link"> <i class="icon-order"></i>طلباتي</a>
-                    <a href="my_addresses.html" class="profile_link"> <i class="icon-address"></i>عناويني</a>
-                    <a href="my_cars.html" class="profile_link"> <i class="icon-car"></i>سياراتي</a>
+                    <a href="{{route('client.profile.update')}}" class="profile_link @if(Route::current()->getName() == 'client.profile.update') active_link @endif"> <i class="icon-user"></i> تعديل حسابي</a>
+                    <a href="{{route('client.orders')}}" class="profile_link   @if(Route::current()->getName() == 'client.orders') active_link @endif"> <i class="icon-order"></i>طلباتي</a>
+                    <a href="{{route('client.address')}}" class="profile_link   @if(Route::current()->getName() == 'client.address') active_link @endif"> <i class="icon-address"></i>عناويني</a>
+                    <a href="{{route('cars.index')}}" class="profile_link   @if(Route::current()->getName() == 'cars.index') active_link @endif"> <i class="icon-car"></i>سياراتي</a>
                     <a href="{{route('client.logout')}}" class="profile_link"> <i class="icon-logout"></i>تسجيل الخروج</a>
                 </div>
             </div>

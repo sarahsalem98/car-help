@@ -34,7 +34,7 @@ Route::middleware('checkLang')->group(function(){
             Route::get('main/{mainId}/show/provider', 'App\Http\Controllers\Api\Client\ProviderController@mainShowProvider');
             //favourites
             Route::get('show/favourite/providers', 'App\Http\Controllers\Api\Client\ProviderController@showFavouriteProviders');
-            Route::post('favourite/provider/{providerId}', 'App\Http\Controllers\Api\Client\ProviderController@addProviderToFavourites');
+            Route::post('favourite/provider/{mainService_id}/{providerId}/{add}', 'App\Http\Controllers\Api\Client\ProviderController@addProviderToFavourites');
             //show provider profile
             Route::get('show/provider/{providerId}', 'App\Http\Controllers\Api\Client\ProviderController@showProviderProfile');
     
@@ -49,9 +49,11 @@ Route::middleware('checkLang')->group(function(){
             Route::post('accept/order/{price_id}/{order_id}', 'App\Http\Controllers\Api\Client\OrderController@acceptPrice');
             Route::post('refuse/order/{price_id}/{order_id}', 'App\Http\Controllers\Api\Client\OrderController@refusePrice');
             Route::post('cancel/order', 'App\Http\Controllers\Api\Client\OrderController@cancelOrder');
+            Route::get('orders','App\Http\Controllers\Api\Client\OrderController@allOrders');
             //cart
             Route::post('add/cart/{product_id}', 'App\Http\Controllers\Api\Client\CartController@addTocart');
             Route::get('cart', 'App\Http\Controllers\Api\Client\CartController@cart');
+            Route::delete('clear/cart','App\Http\Controllers\Api\Client\CartController@clearCart');
             //comment
             Route::post('add/comment', 'App\Http\Controllers\Api\Client\ProviderController@addCommentToProvider');
     
@@ -61,6 +63,9 @@ Route::middleware('checkLang')->group(function(){
             Route::post('verify', 'App\Http\Controllers\Api\Client\AuthController@verify');
             Route::get('forget/password', 'App\Http\Controllers\Api\Client\AuthController@forgetPassword');
             Route::post('change/password', 'App\Http\Controllers\Api\Client\AuthController@changePassword');
+
+            //mapProviders
+            Route::get('near/providers','App\Http\Controllers\Api\Client\ProviderController@mapProviders');
         });
     });
     
@@ -113,6 +118,7 @@ Route::middleware('checkLang')->group(function(){
     Route::get('commession','App\Http\Controllers\Api\MoreController@getCommession');
     Route::get('how/to/use','App\Http\Controllers\Api\MoreController@getHowToUse');
     Route::get('who/we/are','App\Http\Controllers\Api\MoreController@getWhoWeAre');
+    Route::get('categories','App\Http\Controllers\Api\MoreController@getCategories');
  
 
 });

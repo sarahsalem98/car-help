@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -21,9 +22,15 @@ class ProductController extends Controller
     {
         $id=Auth::user()->id;
         $name=Provider::find($id)->enginner_name;
+
         return response()->json(["products"=>
-                                Product::where('provider_id',$id)->get() 
+                                Product::where('provider_id',$id)->with('category')->get() 
     ],200);
+//  return   DB::table('products')
+//  ->join('categories', 'products.category_id', '=', 'categories.id')
+//  ->select('products.*','categories.name as sara')
+//     ->get();
+
     }
 
     /**

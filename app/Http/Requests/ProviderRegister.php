@@ -35,7 +35,8 @@ class ProviderRegister extends FormRequest
             'business_registeration_file'=>'required',
             'agreed'=>'required|in:1',
             'phone_number_without_country_code'=>'required',
-            'country_code_name'=>'required'
+            'country_code_name'=>'required',
+            'device_token'=>'required'
         ];
     }
 }

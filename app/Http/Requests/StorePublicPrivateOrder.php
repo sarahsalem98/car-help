@@ -31,7 +31,7 @@ class StorePublicPrivateOrder extends FormRequest
             'provider_id'=>'exists:providers,id',
             'car_id'=>'required|exists:cars,id',
             'details'=>'required',
-            'images'=>'required',
+             'images'=>'required',
             'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
             'order_type'=>['required','numeric',Rule::in(['0','1','2']) ]
 

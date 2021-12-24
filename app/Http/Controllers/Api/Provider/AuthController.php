@@ -170,9 +170,11 @@ class AuthController extends Controller
         ->create($data['verification_code'], array('to' => $data['phone_number']));
 
 
-      if ($verification->valid) {
-        $provider = Provider::where('phone_number', $data['phone_number'])->first();
-        $provider->update(['status' => 'verified']);
+        if ($verification->valid) {
+          $id=Auth::user()->id;
+        $provider = Provider::find($id);
+        $provider->status='verified';
+        $provider->save();
         return response()->json([
           'message' => 'Phone number verified',
           'provider' => $provider

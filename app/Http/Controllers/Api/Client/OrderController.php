@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\Provider\ProductController;
+use App\Http\Controllers\SendNotificationController;
 
 class OrderController extends Controller
 {
@@ -46,6 +47,7 @@ class OrderController extends Controller
             $order = new Order;
             $order->fill($validateData);
             $order->client_id = Auth::user()->id;
+            $name=Auth::user()->name;
             if ($request->hasfile('images')) {
 
                 foreach ($request->file('images') as $image) {
@@ -60,8 +62,15 @@ class OrderController extends Controller
                 'message' => 'order was created successfully',
                 'order' => $order
             ], 201);
-
-            //دفع          
+            
+            SendNotificationController::sendNotification($request
+            ,0
+            ,$order->id
+            ,$order->order_type
+            ,' طلب جديد',
+        "{$name}لديك طلب جديد من ");
+            
+            
         } else {
             return response()->json(['errors' => 'this order type is not public or private '], 400);
         }
@@ -188,6 +197,12 @@ class OrderController extends Controller
         }
 
         //دفع
+
+    }
+    public function allOrders(){
+        $id=Auth::user()->id;
+        $orders = Order::where('client_id',$id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason','car')->get();
+        return response()->json(['orders'=>$orders]);
 
     }
 }

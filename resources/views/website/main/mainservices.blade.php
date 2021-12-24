@@ -6,10 +6,10 @@
             @foreach($mainServices as $mainService)
             <div class="col-xs-6 col-sm-4 col-md-3">
                 <div class="card numbers-card wow zoomInRight" data-wow-duration="1s" data-wow-offset="200">
-                    <a class="card-thumbnail" href="category_details.html">
+                    <a class="card-thumbnail" href="{{route('subCategories.index',['mainCategoryId'=>$mainService->id])}}">
                         <img src="{{$mainService->photoUrl()}}" alt="...">
                     </a>
-                    <a class="card-body moving_bk" href="category_details.html">
+                    <a class="card-body moving_bk" href="{{route('subCategories.index',['mainCategoryId'=>$mainService->id])}}">
                         @if(app()->getLocale()=='ar')
                         <h5 class="card-title">{{$mainService->name}}</h5>
                         @elseif(app()->getLocale()=='en')

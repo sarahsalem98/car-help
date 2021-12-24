@@ -7,8 +7,10 @@ use App\Http\Middleware\locale;
 use App\Models\BrandType;
 use App\Models\CancellationReasons;
 use App\Models\CarModel;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\More;
+use App\Models\Provider;
 use Illuminate\Http\Request;
 
 class MoreController extends Controller
@@ -17,9 +19,14 @@ class MoreController extends Controller
     {
         $localeData = array();
         foreach ($array as $arr) {
-            array_push($localeData, ['id' => $arr['id'], 'name' => $arr['name' . (app()->getLocale() == 'ar' ? '' : '_en')]]);
+            $arr->name = $arr['name' . (app()->getLocale() == 'ar' ? '' : '_en')];
+            array_push($localeData, $arr);
         }
         return $localeData;
+    }
+    public function getCategories(){
+        $categories = $this->getLocaleData(Category::all());
+        return response()->json(['all categories' => $categories], 200);
     }
 
     public function getCities()
@@ -27,6 +34,8 @@ class MoreController extends Controller
         //  dd(app()->getLocale());
         $localCities = $this->getLocaleData(City::all());
         return response()->json(['all cities' => $localCities], 200);
+ 
+        
     }
 
     public function getBrands()

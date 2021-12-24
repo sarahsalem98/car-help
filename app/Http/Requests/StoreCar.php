@@ -27,7 +27,7 @@ class StoreCar extends FormRequest
         return [
             'name'=>'required|max:255|alpha',
             'type'=>'required',
-            'model_id'=>'required',
+            'model_id'=>'required|exists:car_models,id',
             'chassis_number'=>'required',
          
         ];

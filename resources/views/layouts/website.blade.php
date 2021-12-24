@@ -12,7 +12,13 @@
     <link href="{{asset('website/css/slick.css')}}" rel="stylesheet">
     <link href="{{asset('website/fonts/flaticon.css')}}" rel="stylesheet">
     <link href="{{asset('website/css/intlTelInput.min.css')}}" rel="stylesheet">
+    <link href="{{asset('website/css/nice-select.css')}}" rel="stylesheet">
+
     <link href="{{asset('website/css/bootstrap-3.min.css')}}" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
     @if(app()->getLocale()=='ar')
     <link href="{{asset('website/css/bootstrap-3-rtl.min.css')}}" rel="stylesheet">
     @endif
@@ -276,7 +282,7 @@
 
     <!--start header-->
     <header>
-        @include('website.main.header')
+        @include('website.header')
     </header>
     <!--end header-->
 
@@ -301,6 +307,15 @@
     @yield('client.login')
     @yield('client.profile.update')
     @yield('client.profile.password')
+    @yield('client.profile.orders.index')
+    @yield('client.profile.address.index')
+    @yield('client.profile.cars.index')
+    @yield('client.profile.cars.create')
+    @yield('client.profile.cars.edit')
+    @yield('subCategories.index')
+    @yield('subCategories.show.provider')
+    @yield('subCategories.show.product')
+    @yield('client.favourite.providers')
     <!--start top section-->
 
     <!--Start footer -->
@@ -437,9 +452,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.3/lottie.min.js" integrity="sha512-35O/v2b9y+gtxy3HK+G3Ah60g1hGfrxv67nL6CJ/T56easDKE2TAukzxW+/WOLqyGE7cBg0FR2KhiTJYs+FKrw==" crossorigin="anonymous"></script>
     <script src="{{asset('website/js/intlTelInput.min.js')}}"></script>
+    <script src="{{asset('website/js/jquery.nice-select.js')}}"></script>
     <script src="{{asset('website/js/bootstrap-3.min.js')}}"></script>
     <script src="{{asset('website/js/main.js')}}"></script>
     <script src="{{asset('website/js/wow.min.js')}}"></script>
+    <script src="{{asset('website/js/backend.js')}}"></script>
 
 
     <script>
@@ -467,20 +484,12 @@
             document.getElementById('country_code_get').value = data;
         });
     </script>
-    <script>
-        $(document).ready(function(e) {
-            $('#fileUploader').change(function() {
-                let reader = new FileReader();
-                reader.onload = (e) => {
-                    $('#preview').attr('src', e.target.result);
-                }
-                reader.readAsDataURL(this.files[0]);
-            });
-        });
-    </script>
+   
+   
     @stack('script')
     @stack('map')
-
+    @stack('modal')
+ 
 
 </body>
 

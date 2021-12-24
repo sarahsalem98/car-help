@@ -28,7 +28,8 @@ class Provider extends Model implements AuthenticatableContract
     'business_registeration_file',
     'agreed',
     'phone_number_without_country_code',
-    'country_code_name'
+    'country_code_name',
+    'device_token'
     
     ];
     protected $hidden=[

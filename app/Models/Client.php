@@ -22,7 +22,8 @@ class Client extends Model implements AuthenticatableContract
         'profile_photo_path',
         'status',
         'phone_number_without_country_code',
-    'country_code_name'
+    'country_code_name',
+    'device_token'
     ];
 
     protected $hidden=[
@@ -41,7 +42,7 @@ class Client extends Model implements AuthenticatableContract
      return   $this->hasMany(Car::class,'client_id','id');
     }
     public function favouriteProviders(){
-    return $this->belongsToMany(Provider::class,'user_favourite_providers','client_id','provider_id')->withTimestamps();
+    return $this->belongsToMany(Provider::class,'user_favourite_providers','client_id','provider_id')->withPivot('mainService_id')->withTimestamps();
     }
 
 }

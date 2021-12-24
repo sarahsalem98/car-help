@@ -28,7 +28,7 @@ class StoreCommentForProvider extends FormRequest
             'rate'=>'numeric|max:5',
             'comment'=>'max:255',
             'provider_id'=>'required|exists:providers,id',
-              'order_id'=>'required|exists:orders,id'
+             'order_id'=>'required|exists:orders,id'
         ];
     }
 }

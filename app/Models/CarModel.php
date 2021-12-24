@@ -12,4 +12,7 @@ class CarModel extends Model
         'name',
         'name_en'
     ];
+    public function car(){
+        return $this->hasMany(Car::class,'model_id','id');
+    }
 }

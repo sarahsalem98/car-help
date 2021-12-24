@@ -37,4 +37,7 @@ class Product extends Model
             $image= json_decode( $this->images)[1];
             return Storage::url( $image);
         }
+        public function provider(){
+            return $this->belongsTo(Provider::class);
+        }
 }
