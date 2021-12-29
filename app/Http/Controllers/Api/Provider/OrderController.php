@@ -123,7 +123,7 @@ class OrderController extends Controller
 public function showProductOrders(){
     $id=Auth::user()->id;
     $name=Auth::user()->enginner_name;
-    $orders=Order::where('provider_id',$id)->where('order_type',2)->with('comment','providerCancel.reason')->get();
+    $orders=Order::where('provider_id',$id)->where('order_type',2)->with('comment','providerCancel.reason','client')->get();
     return response()->json(["orders"=>$orders],200);
 }
 

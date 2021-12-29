@@ -14,31 +14,49 @@ use App\Models\Service;
 use App\Models\SubServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProviderController extends Controller
 {
     public function mainShowProvider($mainId)
     {
-        $service = Service::find($mainId);
+         $service = Service::find($mainId);
+        //  $providers= DB::table('services')->select('services.id as main_service_id','providers.*')
+        //  ->where('services.id','=',$mainId)
+        //  ->join('sub_services', 'services.id', '=', 'sub_services.service_id')
+        //  ->join('provider_subservices', 'sub_services.id', '=', 'provider_subservices.subservice_id')
+        //  ->join('providers', 'providers.id', '=', 'provider_subservices.provider_id');
+     
+        // //  ->join('providers as p', 'p.id', '=', 'provider_addresses.provider_id')
+   
+        //  $providerWithAdress=DB::table('provider_addresses')->rightJoinSub($providers,'providers',function($join){
+        //      $join->on('provider_addresses.provider_id','=','providers.id');
+            
+        //  })->get();
         $providers = $service->subservice()
-            ->whereHas('provider')
-            ->with('provider.address')
-            ->get();
+        ->whereHas('provider.address')
+        ->with('provider.address')
+        ->get();
+        // $pope=$providers->with('')
         return response()->json(["providers"  => $providers], 200);
     }
 
-    public function addProviderToFavourites($mainService_id,$providerId,$add)
+    public function addProviderToFavourites(Request $request)
     {
+        $data=$request->validate([
+            'provider_id'=>'required',
+            'add'=>'required'
+        ]);
         $clientid = Auth::user()->id;
         $client = Client::find($clientid);
-        $provider = Provider::find($providerId);
+        $provider = Provider::find($data['provider_id']);
         if ($provider) {
-            if($add==1){
+            if($data['add']==1){
 
-                $client->favouriteProviders()->syncWithoutDetaching([$providerId=>['mainService_id'=>$mainService_id]]);
+                $client->favouriteProviders()->syncWithoutDetaching([$data['provider_id']=>['mainService_id'=>$request->mainService_id]]);
                 return response()->json(["provider" => $provider], 201);
             }else{
-                $client->favouriteProviders()->detach($providerId);
+                $client->favouriteProviders()->detach($data['provider_id']);
                 return response()->json(["message" => 'provider is removed from favourites'], 200);
 
             }
@@ -99,7 +117,7 @@ class ProviderController extends Controller
             'long' => 'required'
         ]);
         // dd($request->distance);
-        $providers = Provider::has('address')->get();
+        $providers = Provider::has('address')->with('subServices')->get();
         $selsectedProviders = array();
         if ($data['distance'] == 0) {
             return response()->json(['providers' => $providers], 200);

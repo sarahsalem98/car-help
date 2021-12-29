@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\ContactUs;
 use App\Models\More;
 use App\Models\Service;
 use Illuminate\Http\Request;
@@ -40,6 +41,19 @@ class MainController extends Controller
     }
     public function getContactUsPage(){
         return view('website.main.header.contactus');
+    }
+    public function storeContactUs(Request $request){
+        // dd($request);
+        $data=$request->validate([
+            'phone_number'=>'required',
+            'email'=>'required',
+            'message'=>'required'
+        ]);
+        $contact_us=new ContactUs;
+        $contact_us->fill($data);
+        $contact_us->save();
+        return redirect()->back()->with('message','your message was sent succeessfully');
+
     }
     
 }

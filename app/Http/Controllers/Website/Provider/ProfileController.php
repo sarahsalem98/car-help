@@ -7,6 +7,7 @@ use App\Models\BrandType;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Provider;
+use App\Models\ProviderWorkHour;
 use App\Models\Service;
 use App\Models\SubServices;
 use Illuminate\Http\Request;
@@ -43,7 +44,7 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
 
-         dd($request);
+        dd($request);
         $AuthProvider = Provider::find(Auth::user()->id);
         //  dd($AuthProvider);
         $photoName = $AuthProvider->workshop_photo_path;
@@ -93,6 +94,31 @@ class ProfileController extends Controller
         // dd('df');
         return redirect()->back()->with('message', 'the provider basic information was updated succeesfully😊');
     }
+
+    public function updateWorkHours(Request $request)
+    {
+        $data = $request->validate([
+            'time.*.day' => 'string',
+            'time.*.from' => 'nullable|before:time.*.to',
+            'time.*.to' => 'nullable|after:time.*.from',
+            'time.*.closed' => 'required'
+        ]);
+
+        $times = $request['time'];
+        $id = Auth::user()->id;
+        $provider = Provider::find($id);
+        ProviderWorkHour::where('provider_id',$id)->delete();
+        foreach ($times as $time) {
+            $provider->workHour()->create([
+                'day' => $time['day'],
+                'from' => $time['from'] ,
+                'to' =>  $time['to'] ,
+                'closed' =>  $time['closed']
+            ]);
+        }
+        return redirect()->back()->with('message'.'work hour is updated');
+    }
+
     public function updatePasswordPage()
     {
         return view('website.provider.update.password');
@@ -125,11 +151,11 @@ class ProfileController extends Controller
         // Auth::user()->subServices(1);
         $provider_services = $provider->subServices()->get();
 
-        return view('website.provider.update.services', ['provider'=>$provider,'services' => $services, 'provider_services' => $provider_services]);
+        return view('website.provider.update.services', ['provider' => $provider, 'services' => $services, 'provider_services' => $provider_services]);
     }
     public function updateServices(Request $request)
     {
-    //   dd($request);
+        //   dd($request);
         $data = $request->validate([
             'subservice' => 'required|exists:sub_services,id'
         ]);
@@ -137,8 +163,7 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         $provider = Provider::find($id);
         $provider->subServices()->sync(SubServices::find($data['subservice']));
-        return redirect()->back()->with('message',trans('success.service_update_success'));
-
+        return redirect()->back()->with('message', trans('success.service_update_success'));
     }
     public function updateBrandsPage()
     {
@@ -146,8 +171,8 @@ class ProfileController extends Controller
         $brandTypes = BrandType::all();
         $provider = Provider::find(Auth::user()->id);
         $provider_brands = $provider->brandTypes()->get();
-      
-        return view('website.provider.update.brands', ['provider'=>$provider,'brandTypes' => $brandTypes, 'provider_brands' => $provider_brands]);
+
+        return view('website.provider.update.brands', ['provider' => $provider, 'brandTypes' => $brandTypes, 'provider_brands' => $provider_brands]);
     }
     public function updateBrands(Request $request)
     {

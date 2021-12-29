@@ -34,7 +34,7 @@ Route::middleware('checkLang')->group(function(){
             Route::get('main/{mainId}/show/provider', 'App\Http\Controllers\Api\Client\ProviderController@mainShowProvider');
             //favourites
             Route::get('show/favourite/providers', 'App\Http\Controllers\Api\Client\ProviderController@showFavouriteProviders');
-            Route::post('favourite/provider/{mainService_id}/{providerId}/{add}', 'App\Http\Controllers\Api\Client\ProviderController@addProviderToFavourites');
+            Route::post('favourite/provider', 'App\Http\Controllers\Api\Client\ProviderController@addProviderToFavourites');
             //show provider profile
             Route::get('show/provider/{providerId}', 'App\Http\Controllers\Api\Client\ProviderController@showProviderProfile');
     
@@ -61,11 +61,11 @@ Route::middleware('checkLang')->group(function(){
             Route::post('update/client', 'App\Http\Controllers\Api\Client\AuthController@updateProfile');
             Route::post('reset/password', 'App\Http\Controllers\Api\Client\AuthController@resetPassword');
             Route::post('verify', 'App\Http\Controllers\Api\Client\AuthController@verify');
-            Route::get('forget/password', 'App\Http\Controllers\Api\Client\AuthController@forgetPassword');
+            Route::post('forget/password', 'App\Http\Controllers\Api\Client\AuthController@forgetPassword');
             Route::post('change/password', 'App\Http\Controllers\Api\Client\AuthController@changePassword');
 
             //mapProviders
-            Route::get('near/providers','App\Http\Controllers\Api\Client\ProviderController@mapProviders');
+            Route::post('near/providers','App\Http\Controllers\Api\Client\ProviderController@mapProviders');
         });
     });
     

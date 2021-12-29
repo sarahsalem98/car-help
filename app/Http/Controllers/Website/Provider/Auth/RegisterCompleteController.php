@@ -147,6 +147,7 @@ class RegisterCompleteController extends Controller
     }
     public function registerAddress(Request $request)
     {
+        dd($request);
 
         return redirect()->route('provider.login.page');
     }

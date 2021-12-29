@@ -26,7 +26,7 @@ use Twilio\Rest\Client;
 class AuthController extends Controller
 {
   public  $next_step = ['service_type', 'brand_type', 'address', 'work_houres', 'finished'];
- 
+
 
 
   public function register(ProviderRegister $request)
@@ -56,12 +56,12 @@ class AuthController extends Controller
 
   public function registerServiceTypeForProvider(Request $request)
   {
-    $data=$request->validate([
-   'subservice'=>'required|exists:sub_services,id'
+    $data = $request->validate([
+      'subservice' => 'required|exists:sub_services,id'
     ]);
     $id = Auth::user()->id;
     $provider = Provider::find($id);
-    
+
     if ($data['subservice']) {
       $provider->subServices()->sync(SubServices::find($data['subservice']));
       $provider->next_step = $this->next_step[1];
@@ -78,7 +78,7 @@ class AuthController extends Controller
   {
     $data = $request->validate([
       'brandType' => 'required|exists:brand_types,id'
-  ]);
+    ]);
     $id = Auth::user()->id;
     $provider = Provider::find($id);
     if ($data['brandType']) {
@@ -117,6 +117,8 @@ class AuthController extends Controller
 
   public function registerWorkHoursForProvider(Request $request)
   {
+    $arabicDayes = ['','الجمعة','الخميس','الاربعاء','الثلاثاء', 'الاثتنين', 'الاحد', 'السبت'];
+    $englishDays=['','saterday','sunday','monday','tuesday','wensday','thursday','friday'];
     $times = $request['time'];
     $id = Auth::user()->id;
     $provider = Provider::find($id);
@@ -125,10 +127,11 @@ class AuthController extends Controller
     $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
     $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '8c5400ed57ece1ab37fc17281d917562');
 
-    foreach ($times as $time) {
+    foreach ($times as $key => $time) {
       $data = json_decode($time);
       $workHourProvider = new ProviderWorkHour;
-      $workHourProvider->day = $data->day;
+      $workHourProvider->day = $arabicDayes[$data->day];
+      $workHourProvider->day_en =$englishDays[ $data->day_en];
       $workHourProvider->from = $data->from ?? null;
       $workHourProvider->to = $data->to ?? null;
       $workHourProvider->closed = $data->closed;
@@ -138,7 +141,7 @@ class AuthController extends Controller
     $provider->next_step = $this->next_step[4];
     $provider->save();
     //twillio
-     $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
+    $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
       ->verifications
       ->create($provider->phone_number, "sms");
 
@@ -170,10 +173,15 @@ class AuthController extends Controller
         ->create($data['verification_code'], array('to' => $data['phone_number']));
 
 
-        if ($verification->valid) {
-          $id=Auth::user()->id;
+      if ($verification->valid) {
+        $id = Auth::user()->id;
         $provider = Provider::find($id);
-        $provider->status='verified';
+        if($provider->status=='forget_password'){
+          $provider->status='change_password';
+        }else{
+
+          $provider->status = 'verified';
+        }
         $provider->save();
         return response()->json([
           'message' => 'Phone number verified',
@@ -190,7 +198,7 @@ class AuthController extends Controller
   public function login(ProviderLogin $request)
   {
     $validatedData = $request->validated();
-    $provider = Provider::where('phone_number', $validatedData['phone_number'])->first();
+    $provider = Provider::where('phone_number', $validatedData['phone_number'])->with('subServices', 'address.city', 'brandTypes', 'workHour', 'product.category')->first();
     if ($provider) {
       if (Hash::check($validatedData['password'], $provider->password)) {
         return response()->json(['provider' => $provider], 200);
@@ -225,16 +233,17 @@ class AuthController extends Controller
     }
   }
 
-  public function changePassword(Request $request)
+  
+  public function resetPassword(Request $request)
   {
     $id = Auth::user()->id;
     $provider = Provider::find($id);
-    if ($provider->status = 'verified') {
+    if ($provider->status == 'change_password') {
       $data = $request->validate([
         'new_password' => 'required|confirmed',
       ]);
       $provider->password = bcrypt($data['new_password']);
-
+       $provider->status='verified';
       $provider->save();
       return response()->json([
         'message' => 'success',
@@ -248,7 +257,7 @@ class AuthController extends Controller
 
 
 
-  public function resetPassword(Request $request)
+  public function changePassword(Request $request)
   {
     $data = $request->validate([
       'old_password' => 'required',
@@ -276,56 +285,55 @@ class AuthController extends Controller
     $id = Auth::user()->id;
     $name = Auth::user()->enginner_name;
     $provider = Provider::find($id);
-    $fileName= $provider->workshop_photo_path;
-    $photoName= $provider->business_registeration_file;
-   
-    if ($request->file('workshop_photo_path')) {
-      if(Storage::exists($provider->workshop_photo_path )){
-        Storage::delete($provider->workshop_photo_path );
-      } 
-      $photoName = $request->file('workshop_photo_path')->store('workshoph_Photos');
+    $fileName = $provider->workshop_photo_path;
+    $photoName = $provider->business_registeration_file;
 
+    if ($request->file('workshop_photo_path')) {
+      if (Storage::exists($provider->workshop_photo_path)) {
+        Storage::delete($provider->workshop_photo_path);
+      }
+      $photoName = $request->file('workshop_photo_path')->store('workshoph_Photos');
     }
     if ($request->file('business_registeration_file')) {
-      if(Storage::exists($provider->business_registeration_file )){
-        Storage::delete($provider->business_registeration_file );
-      } 
+      if (Storage::exists($provider->business_registeration_file)) {
+        Storage::delete($provider->business_registeration_file);
+      }
       $fileName = $request->file('business_registeration_file')->store('businessrRegisteration_Files');
-    
     }
-   
+
     $provider->fill($validatedData);
     $provider->workshop_photo_path = $photoName;
     $provider->business_registeration_file = $fileName;
     $provider->save();
-    return response()->json(['provider'=>$provider],200);
+    return response()->json(['provider' => $provider], 200);
   }
 
 
 
-  public function changeProviderSubServices(Request $request){
-    
-    $data=$request->validate([
-      'subservice'=>'required|exists:sub_services,id'
-       ]);
-       $id = Auth::user()->id;
-       $name = Auth::user()->enginner_name;
-          $name = Auth::user()->enginner_name;  $provider = Provider::find($id);
-      $provider->subServices()->sync(SubServices::find($data['subservice']));
-       return response()->json(["provider"=>Provider::where('id',$id)->with('subServices')->get()],200);
-      
+  public function changeProviderSubServices(Request $request)
+  {
 
+    $data = $request->validate([
+      'subservice' => 'required|exists:sub_services,id'
+    ]);
+    $id = Auth::user()->id;
+    $name = Auth::user()->enginner_name;
+    $name = Auth::user()->enginner_name;
+    $provider = Provider::find($id);
+    $provider->subServices()->sync(SubServices::find($data['subservice']));
+    return response()->json(["provider" => Provider::where('id', $id)->with('subServices')->get()], 200);
   }
 
-  public function changeProviderWorkHours(Request $request){
+  public function changeProviderWorkHours(Request $request)
+  {
     $times = $request['times'];
     $id = Auth::user()->id;
     $name = Auth::user()->enginner_name;
-   ProviderWorkHour::where('provider_id',$id)->delete();
-  
+    ProviderWorkHour::where('provider_id', $id)->delete();
+
     foreach ($times as $time) {
       $data = json_decode($time);
-      $workHourProvider=new ProviderWorkHour;
+      $workHourProvider = new ProviderWorkHour;
       $workHourProvider->day = $data->day;
       $workHourProvider->from = $data->from ?? null;
       $workHourProvider->to = $data->to ?? null;
@@ -333,34 +341,39 @@ class AuthController extends Controller
       $workHourProvider->provider_id = $id;
       $workHourProvider->save();
     }
-    return response()->json(["provider"=>Provider::where('id',$id)->with('workHour')->get()],200);
+    return response()->json(["provider" => Provider::where('id', $id)->with('workHour')->get()], 200);
   }
 
-  public function changeProviderbrandTypes(Request $request){
-    $data=$request->validate([
-      'brandType'=>'required|exists:brand_types,id'
+  public function changeProviderbrandTypes(Request $request)
+  {
+    $data = $request->validate([
+      'brandType' => 'required|exists:brand_types,id'
     ]);
     $id = Auth::user()->id;
     $provider = Provider::find($id);
     $name = Auth::user()->enginner_name;
     $provider->brandTypes()->sync(BrandType::find($data['brandType']));
-    return response()->json(["provider"=>Provider::where('id',$id)->with('brandTypes')->get()],200);
-  
+    return response()->json(["provider" => Provider::where('id', $id)->with('brandTypes')->get()], 200);
   }
 
-  public function changeProviderAddress(Request $request){
-   $request->validate([
-    'city_id'=>'exists:cities,id',
-    'lat'=>'numeric|required_with:city_id',
-    'long'=>'numeric|required_with:city_id',
-    'address'=>'max:255'
-   ]);
-   $id = Auth::user()->id;
-   $providerAddress = providerAddress::where('provider_id',$id)->first();
-   $name = Auth::user()->enginner_name;
-   $providerAddress->update($request->all());
-   return response()->json(["provider"=>Provider::where('id',$id)->with('address.city')->get()],200);
-
-
+  public function changeProviderAddress(Request $request)
+  {
+    $request->validate([
+      'city_id' => 'exists:cities,id',
+      'lat' => 'numeric|required_with:city_id',
+      'long' => 'numeric|required_with:city_id',
+      'address' => 'max:255'
+    ]);
+    $id = Auth::user()->id;
+    $providerAddress = providerAddress::where('provider_id', $id)->first();
+    $name = Auth::user()->enginner_name;
+    $providerAddress->update($request->all());
+    return response()->json(["provider" => Provider::where('id', $id)->with('address.city')->get()], 200);
   }
+
+
+  // public function providerBrandTypes(){
+
+  // }
+
 }

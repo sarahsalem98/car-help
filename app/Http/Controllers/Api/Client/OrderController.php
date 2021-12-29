@@ -33,9 +33,9 @@ class OrderController extends Controller
     //1->private,
     //2->products
 
-   
 
-   
+
+
 
 
 
@@ -47,7 +47,7 @@ class OrderController extends Controller
             $order = new Order;
             $order->fill($validateData);
             $order->client_id = Auth::user()->id;
-            $name=Auth::user()->name;
+            $name = Auth::user()->name;
             if ($request->hasfile('images')) {
 
                 foreach ($request->file('images') as $image) {
@@ -62,15 +62,15 @@ class OrderController extends Controller
                 'message' => 'order was created successfully',
                 'order' => $order
             ], 201);
-            
-            SendNotificationController::sendNotification($request
-            ,0
-            ,$order->id
-            ,$order->order_type
-            ,' طلب جديد',
-        "{$name}لديك طلب جديد من ");
-            
-            
+
+            SendNotificationController::sendNotification(
+                $request,
+                0,
+                $order->id,
+                $order->order_type,
+                ' طلب جديد',
+                "{$name}لديك طلب جديد من "
+            );
         } else {
             return response()->json(['errors' => 'this order type is not public or private '], 400);
         }
@@ -96,10 +96,10 @@ class OrderController extends Controller
                         'total_price' => $cart->total_price
                     ]);
 
-                    $product=Product::find($cart->product_id);
-                    $product->qty=($product->qty)-($cart->qty);
-                    if($product->qty==0){
-                        //اشعار
+                    $product = Product::find($cart->product_id);
+                    $product->qty = ($product->qty) - ($cart->qty);
+                    if ($product->qty == 0) {
+                      //TODO:notify
                     }
                     $product->save();
                     $cart->delete();
@@ -107,10 +107,10 @@ class OrderController extends Controller
 
                 return response()->json([
                     'message' => 'product order has been made succefully',
-                    'order' => $order->where('id', $order->id)->with('product')->get()
+                    'order' => $order->with('product')->get()
                 ], 201);
-            }else{
-                return response()->json(['errors'=>'this order type is not product order'],400);
+            } else {
+                return response()->json(['errors' => 'this order type is not product order'], 400);
             }
         } else {
             return response()->json(['errors' => 'cart is empty'], 204);
@@ -122,7 +122,7 @@ class OrderController extends Controller
     public function showPublicOrders()
     {
         $id = Auth::user()->id;
-        $orders = Order::where('order_type', 0)->where('client_id', $id)->with('client.city','car')->get();
+        $orders = Order::where('order_type', 0)->where('client_id', $id)->with('client.city', 'car')->get();
         if ($orders) {
 
             return response()->json(['orders' => $orders], 200);
@@ -134,7 +134,7 @@ class OrderController extends Controller
     public function showPrivateOrders()
     {
         $id = Auth::user()->id;
-        $orders = Order::where('order_type',1)->where('client_id', $id)->with('client.city','car')->get();
+        $orders = Order::where('order_type', 1)->where('client_id', $id)->with('client.city', 'car')->get();
         if ($orders) {
 
             return response()->json(['orders' => $orders], 200);
@@ -146,7 +146,7 @@ class OrderController extends Controller
 
     public function showSpecificPublicOrPrivateOrder($order_id)
     {
-        $order = Order::where('id', $order_id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason','car')->get();
+        $order = Order::where('id', $order_id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason', 'car')->get();
         return response()->json(["order" => $order], 200);
     }
 
@@ -181,13 +181,13 @@ class OrderController extends Controller
             'order_id' => 'required',
             'cancel_id' => 'required',
         ]);
-     
+
         $order = Order::find($data['order_id']);
         if ($order->status == 0) {
             $cancel = new ClientCancellation;
             $cancel->order_id = $data['order_id'];
             $cancel->client_id = Auth::user()->id;
-            $cancel->cancel_id =$data['cancel_id'];
+            $cancel->cancel_id = $data['cancel_id'];
             $cancel->save();
             $order->status = $this->publicPrivateOrderStatus[2];
             $order->save();
@@ -199,10 +199,10 @@ class OrderController extends Controller
         //دفع
 
     }
-    public function allOrders(){
-        $id=Auth::user()->id;
-        $orders = Order::where('client_id',$id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason','car')->get();
-        return response()->json(['orders'=>$orders]);
-
+    public function allOrders()
+    {
+        $id = Auth::user()->id;
+        $orders = Order::where('client_id', $id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason', 'car')->get();
+        return response()->json(['orders' => $orders]);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Provider;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProduct;
+use App\Models\Category;
 use App\Models\Product;
 use App\Models\Provider;
 use Illuminate\Http\Request;
@@ -23,8 +24,10 @@ class ProductController extends Controller
         $id=Auth::user()->id;
         $name=Provider::find($id)->enginner_name;
 
-        return response()->json(["products"=>
-                                Product::where('provider_id',$id)->with('category')->get() 
+       return response()->json(["categories"=>
+                                Category::with('products.provider')->get() 
+        // return response()->json(["products"=>
+        //                         Product::where('provider_id',$id)->with('category')->get() 
     ],200);
 //  return   DB::table('products')
 //  ->join('categories', 'products.category_id', '=', 'categories.id')

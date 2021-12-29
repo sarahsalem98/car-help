@@ -7,17 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> car help</title>
     <link rel="shortcut icon" href="{{asset('websit/image/logo.png')}}" type="image/png" sizes="16x16">
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDom8oB1eXHRDsIjr3BVGMMTHP3dWmXZMg&libraries=places"></script>
     <link href="{{asset('website/css/animate.min.css')}}" rel="stylesheet" />
     <link href="{{asset('website/css/hover.css')}}" rel="stylesheet">
     <link href="{{asset('website/css/slick.css')}}" rel="stylesheet">
     <link href="{{asset('website/fonts/flaticon.css')}}" rel="stylesheet">
     <link href="{{asset('website/css/intlTelInput.min.css')}}" rel="stylesheet">
+    <link href="{{asset('website/css/dropzone.min.css')}}" rel="stylesheet">
     <link href="{{asset('website/css/nice-select.css')}}" rel="stylesheet">
+    <link href="{{asset('website/css/new.css')}}" rel="stylesheet">
 
     <link href="{{asset('website/css/bootstrap-3.min.css')}}" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://use.fontawesome.com/d10920a460.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 
     @if(app()->getLocale()=='ar')
     <link href="{{asset('website/css/bootstrap-3-rtl.min.css')}}" rel="stylesheet">
@@ -302,6 +305,12 @@
     @yield('provider.services.update')
     @yield('provider.brands.update')
     @yield('provider.order.public.private')
+    @yield('provider.order.product')
+    @yield('provider.order.product.show')
+    @yield('provider.order.product.now.show')
+    @yield('provider.order.product.complete.show')
+    @yield('provider.product.index')
+    @yield('provider.product.store')
     @yield('client.register')
     @yield('verify')
     @yield('client.login')
@@ -316,6 +325,8 @@
     @yield('subCategories.show.provider')
     @yield('subCategories.show.product')
     @yield('client.favourite.providers')
+    @yield('client.public.order')
+    @yield('client.cart')
     <!--start top section-->
 
     <!--Start footer -->
@@ -449,6 +460,7 @@
 
     <script src="{{asset('website/js/jquery-3.2.1.min.js')}}"></script>
     <script src="{{asset('website/js/slick.js')}}"></script>
+    <script src="{{asset('website/js/dropzone.min.js')}}"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.7.3/lottie.min.js" integrity="sha512-35O/v2b9y+gtxy3HK+G3Ah60g1hGfrxv67nL6CJ/T56easDKE2TAukzxW+/WOLqyGE7cBg0FR2KhiTJYs+FKrw==" crossorigin="anonymous"></script>
     <script src="{{asset('website/js/intlTelInput.min.js')}}"></script>
@@ -484,12 +496,12 @@
             document.getElementById('country_code_get').value = data;
         });
     </script>
-   
-   
+
+
     @stack('script')
     @stack('map')
     @stack('modal')
- 
+
 
 </body>
 

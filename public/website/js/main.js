@@ -71,7 +71,7 @@ $(function() {
         renderer: 'svg',
         loop: true,
         autoplay: true,
-        path: 'js/car-1.json'
+        path: 'car-1.json'
     });
 
     $('.loader-container').fadeOut();

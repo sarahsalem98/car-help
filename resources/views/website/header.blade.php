@@ -54,7 +54,7 @@
         </nav>
         <div class="mobile_wrapper_nav d-flex justify-content-between align-items-center">
             @if(Auth::guard('clientWeb')->check())
-            <a href="general_order.html" class="btn general_order_btn moving_bk d_mob_none"> <i class="fa fa-plus"></i> طلب عام</a>
+            <a href="{{route('public.order')}}" class="btn general_order_btn moving_bk d_mob_none"> <i class="fa fa-plus"></i> طلب عام</a>
             @endif
             <button class="btn toggle-dark-mode ">
                 <span class="trans"><i class="fa fa-lightbulb-o"></i></span>
@@ -66,7 +66,7 @@
                     <i class="fa @if(Route::current()->getName() == 'client.favourite.providers.show')fa-heart @else fa-heart-o @endif"></i>
                 </a>
               
-                <a href="cart.html" class="social-link rel_icon">
+                <a href="{{route('client.car.show')}}" class="social-link rel_icon">
                     <span class="noti_num">3</span>
                     <img src="{{asset('website/image/shopping-cart.png')}}" alt="">
                 </a>

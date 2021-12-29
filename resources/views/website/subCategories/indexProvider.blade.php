@@ -5,7 +5,7 @@
 <div class="inner_pages_top">
     <h3 class="inner-pages-title">{{$mainCategory->name}} </h3>
     <ol class="breadcrumb">
-        <li><a href="index.html"> <i class="flaticon-home"></i> الرئيسية</a></li>
+        <li><a href="{{route('main')}}"> <i class="flaticon-home"></i> الرئيسية</a></li>
         <li class="active"> {{$mainCategory->name}}</li>
     </ol>
 </div>

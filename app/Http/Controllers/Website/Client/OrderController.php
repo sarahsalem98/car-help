@@ -76,4 +76,11 @@ class OrderController extends Controller
         return response()->json(['status' => true, 'result' => 'Success']);
 
     }
+    public function publicOrder(){
+       return view('website.client.publicOrder'); 
+    }
+
+    public function makePublicOrder(){
+
+    }
 }

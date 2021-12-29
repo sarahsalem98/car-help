@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="form-group col-xs-12">
                     <label for="yourName">المدينة</label>
-                    <select name="country" id="country" class="form-control">
+                    <select name="city_id" id="country" class="form-control">
                         <option value="" selected>الرجاء ادخال المدينة</option>
                         @foreach($cities as $city)
                         @if(app()->getLocale()=='ar')
@@ -30,11 +30,21 @@
                     </select>
                 </div>
                 <div class="form-group col-xs-12">
-                    <label for="country">المدينة</label>
-                    <input type="text" class="form-control mb-3" id="country" placeholder="الرجاء ادخال المدينة">
+                    <label for="country"> العنوان الاقرب</label>
+                    <input type="text" class="form-control mb-3" name="address" id="address" placeholder="الرجاء ادخال المدينة">
                     <i class="fa fa-map-marker map_icon"></i>
                 </div>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsGwp19k_0lr31Hnyos-OPLdJ9FwTO6k4&callback=initMap">google.maps.event.addDomListener(window,'load', initMap);</script>                <div id="map"></div>
+
+                <input type="text" name="provider_id" value={{$provider_id}}>
+                lat
+                <input type="text" name="lat" id="lat" value="76">
+                <input type="text" name="long" id="long" value="85">
+                long
+
+
+                </script>
+
+                <div id="map"></div>
 
 
                 <button type="submit" class="btn main_btn moving_bk submit_btn">تأكيد</button>
@@ -44,13 +54,47 @@
 </div>
 @push('map')
 <script>
-    map = new google.maps.Map(document.getElementById('map'), {
+
+
+map = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: -34.397,
-            lng: 150.644
+            lat: 30,
+            lng: 30
         },
-        zoom: 11
+        zoom: 5
     });
+    
+    var marker = new google.maps.Marker({
+        position: {
+            lat: 30,
+            lng: 30
+        },
+        map: map,
+        draggable: true
+    });
+var searchBox=new google.maps.places.SearchBox(document.getElementById('address'));
+google.maps.event.addListener(searchBox,'places_changed' ,function(){
+     var places=searchBox.getPlaces();
+     var bounds=new google.maps.LatLngBounds();
+     var i,place;
+     for(i=0;place=places[i];i++){
+         bounds.extend(place.geometry.location);
+         marker.setPosition(place.geometry.location);
+     }
+     map.fitBounds(bounds);
+     map.setZoom(15);
+});
+google.maps.event.addListener(marker,'position_changed',function(){
+    var lat=marker.getPosition().lat();
+    var lng=marker.getPosition().lng();
+    $('#lat').val(lat);
+    $('#long').val(lng);
+});
+ // now it IS a function and it is in global
+
+
+
+    
 </script>
 
 

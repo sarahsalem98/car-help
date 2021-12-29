@@ -22,7 +22,7 @@ class CartController extends Controller
   public function cart(){
       $id=Auth::user()->id;
       $name=Auth::user()->name;
-    //   $message[]='';
+     $message=array();
       $carts=Cart::where('client_id',$id)->get();
     //   if (!$carts->isEmpty()) {
           foreach($carts as $cart){
@@ -30,7 +30,8 @@ class CartController extends Controller
               if($cart->qty>$product->qty){
                
                 $message[]= (array ("message"=>"product {$product->name} qty should not be more than the stock ",
-                                   "product_id"=>$product->id ) );
+                                   "product_id"=>$product->id,
+                                   "provider_id"=>$product->provider_id  ) );
                 $cart->qty=$product->qty;
                 $cart->save();
               }else{
@@ -72,12 +73,13 @@ class CartController extends Controller
                         "total_price" => $product->price_after_discount * $data['qty']
                     ]);
                     return response()->json([
-                        "product" => $cart,
-                        "cart" => Cart::where('client_id', $id)->get()
+                        "cart" => Cart::where('client_id',$id)->with('product.provider')->get()
                     ], 201);
                 } else {
                     $cart->delete();
-                    return response()->json(['message' => 'product is deleted successfully'], 200);
+                    return response()->json(['message' => 'product is deleted successfully',
+                    "cart" => Cart::where('client_id',$id)->with('product.provider')->get()
+                ], 200);
                 }
             } else {
                 $newCart = new Cart;
@@ -89,7 +91,7 @@ class CartController extends Controller
     
                 return response()->json([
                     "message" => "this product has been added successfully to {$name} cart ",
-                    "cart" => Cart::where('client_id', $id)->get()
+                    "cart" => Cart::where('client_id',$id)->with('product.provider')->get()
                 ], 201);
             }
         }else{

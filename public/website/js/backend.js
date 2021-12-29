@@ -99,3 +99,63 @@ $("#form_car_order").on("submit", function(event) {
         }
     });
 })
+
+$("#cancel_form").on("submit", function(event) {
+
+
+    event.preventDefault();
+
+    console.log(new FormData(this));
+    $.ajax({
+
+        type: "POST",
+        url: "/provider/service/send/cancel/reasons",
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        data: new FormData(this),
+        success: function(result) {
+            console.log('dfs');
+            setTimeout(function() { // wait for 5 secs(2)
+                window.location.href = "/provider/services"; // then reload the page.(3)
+            }, 5000);
+            $('#cancelModal').modal("hide");
+            $('#confirmModal').modal("show");
+            $('#price_form').trigger("reset");
+            // previewImages();
+        },
+        error: function(result) {
+            console.log('df555555s');
+            alert(result.responseJSON.errors.details);
+        }
+    });
+})
+
+
+$("#complete_form").on("submit", function(event) {
+
+
+    event.preventDefault();
+
+    console.log(new FormData(this));
+    $.ajax({
+
+        type: "POST",
+        url: "/provider/complete/service",
+        processData: false,
+        contentType: false,
+        enctype: 'multipart/form-data',
+        data: new FormData(this),
+        success: function(result) {
+            console.log('dfs');
+            setTimeout(function() { // wait for 5 secs(2)
+                window.location.href = "/provider/services"; // then reload the page.(3)
+            }, 5000);
+            $('#completModal').modal("show");
+        },
+        error: function(result) {
+            console.log('df555555s');
+            alert(result.responseJSON.errors.details);
+        }
+    });
+})

@@ -69,6 +69,55 @@
         <span>{{round($provider->rate,1)}}</span>
     </div>
     <div class="add_fav">
-        <button class="fa @if(Route::current()->getName() == 'client.favourite.providers.show')fa-heart @else fa-heart-o @endif add_fav_btn"></button>
+        @if(Route::current()->getName() == 'client.favourite.providers.show' )
+          @if(Auth::user()->hasFavouriteProviders($provider->id))
+
+        <form action="{{route('client.favourite.providers.show.post',
+            ['mainService_id'=>$provider->pivot->mainService_id
+            ,'providerId'=>$provider->id
+            ,'add'=> 0
+            ])}}" method="POST">
+            @csrf
+
+            <button type="submit" class="fa @if(Auth::user()->hasFavouriteProviders($provider->id)) fa-heart @else fa-heart-o @endif  add_fav_btn"></button>
+        </form>
+          @else
+          <form action="{{route('client.favourite.providers.show.post',
+            ['mainService_id'=>$provider->pivot->mainService_id
+            ,'providerId'=>$provider->id
+            ,'add'=> 1
+            ])}}" method="POST">
+            @csrf
+
+            <button type="submit" class="fa @if(Auth::user()->hasFavouriteProviders($provider->id)) fa-heart @else fa-heart-o @endif  add_fav_btn"></button>
+        </form>
+          @endif 
+
+        @else
+        @if(Auth::user()->hasFavouriteProviders($provider->id))
+
+        <form action="{{route('client.favourite.providers.show.post',
+            ['mainService_id'=>$mainCategory->id
+            ,'providerId'=>$provider->id
+            ,'add'=>0
+            ])}}" method="POST">
+           @csrf
+            <button type=submit class="fa @if(Auth::user()->hasFavouriteProviders($provider->id)) fa-heart @else fa-heart-o @endif  add_fav_btn"></button>
+        </form>
+        @else
+
+        <form action="{{route('client.favourite.providers.show.post',
+            ['mainService_id'=>$mainCategory->id
+            ,'providerId'=>$provider->id
+            ,'add'=>1
+            ])}}" method="POST">
+         @csrf
+            <button type=submit class="fa @if(Auth::user()->hasFavouriteProviders($provider->id)) fa-heart @else fa-heart-o @endif  add_fav_btn"></button>
+        </form>
+
+        @endif
+        @endif
+
+
     </div>
 </div>

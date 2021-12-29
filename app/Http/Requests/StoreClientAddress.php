@@ -27,7 +27,10 @@ class StoreClientAddress extends FormRequest
         return [
             'lat'=>'required',
             'long'=>'required',
-            'address'=>'max:255'
+            'address'=>'max:255',
+            'notes'=>'required',
+            'phone_number'=>'required',
+            'name'=>'required'
         ];
     }
 }

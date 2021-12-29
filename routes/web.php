@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\MainController;
 use App\Http\Controllers\Dashboard\ProviderController;
 use App\Http\Controllers\Dashboard\SubMainController;
 use App\Http\Controllers\Website\Client\Profile\CarController;
+use App\Http\Controllers\Website\Provider\ProductController;
 use App\Http\Livewire\Admin\Main;
 use App\Http\Livewire\Admin\Provider as AdminProvider;
 use App\Models\Provider;
@@ -58,6 +59,7 @@ Route::get('/', 'App\Http\Controllers\website\MainController@getMainPage')->name
 Route::get('about/us','App\Http\Controllers\website\MainController@getWhoWeArePage')->name('about.us');
 Route::get('/categories','App\Http\Controllers\website\MainController@getCategoryPage')->name('categories');
 Route::get('contact/us','App\Http\Controllers\website\MainController@getContactUsPage')->name('contact.us');
+Route::post('contact/us','App\Http\Controllers\website\MainController@storeContactUs')->name('contact.us.post');
 
 Route::prefix('provider')->group(function () {
     Route::get('logout','App\Http\Controllers\website\Provider\Auth\LoginController@logout')->name('provider.logout');
@@ -86,6 +88,7 @@ Route::prefix('provider')->group(function () {
 
         Route::get('profile/update','App\Http\Controllers\website\Provider\ProfileController@updateProfilePage')->name('provider.profile.update');
         Route::post('profile/update','App\Http\Controllers\website\Provider\ProfileController@updateProfile')->name('provider.profile.update.post');
+        Route::post('work/hours/update','App\Http\Controllers\website\Provider\ProfileController@updateWorkHours')->name('provider.work.hour.update.post');
 
         Route::get('password/update','App\Http\Controllers\website\Provider\ProfileController@updatePasswordPage')->name('provider.password.update');
         Route::post('password/update','App\Http\Controllers\website\Provider\ProfileController@updatePassword')->name('provider.password.update.post');
@@ -97,6 +100,20 @@ Route::prefix('provider')->group(function () {
         Route::post('brand/types/update','App\Http\Controllers\website\Provider\ProfileController@updateBrands')->name('provider.brands.update.post');
 
         Route::get('services','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicePrivateOrders')->name('provider.services');
+        Route::get('new/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateNewOrder')->name('provider.service.show');
+        Route::get('now/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateNowOrder')->name('provider.service.now.show');
+        Route::get('complete/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateCompleteOrder')->name('provider.service.complete.show');
+
+        
+        
+        Route::post('complete/service','App\Http\Controllers\website\Provider\Order\PublicPrivateController@acceptService')->name('provider.complete,service');
+        Route::post('servic/send/price','App\Http\Controllers\website\Provider\Order\PublicPrivateController@sendPrice')->name('provider.price.send');
+        Route::post('service/send/cancel/reasons','App\Http\Controllers\website\Provider\Order\PublicPrivateController@sendCancelReasons')->name('provider.cancellation.reasons.post');
+
+        Route::get('orders','App\Http\Controllers\website\Provider\Order\ProductController@showProducteOrders')->name('provider.orders');
+        //products
+
+        Route::resource('yield',ProductController::class);
 
     });
 });
@@ -137,10 +154,18 @@ Route::prefix('client')->group(function () {
      Route::post('order','App\Http\Controllers\website\Client\OrderController@makeOrder')->name('public.private.order.post');
      Route::post('car/order','App\Http\Controllers\website\Client\OrderController@makeOrderCar')->name('public.private.car.order.post');
 
+     Route::get('public/order','App\Http\Controllers\website\Client\OrderController@publicOrder')->name('public.order');
+     Route::post('public/order','App\Http\Controllers\website\Client\OrderController@makePublicOrder')->name('public.order.post');
+
+     //cart
+     Route::get('cart','App\Http\Controllers\website\Client\CartController@showCart')->name('client.car.show');
+
+
      //product
      Route::get('product/{mainCategory_id}/{provider_id}/{product_id}','App\Http\Controllers\website\Client\ProductController@showProduct')->name('client.product.show');
      //favouriteProviders
      Route::get('favourite/providers','App\Http\Controllers\website\Client\ProviderController@showFavouriteProviders')->name('client.favourite.providers.show');
+     Route::post('favourite/providers/{mainService_id}/{providerId}/{add}','App\Http\Controllers\website\Client\ProviderController@addProviderToFavourites')->name('client.favourite.providers.show.post');
 
 
     });

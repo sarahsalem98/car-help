@@ -10,7 +10,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $table = 'orders';
-    protected $hidden=['pivot'];
+    protected $hidden = ['pivot'];
     protected $fillable = [
         'provider_id',
         'address_id',
@@ -20,7 +20,8 @@ class Order extends Model
         'details',
         'images'
     ];
-    public function car(){
+    public function car()
+    {
         return $this->belongsTo(Car::class);
     }
 
@@ -40,24 +41,44 @@ class Order extends Model
     {
         return $this->hasOne(ClientCancellation::class, 'cancel_id', 'id');
     }
-    public function providerCancel(){
+    public function providerCancel()
+    {
         return $this->hasOne(ProviderCancellation::class, 'cancel_id', 'id');
+    }
+    public function firstImageUrl()
+    {
+        if ($this->images == null) {
 
+            return null;
+        } else {
+
+            $image = json_decode($this->images)[0];
+            return Storage::url($image);
+        }
     }
-    public function firstImageUrl(){
-        $image= json_decode( $this->images)[0];
-         return Storage::url( $image);
-    }
-    public function product(){
+    public function product()
+    {
         return $this
-        ->belongsToMany(Product::class,'product_orders','order_id','product_id')
-        ->withPivot('product_id','order_id','qty','total_price')
-        ->withTimestamps();
+            ->belongsToMany(Product::class, 'product_orders', 'order_id', 'product_id')
+            ->withPivot('product_id', 'order_id', 'qty', 'total_price')
+            ->withTimestamps();
     }
-    public function address(){
-        return $this->belongsTo(ClientsAddress::class,'address_id','id');
+    public function address()
+    {
+        return $this->belongsTo(ClientsAddress::class, 'address_id', 'id');
     }
-    public function comment(){
-       return $this->hasOne(CommentAndRate::class);
+    public function comment()
+    {
+        return $this->hasOne(CommentAndRate::class);
+    }
+    public function providerHasPrice($provider_id)
+    {
+
+        return $this->price->contains($provider_id);
+    }
+    public function providerHasCanceled($provider_id)
+    {
+
+        return $this->hasOne->contains($provider_id);
     }
 }
