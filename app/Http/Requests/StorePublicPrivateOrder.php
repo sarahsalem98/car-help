@@ -29,11 +29,12 @@ class StorePublicPrivateOrder extends FormRequest
     {
         return [
             'provider_id'=>'exists:providers,id',
+            'address_id'=>'string|exists:clients_addresses,id',
             'car_id'=>'required|exists:cars,id',
             'details'=>'required',
              'images'=>'required',
             'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg',
-            'order_type'=>['required','numeric',Rule::in(['0','1','2']) ]
+            'order_type'=>['required','numeric',Rule::in(['0','1']) ]
 
         ];
     }

@@ -109,7 +109,7 @@
                             @foreach($public_private_orders as $public_private_order)
                             @if($public_private_order->status==5)
                             <div class="media">
-                                <a href="order_details_completed.html" class="product-img">
+                                <a href="{{route('provider.service.cancel.show',['service_id'=>$public_private_order->id])}}" class="product-img">
                                 @if($public_private_order->firstImageUrl()==null)
                                     <img src="{{asset('website/image/box.png')}}">
                                     @else
@@ -118,7 +118,7 @@
                                     
                                 </a>
                                 <div class="media-body">
-                                    <a href="order_details_completed.html">
+                                    <a href="{{route('provider.service.cancel.show',['service_id'=>$public_private_order->id])}}">
                                         <h5 class="product-title"> {{$public_private_order->client->name}} </h5>
                                     </a>
                                     <p class="order-number">رقم الطلب :{{$public_private_order->id}} </p>

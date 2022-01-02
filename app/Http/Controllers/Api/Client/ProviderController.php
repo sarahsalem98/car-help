@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Client;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\SendNotificationController;
 use App\Http\Requests\StoreCommentForProvider;
 use App\Models\Category;
 use App\Models\Client;
@@ -94,6 +95,7 @@ class ProviderController extends Controller
 
     public function addCommentToProvider(StoreCommentForProvider $request)
     {
+        $auth=Auth::user()->name;
         $validatedData = $request->validated();
         $comment = new CommentAndRate;
         $comment->fill($validatedData);
@@ -106,6 +108,17 @@ class ProviderController extends Controller
         $order = Order::find($validatedData['order_id']);
         $order->status = 4;
         $order->save();
+
+        SendNotificationController::sendNotification(
+            $order->provider_id,
+            0,
+            $order->id,
+            $order->order_type,
+            ' لديك تعليق',
+            "قام {$auth} بالتعليق على الخدمة الخاصة بك رقم {$order->id}",
+            "you have new comment",
+            "{$auth} commeted on your service {$order->id}"
+        );
         return response()->json(['message' => 'comment is added succfully for this provider and provider rate was updated and order status is completed'], 201);
     }
 

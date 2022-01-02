@@ -31,7 +31,7 @@ class StoreProduct extends FormRequest
         'price'=>'required|numeric',
         'price_after_discount'=>'required|numeric',
         'qty'=>'required|numeric',
-        'images'=>'required',
+        // 'images'=>'required',
         'images.*'=>'image|mimes:jpeg,png,jpg,gif,svg'
         ];
     }

@@ -60,14 +60,9 @@ class ProductController extends Controller
 
 
         $product->images = json_encode($data);
- 
-
         $product->save();
 
-        return response()->json([
-            'message' => 'product was added succefully',
-            'the added product' => $product
-        ], 201);
+        return redirect()->route('yield.index');
     }
 
     /**
@@ -101,6 +96,7 @@ class ProductController extends Controller
         if($product){
             $validatedData=$request->validated();    
             $product->fill($validatedData);
+            $data=json_decode($product->images);
             if ($request->hasFile('images')) {
                 $images=json_decode($product->images);
                 foreach ($images as $image) {

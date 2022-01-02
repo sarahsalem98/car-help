@@ -102,7 +102,10 @@ Route::prefix('provider')->group(function () {
         Route::get('services','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicePrivateOrders')->name('provider.services');
         Route::get('new/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateNewOrder')->name('provider.service.show');
         Route::get('now/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateNowOrder')->name('provider.service.now.show');
-        Route::get('complete/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateCompleteOrder')->name('provider.service.complete.show');
+        Route::get('completed/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateCompleteOrder')->name('provider.service.complete.show');
+        Route::get('canceled/service/{service_id}','App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateCancelOrder')->name('provider.service.cancel.show');
+
+      
 
         
         
@@ -111,6 +114,17 @@ Route::prefix('provider')->group(function () {
         Route::post('service/send/cancel/reasons','App\Http\Controllers\website\Provider\Order\PublicPrivateController@sendCancelReasons')->name('provider.cancellation.reasons.post');
 
         Route::get('orders','App\Http\Controllers\website\Provider\Order\ProductController@showProducteOrders')->name('provider.orders');
+        Route::get('new/order/{order_id}','App\Http\Controllers\website\Provider\Order\ProductController@showProductNewOrder')->name('provider.order.new.show');
+        Route::get('accepted/order/{order_id}','App\Http\Controllers\website\Provider\Order\ProductController@showIsAccepted')->name('provider.order.is.accepted.show');
+        Route::post('accepted/order/{order_id}','App\Http\Controllers\website\Provider\Order\ProductController@acceptOrder')->name('provider.order.is.accepted.show.post');
+
+        Route::get('prepared/order/{order_id}','App\Http\Controllers\website\Provider\Order\ProductController@showIsPrepared')->name('provider.order.is.prepared.show');
+        Route::post('prepared/order/{order_id}','App\Http\Controllers\website\Provider\Order\ProductController@prepareOrder')->name('provider.order.is.prepared.show.post');
+
+        Route::post('deliverd/order','App\Http\Controllers\website\Provider\Order\ProductController@delivereOrder')->name('provider.order.is.delivered.show.post');
+
+        Route::get('completed/order/{order_id}','App\Http\Controllers\website\Provider\Order\ProductController@showComplete')->name('provider.order.is.complete.show');
+       Route::get('canceled/order/{order_id}','App\Http\Controllers\website\Provider\Order\ProductController@showCancel')->name('provider.order.is.canceled.show');
         //products
 
         Route::resource('yield',ProductController::class);

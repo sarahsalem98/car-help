@@ -23,7 +23,7 @@
                             </div>
                             <div class="col-xs-12 col-sm-4 form-group">
                                 <select id="choose_cat" class="form-control nice-select">
-                                    <option value="1">اختر القسم</option>
+                                    <option value="">اختر القسم</option>
                                     @foreach($subCategories as $subCategory)
                                     <option value="{{$subCategory->id}}"> {{$subCategory->name}}</option>
                                     @endforeach

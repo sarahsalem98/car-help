@@ -40,9 +40,10 @@ class PublicPrivateController extends Controller
             'order_id' => 'required',
             'cancel_id' => 'required',
         ]);
+        // dd($request);
      
         $order = Order::find($data['order_id']);
-        // if ($order->status == 0) {
+       if ($order->status == 0 && $order->provider_id==Auth::user()->id) {
             $cancel = new ProviderCancellation;
             $cancel->order_id = $data['order_id'];
             $cancel->provider_id = Auth::user()->id;
@@ -51,7 +52,10 @@ class PublicPrivateController extends Controller
             $order->status = $this->orderStatus[4];
             $order->save();
             return response()->json(['status' => true, 'result' => 'Success']);
-                
+       }else {
+        return response()->json(['result' => 'you are not allowed to perform this action']);
+
+       }     
       
     }
     public function showPublicPrivateNowOrder($servic_id){
@@ -71,5 +75,9 @@ class PublicPrivateController extends Controller
     $service=Order::find($servic_id);
     return view('website.provider.order.publicPrivate.completeShow',['service'=>$service,'rate'=>$rate]);
  
+    }
+    public function showPublicPrivateCancelOrder($servic_id){
+        $service=Order::find($servic_id);
+        return view('website.provider.order.publicPrivate.cancelShow',['service'=>$service]);
     }
 }

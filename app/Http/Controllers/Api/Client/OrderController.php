@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\Provider\ProductController;
 use App\Http\Controllers\SendNotificationController;
+use App\Models\Notification;
 
 class OrderController extends Controller
 {
@@ -47,7 +48,7 @@ class OrderController extends Controller
             $order = new Order;
             $order->fill($validateData);
             $order->client_id = Auth::user()->id;
-            $name = Auth::user()->name;
+            $auth = Auth::user()->name;
             if ($request->hasfile('images')) {
 
                 foreach ($request->file('images') as $image) {
@@ -57,20 +58,22 @@ class OrderController extends Controller
                 $order->images = json_encode($data);
             }
             $order->save();
-
+            SendNotificationController::sendNotification(
+                $validateData['provider_id'],
+                0,
+                $order->id,
+                $order->order_type,
+                ' طلب جديد',
+                "{$auth}لديك طلب جديد من ",
+                "new order",
+                " you have new order from {$auth}"
+            );
+        
             return response()->json([
                 'message' => 'order was created successfully',
                 'order' => $order
             ], 201);
 
-            SendNotificationController::sendNotification(
-                $request,
-                0,
-                $order->id,
-                $order->order_type,
-                ' طلب جديد',
-                "{$name}لديك طلب جديد من "
-            );
         } else {
             return response()->json(['errors' => 'this order type is not public or private '], 400);
         }
@@ -146,7 +149,7 @@ class OrderController extends Controller
 
     public function showSpecificPublicOrPrivateOrder($order_id)
     {
-        $order = Order::where('id', $order_id)->with('provider', 'client.address', 'price.provider', 'clientCancel.reason', 'car')->get();
+        $order = Order::where('id', $order_id)->with('car','provider','product', 'address', 'price.provider', 'comment','clientCancel.reason','providerCancel.reason')->get();
         return response()->json(["order" => $order], 200);
     }
 
@@ -154,6 +157,7 @@ class OrderController extends Controller
 
     public function acceptPrice($price_id, $order_id)
     {
+        $auth=Auth::user()->name;
         $price = OrderPrice::where('id', $price_id)->where('order_id', $order_id)->get()[0];
         $order = Order::find($order_id);
         OrderPrice::where('id', '!=', $price_id)->where('order_id', $order_id)->delete();
@@ -163,14 +167,35 @@ class OrderController extends Controller
         }
         $order->status = $this->publicPrivateOrderStatus[0];
         $order->save();
-        //الاشعارات
+        SendNotificationController::sendNotification(
+            $order->provider_id,
+            0,
+            $order->id,
+            $order->order_type,
+            'قبول عرض السعر',
+            "عرض سعرك على طلب رقم {$order->id} تم قبول من قبل {$auth}",
+            " price offer accepted",
+            " your price offer on order {$order->id} is accepted by {$auth} "
+        );
+        
         return response()->json(['message' => "this price is accepted and other prices for the same order is deleted"], 200);
     }
 
     public function refusePrice($price_id, $order_id)
     {
+        $order=Order::find($order_id);
+        $auth=Auth::user()->name;
         OrderPrice::where('id', $price_id)->where('order_id', $order_id)->delete();
-        //الاشعارات
+        SendNotificationController::sendNotification(
+            $order->provider_id,
+            0,
+            $order->id,
+            $order->order_type,
+            'رفض عرض السعر',
+            "عرض سعرك على طلب رقم {$order->id} تم رفض من قبل {$auth}",
+            " price offer canceled",
+            " your price offer on order {$order->id} is canceled by {$auth} "
+        );
         return response()->json(['message' => "this price is deleted"], 200);
     }
 
@@ -183,7 +208,7 @@ class OrderController extends Controller
         ]);
 
         $order = Order::find($data['order_id']);
-        if ($order->status == 0) {
+        if ($order->status == 0 && $order->client_id==Auth::user()->id) {
             $cancel = new ClientCancellation;
             $cancel->order_id = $data['order_id'];
             $cancel->client_id = Auth::user()->id;

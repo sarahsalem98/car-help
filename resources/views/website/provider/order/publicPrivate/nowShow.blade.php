@@ -1,5 +1,5 @@
 @extends('layouts.website')
-@section('provider.order.product.now.show')
+@section('provider.order.public.private.now.show')
 
 <div class="inner_pages_top">
     <h3 class="inner-pages-title">تفاصيل الطلب</h3>

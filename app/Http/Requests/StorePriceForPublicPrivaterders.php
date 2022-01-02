@@ -25,7 +25,7 @@ class StorePriceForPublicPrivaterders extends FormRequest
     public function rules()
     {
         return [
-            'provider_id'=>'required',
+            // 'provider_id'=>'required',
             'order_id'=>'required',
             'price'=>'required|numeric',
             'notes'=>'string',

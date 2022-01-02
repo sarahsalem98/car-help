@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website\Provider;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProduct;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Provider;
@@ -31,7 +32,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('website.provider.product.store');
+        $categories=Category::all();
+        return view('website.provider.product.store',['categories'=>$categories]);
     }
 
     /**
@@ -40,9 +42,29 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProduct $request)
     {
-        //
+     
+        $validatedData = $request->validated();
+        $product = new Product;
+        $product->fill($validatedData);
+        $product->provider_id = Auth::user()->id;
+
+        if ($request->hasfile('images')) {
+
+            foreach ($request->file('images') as $image) {
+                $name = $image->store('product_images');
+                $data[] = $name;
+            }
+        }
+
+
+        $product->images = json_encode($data);
+ 
+
+        $product->save();
+
+        return redirect()->route('yield.index');
     }
 
     /**
@@ -51,9 +73,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function show(Product $product)
+    public function show(Product $yield )
     {
-        //
+        return view('website.provider.product.show',['product'=>$yield]);
     }
 
     /**
@@ -62,9 +84,10 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function edit(Product $product)
-    {
-        //
+    public function edit(Product $yield)
+    { 
+        $categories=Category::all();
+        return view('website.provider.product.update',['product'=>$yield,'categories'=>$categories]);
     }
 
     /**
@@ -85,8 +108,9 @@ class ProductController extends Controller
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Product $product)
+    public function destroy(Product $yield)
     {
-        //
+        $yield->delete();
+        return redirect()->back()->with('message','this product os deleteted');
     }
 }

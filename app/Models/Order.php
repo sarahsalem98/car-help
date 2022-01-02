@@ -39,11 +39,11 @@ class Order extends Model
     }
     public function clientCancel()
     {
-        return $this->hasOne(ClientCancellation::class, 'cancel_id', 'id');
+        return $this->hasOne(ClientCancellation::class);
     }
     public function providerCancel()
     {
-        return $this->hasOne(ProviderCancellation::class, 'cancel_id', 'id');
+        return $this->hasOne(ProviderCancellation::class);
     }
     public function firstImageUrl()
     {
@@ -63,8 +63,16 @@ class Order extends Model
             ->withPivot('product_id', 'order_id', 'qty', 'total_price')
             ->withTimestamps();
     }
-    public function address()
+    public function setaAddress()
     {
+        if($this->address_id==null){
+            $this->address_id=1;
+        }
+     
+        return $this;
+    }
+    public function address(){
+
         return $this->belongsTo(ClientsAddress::class, 'address_id', 'id');
     }
     public function comment()

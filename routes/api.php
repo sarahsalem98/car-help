@@ -66,6 +66,8 @@ Route::middleware('checkLang')->group(function(){
 
             //mapProviders
             Route::post('near/providers','App\Http\Controllers\Api\Client\ProviderController@mapProviders');
+
+            Route::get('notifications','App\Http\Controllers\SendNotificationController@notificationApiClient');
         });
     });
     
@@ -107,6 +109,8 @@ Route::middleware('checkLang')->group(function(){
             Route::post('update/WorkHours', 'App\Http\Controllers\Api\Provider\AuthController@changeProviderWorkHours');
             Route::post('update/BrandTypes', 'App\Http\Controllers\Api\Provider\AuthController@changeProviderbrandTypes');
             Route::post('update/Address', 'App\Http\Controllers\Api\Provider\AuthController@changeProviderAddress');
+
+            Route::get('notifications','App\Http\Controllers\SendNotificationController@notificationApiProvider');
         });
     });
 //more
