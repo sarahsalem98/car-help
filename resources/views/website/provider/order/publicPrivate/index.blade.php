@@ -8,27 +8,27 @@
         <div class="row">
             @include('website.provider.layout.profileMenu')
             <div class="col-xs-12 col-sm-8 profile_content">
-                <h3 class="sections-title b-0 mb-15">خدماتي</h3>
+                <h3 class="sections-title b-0 mb-15">{{__('my services')}}</h3>
                 <div class="products_wrapper tab-pane fade in active" role="tabpanel" id="products_wrapper">
                     <ul class="nav nav-pills products-pills">
                         <li class="nav-item active">
                             <a class="nav-link" href="#product_one" data-toggle="tab">
-                                طلبات جديدة
+                            {{__('new orders')}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#product_two" data-toggle="tab">
-                                طلبات قيد التنفيذ
+                            {{__('current orders')}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#product_three" data-toggle="tab">
-                                طلبات مكتملة
+                            {{__('completed orders')}}
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#product_four" data-toggle="tab">
-                                طلبات ملغاة
+                            {{__('cancelled orders')}}
                             </a>
                         </li>
                     </ul>
@@ -49,8 +49,8 @@
                                     <a href="{{route('provider.service.show',['service_id'=>$public_private_order->id])}}">
                                         <h5 class="product-title"> {{$public_private_order->client->name}}</h5>
                                     </a>
-                                    <p class="order-number">رقم الطلب : {{$public_private_order->id}}</p>
-                                    <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($public_private_order->created_at)}} دقائق</span>
+                                    <p class="order-number"> {{__('order number')}} : {{$public_private_order->id}}</p>
+                                    <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($public_private_order->created_at)}} {{__('minutes')}}</span>
                                 </div>
                             </div>
 
@@ -73,8 +73,8 @@
                                     <a href="{{route('provider.service.now.show',['service_id'=>$public_private_order->id])}}">
                                         <h5 class="product-title">{{$public_private_order->client->name}}</h5>
                                     </a>
-                                    <p class="order-number">رقم الطلب :{{$public_private_order->id}} </p>
-                                    <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($public_private_order->created_at)}} دقائق</span>
+                                    <p class="order-number"> {{__('order number')}} :{{$public_private_order->id}} </p>
+                                    <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($public_private_order->created_at)}} {{__('minutes')}}</span>
                                 </div>
                             </div>
                             @endif
@@ -98,8 +98,8 @@
                                     <a href="{{route('provider.service.complete.show',['service_id'=>$public_private_order->id])}}">
                                         <h5 class="product-title"> {{$public_private_order->client->name}} </h5>
                                     </a>
-                                    <p class="order-number">رقم الطلب :{{$public_private_order->id}} </p>
-                                    <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($public_private_order->created_at)}} دقائق</span>
+                                    <p class="order-number"> {{__('order number')}} :{{$public_private_order->id}} </p>
+                                    <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($public_private_order->created_at)}} {{__('minutes')}}</span>
                                 </div>
                             </div>
                             @endif
@@ -121,8 +121,8 @@
                                     <a href="{{route('provider.service.cancel.show',['service_id'=>$public_private_order->id])}}">
                                         <h5 class="product-title"> {{$public_private_order->client->name}} </h5>
                                     </a>
-                                    <p class="order-number">رقم الطلب :{{$public_private_order->id}} </p>
-                                    <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($public_private_order->created_at)}} دقائق</span>
+                                    <p class="order-number"> {{__('order number')}} :{{$public_private_order->id}} </p>
+                                    <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($public_private_order->created_at)}} {{__('minutes')}}</span>
                                 </div>
                             </div>
                             @endif

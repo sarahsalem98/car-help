@@ -55,6 +55,8 @@ class Handler extends ExceptionHandler
             return redirect()->guest('/provider/login');
         }
         if ($request->is('client') || $request->is('client/*')) {
+
+            // session()->flush();
             return redirect()->guest('/client/login');
         }
         return redirect()->guest(route('login'));

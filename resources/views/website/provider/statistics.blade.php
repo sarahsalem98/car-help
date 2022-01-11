@@ -15,7 +15,7 @@
                         </div>
                         <div class="stat_info">
                             <h5 class="stat_title">{{$new_orders_count}}</h5>
-                            <p class="stat_name">الطلبات الجديدة</p>
+                            <p class="stat_name">{{__('new orders')}}</p>
                         </div>
                     </div>
                     <div class="stat_media">
@@ -24,7 +24,7 @@
                         </div>
                         <div class="stat_info">
                             <h5 class="stat_title">{{$now_orders_count}}</h5>
-                            <p class="stat_name">الطلبات الحالية</p>
+                            <p class="stat_name"> {{__('current orders')}}</p>
                         </div>
                     </div>
                     <div class="stat_media">
@@ -33,7 +33,7 @@
                         </div>
                         <div class="stat_info">
                             <h5 class="stat_title">{{$finished_orders_count}}</h5>
-                            <p class="stat_name">الطلبات المكتملة</p>
+                            <p class="stat_name"> {{__('completed orders')}}</p>
                         </div>
                     </div>
                     <div class="stat_media">
@@ -42,7 +42,7 @@
                         </div>
                         <div class="stat_info">
                             <h5 class="stat_title">{{$canceled_orders_count}}</h5>
-                            <p class="stat_name">الطلبات الملغاة</p>
+                            <p class="stat_name"> {{__('cancelled orders')}}</p>
                         </div>
                     </div>
                     <div class="stat_media">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="stat_info">
                             <h5 class="stat_title">{{$provider_products}}</h5>
-                            <p class="stat_name">عدد المنتجات</p>
+                            <p class="stat_name">{{__('products quentity')}} </p>
                         </div>
                     </div>
 

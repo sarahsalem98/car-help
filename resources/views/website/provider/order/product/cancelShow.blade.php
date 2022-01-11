@@ -17,7 +17,11 @@
     <div class="container">
         <h5 class="sections-title b-0">تفاصيل الطلب</h5>
         <div class="order_details">
-            <h5 class="sections-title color_danger">سبب الالغاء</h5>
+        @if(empty($order->clientCancel->reason->name))
+            <h5 class="sections-title color_danger"> سبب الالغاء من قبل مقدم الخدمة</h5>
+            @else
+            <h5 class="sections-title color_danger"> سبب الالغاء من قبل العميل</h5>
+            @endif
             <div class="delete_body px-16 pb-16">
                 <p>{{empty($order->clientCancel->reason->name) ? $order->providerCancel->reason->name :$order->clientCancel->reason->name }}  </p>
             </div>

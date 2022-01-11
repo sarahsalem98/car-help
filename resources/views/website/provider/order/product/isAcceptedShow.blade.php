@@ -96,7 +96,7 @@
                     <button type="submit" class="btn deliver_order" href="order_details_provider_4.html">تم تجهيز الطلب</button>
 
                 </form>
-                    <a class="btn open_chat" href="chat.html"> <i class="fa fa-comments"></i> اجراء محادثة</a>
+                    <!-- <a class="btn open_chat" href="chat.html"> <i class="fa fa-comments"></i> اجراء محادثة</a> -->
               
             </div>
 

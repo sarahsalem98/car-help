@@ -13,7 +13,7 @@
             <input type="hidden" name="provider_id" value="{{$provider_id}}">
             <div class="provider_items">
                 <div class="provider_time_row">
-                    <input type="text" name="time[0][day]" value="{{__('sat')}}" class="day_input provider_input" placeholder="ادخل اليوم">
+                    <input type="text" name="time[0][day]" value="{{__('sat')}}" class="day_input provider_input" placeholder="ادخل اليوم" disabled>
                     <div class="time-form-group">
                         <input type="time" name="time[0][from]" class="time_input hidden_input">
                         <input type="text" class="time_input provider_input" placeholder="من">
@@ -40,7 +40,7 @@
 
 
                 <div class="provider_time_row">
-                    <input type="text" name="time[1][day]" value="{{__('sun')}}" class="day_input provider_input" placeholder="ادخل اليوم">
+                    <input type="text" name="time[1][day]" value="{{__('sun')}}" class="day_input provider_input" placeholder="ادخل اليوم" disabled>
                     <div class="time-form-group">
                         <input type="time" name="time[1][from]" class="time_input hidden_input">
                         <input type="text" class="time_input provider_input" placeholder="من">
@@ -66,7 +66,7 @@
 
 
                 <div class="provider_time_row">
-                    <input type="text" name="time[2][day]" value="{{__('mon')}}" class="day_input provider_input" placeholder="ادخل اليوم">
+                    <input type="text" name="time[2][day]" value="{{__('mon')}}" class="day_input provider_input" placeholder="ادخل اليوم" disabled>
                     <div class="time-form-group">
                         <input type="time" name="time[2][from]" class="time_input hidden_input">
                         <input type="text" class="time_input provider_input" placeholder="من">
@@ -93,7 +93,7 @@
 
 
                 <div class="provider_time_row">
-                    <input type="text" name="time[3][day]" value="{{__('tue')}}" class="day_input provider_input" placeholder="ادخل اليوم">
+                    <input type="text" name="time[3][day]" value="{{__('tue')}}" class="day_input provider_input" placeholder="ادخل اليوم" disabled>
                     <div class="time-form-group">
                         <input type="time" name="time[3][from]" class="time_input hidden_input">
                         <input type="text" class="time_input provider_input" placeholder="من">
@@ -121,7 +121,7 @@
 
 
                 <div class="provider_time_row">
-                    <input type="text" name="time[4][day]" value="{{__('wen')}}" class="day_input provider_input" placeholder="ادخل اليوم">
+                    <input type="text" name="time[4][day]" value="{{__('wen')}}" class="day_input provider_input" placeholder="ادخل اليوم" disabled>
                     <div class="time-form-group">
                         <input type="time" name="time[4][from]" class="time_input hidden_input">
                         <input type="text" class="time_input provider_input" placeholder="من">
@@ -148,7 +148,7 @@
 
 
                 <div class="provider_time_row">
-                    <input type="text" name="time[5][day]" value="{{__('thu')}}" class="day_input provider_input" placeholder="ادخل اليوم">
+                    <input type="text" name="time[5][day]" value="{{__('thu')}}" class="day_input provider_input" placeholder="ادخل اليوم" disabled>
                     <div class="time-form-group">
                         <input type="time" name="time[5][from]" class="time_input hidden_input">
                         <input type="text" class="time_input provider_input" placeholder="من">
@@ -175,7 +175,7 @@
 
 
                 <div class="provider_time_row">
-                    <input type="text" name="time[6][day]" value="{{__('fri')}}" class="day_input provider_input" placeholder="ادخل اليوم">
+                    <input type="text" name="time[6][day]" value="{{__('fri')}}" class="day_input provider_input" placeholder="ادخل اليوم" disabled>
                     <div class="time-form-group">
                         <input type="time" name="time[6][from]" class="time_input hidden_input">
                         <input type="text" class="time_input provider_input" placeholder="من">
@@ -201,7 +201,7 @@
                 </div>
 
 
-                <button id="submit" type="submit" class="btn main_btn moving_bk submit_btn">التالي</button>
+                <button id="submit" type="submit" class="btn main_btn moving_bk submit_btn">تاكييد</button>
         </form>
     </div>
 

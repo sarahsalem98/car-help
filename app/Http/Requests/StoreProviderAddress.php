@@ -28,7 +28,8 @@ class StoreProviderAddress extends FormRequest
            'city_id'=>'required|exists:cities,id',
            'lat'=>'required',
            'long'=>'required',
-           'address'=>'max:255'
+           'address'=>'max:255',
+           
         ];
     }
 }

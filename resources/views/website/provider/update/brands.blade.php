@@ -8,10 +8,10 @@
         <div class="row">
             @include('website.provider.layout.profileMenu')
             <div class="col-xs-12 col-sm-9 profile_content">
-                <h3 class="sections-title"> الماركات المقدمة </h3>
+                <h3 class="sections-title">  {{__('offered brands')}} </h3>
                 <form action="{{route('provider.brands.update.post')}}" method="POST" class="login_form w-100">
                     @csrf
-                    <h3 class="main-start-title">حدد الماركات المقدمة</h3>
+                    <h3 class="main-start-title">{{__('select')}}  {{__('offered brands')}}</h3>
                     <p class="main-start-des">هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر</p>
                      @include('website.alertSuccess')
                      @include('website.AllErrors')
@@ -26,7 +26,12 @@
                      
                           </span>
                           <img src="{{$brandType->photoUrl()}}" alt="" class="provider_brand_img">
+                          @if(app()->getLocale()=='ar')
                          {{$brandType->name}}
+                        
+                         @else
+                         {{$brandType->name_en}}
+                         @endif
                         </label>
                     </div>
                     @endforeach

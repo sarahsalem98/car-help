@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title> car help</title>
     <link rel="shortcut icon" href="{{asset('websit/image/logo.png')}}" type="image/png" sizes="16x16">
-    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDom8oB1eXHRDsIjr3BVGMMTHP3dWmXZMg&libraries=places"></script>
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgZES0EP9ET5sdaCdVLI2HvP-2ee9JwWo&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cABC"></script>
     <link href="{{asset('website/css/animate.min.css')}}" rel="stylesheet" />
     <link href="{{asset('website/css/hover.css')}}" rel="stylesheet">
     <link href="{{asset('website/css/slick.css')}}" rel="stylesheet">
@@ -320,7 +320,8 @@
     @yield('provider.product.update')
     @yield('provider.product.store')
     @yield('client.register')
-    @yield('verify')
+    @yield('client.verify')
+    @yield('provider.verify')
     @yield('client.login')
     @yield('client.profile.update')
     @yield('client.profile.password')
@@ -386,16 +387,16 @@
                     <h5 class="mb-4 footer-title"> {{__('quick links')}}<i class="fa fa-level-down"></i></h5>
                     <ul class="menu">
                         <li class="menu-item">
-                            <a href="#" class="menu-link">{{__('main')}}</a>
+                            <a href="{{route('main')}}" class="menu-link">{{__('main')}}</a>
                         </li>
                         <li class="menu-item ">
-                            <a href="#" class="menu-link">{{__('who we are')}} </a>
+                            <a href="{{route('about.us')}}" class="menu-link">{{__('who we are')}} </a>
                         </li>
                         <li class="menu-item ">
                             <a href="#" class="menu-link">{{__('our features')}}</a>
                         </li>
                         <li class="menu-item">
-                            <a href="#" class="menu-link">{{__('contact us')}}</a>
+                            <a href="{{route('contact.us')}}" class="menu-link">{{__('contact us')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -403,7 +404,7 @@
                     <h5 class="mb-4 footer-title">{{__('quick links')}}<i class="fa fa-level-down"></i></h5>
                     <ul class="menu">
                         <li class="menu-item">
-                            <a href="#" class="menu-link">{{__('categories')}}</a>
+                            <a href="{{route('categories')}}" class="menu-link">{{__('categories')}}</a>
                         </li>
                         <li class="menu-item ">
                             <a href="#" class="menu-link">{{__('download app')}}</a>

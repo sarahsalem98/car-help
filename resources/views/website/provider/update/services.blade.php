@@ -6,10 +6,10 @@
         <div class="row">
         @include('website.provider.layout.profileMenu')
             <div class="col-xs-12 col-sm-9 profile_content">
-                <h3 class="sections-title"> الخدمات المقدمة </h3>
+                <h3 class="sections-title">  {{__('offered services')}} </h3>
                 <form action="{{route('provider.services.update.post')}}" method="POST" class="login_form w-100">
                     @csrf
-                    <h3 class="main-start-title">حدد نوع الخدمة المقدمة</h3>
+                    <h3 class="main-start-title">{{__('select')}} {{__('offered services')}}</h3>
                     <p class="main-start-des">هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر</p>
                     @include('website.alertSuccess')
                     @include('website.AllErrors')

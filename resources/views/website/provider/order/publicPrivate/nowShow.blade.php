@@ -49,6 +49,19 @@
         </div>
 
         <div class="order_details">
+            <h5 class="sections-title"> قيمة الطلب</h5>
+            <div class="provider-media">
+                <div class="card-price">
+                    <i class="icon-money"></i>
+                    <span>
+                        <span>السعر : </span>
+                        <span>{{$service->price[0]->price}}</span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="order_details">
             <h5 class="sections-title">معلومات المستخدم</h5>
             <div class="provider-media">
                 @if($service->client->photoUrl()==null)
@@ -65,6 +78,7 @@
                 </div>
             </div>
         </div>
+  
    
  
         <div class="orders_btns">

@@ -57,7 +57,104 @@
     "tue": "الثلاثاء",
     "wen": "الاربعاء",
     "thu": "الخميس",
-    "fri": "الجمعة"
+    "fri": "الجمعة",
+
+
+
+
+    "statistics": "الاحصائيات",
+    "edit my account": "تعديل حسابى",
+    "edit my address": "تعديل عنوانى",
+    "my services": "خدماتى",
+    "my orders": "طلباتى",
+    "offered services": "الخدمات المقدمة",
+    "offered brands": "الماركات المقدمة",
+    "wallet": "المحفظة",
+    "logout": "تسجيل الخروج",
+    "new orders": "طلبات جديدة",
+    "current orders": " طلبات قيد التنفيذ",
+    "completed orders": "طلبات مكتملة",
+    "cancelled orders": "طلبات ملغية",
+    "products quentity": "عدد المنتجات",
+    "update personal data": "تعديل البيانات الشخصية",
+    "personal data": "البيانات الشخصية",
+    "work hours": "مواعيد العمل",
+    "save changes": "حفظ التغييرات",
+    "change password": "تغيير كلمة السر",
+    "old pasword": "كلمة المرور القديمة",
+    "new password": "كلمة المرور الجديدة",
+    "new password confirmation": "تأكييد كلمة المرور الجديدة",
+    "order number": "رقم الطلب",
+    "minutes": "دقائق",
+    "order details": "تفاصييل الطلب",
+    "order date": "تاريخ الطلب",
+    "car name": "اسم السيارة",
+    "car type": "نوع السيارة",
+    "car model": "موديل السيارة",
+    "chassis number": "رقم الهيكل",
+    "client data": "معلومات المستخدم",
+    "send price offer": "ارسال عرض سعر",
+    "order price": "سعر الطلب",
+    "notes": "ملاحظات",
+    "viewing price": "سعر المعاينة",
+    "send price": "ارسال السعر",
+    "cancel order": "رفض الطلب",
+    "please enter the reason of cancellation": "برجاء ادخال سبب الرفض",
+    "back": "تراجع",
+    "finish order": "الانتهاء من الطلب",
+    "price": "السعر",
+    "comment for service provider": "تعليق لمقدم الخدمة",
+    "reason for cancellation from service provider": "سبب الالغاء من قبل مقدم الخدمة",
+    "reason for cancellation from client": "سبب الالغاء من قبل العميل",
+    "delivery address": "عنوان التسليم",
+    "payment method": "طريقة الدفع",
+    "products": "المنتجات",
+    "quentity": "الكمية",
+    "order summery": "ملخص الطلب",
+    "products value": "قيمة المنتجات",
+    "tax value": "قيمة الضريبه",
+    "accept order": "قبول الطلب",
+    "sum": "المجموع",
+    "order is prepared": "تم تجهيو الطلب",
+    "order is deliverd": "تم تسليم الطلب",
+    "no comment from the client yet": "لا يوجد تعليق من المستخدم بعد",
+    "my products": "منتجاتى",
+    "add product": "اضافة منتج",
+    "update": "تعديل",
+    "delete": "حذف",
+    "category type": "نوع القسم",
+    "product name": "اسم المنتج",
+    "product price": "سعر المنتج",
+    "product price after discount": "سعر المنتج بعد الخصم",
+    "product details": "تفاصييل المنتج",
+    "confirm adding": "تأكييد الاضافة",
+    "confirm updating": "تأكييد التعدييل",
+    "profile": "الملف الشخصى",
+    "time": "الوقت",
+    "closed": "مغلق",
+    "from": "من",
+    "to": "الى",
+    "select": "حدد",
+    "please enter password": "الرجاء ادخال كلمة المرور"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

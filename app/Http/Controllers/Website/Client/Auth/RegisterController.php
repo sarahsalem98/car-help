@@ -25,7 +25,7 @@ class RegisterController extends Controller
     {
         // dd($client_id);
         $client = userClint::find($client_id);
-        return view('website.verify', ['client' => $client]);
+        return view('website.client.verify', ['client' => $client]);
     }
     public function verify(Request $request)
     {
@@ -43,7 +43,7 @@ class RegisterController extends Controller
         $token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_sid = getenv("TWILIO_SID");
         $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-        $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '459a238fc8edf60afeb239c1b08697a4');
+        $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', 'fdf097faab779578b8cabd892ec0dac8');
         $verification = $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
             ->verificationChecks
             ->create($verification_code, array('to' =>$data['phone_number']));
@@ -69,20 +69,18 @@ class RegisterController extends Controller
         $validatedData = $request->validated();
         // dd($validatedData);
         // dd($validatedData);
-        // $token = getenv("TWILIO_AUTH_TOKEN");
-        // $twilio_sid = getenv("TWILIO_SID");
-        // $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-        // $twilio = new Client ('AC060466ed6ae6732d8dfe766b525cf879','459a238fc8edf60afeb239c1b08697a4');
+        $token = getenv("TWILIO_AUTH_TOKEN");
+        $twilio_sid = getenv("TWILIO_SID");
+        $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
+        $twilio = new Client ('AC060466ed6ae6732d8dfe766b525cf879','fdf097faab779578b8cabd892ec0dac8');
 
         $client = new userClint;
         $client->fill($validatedData);
         $client->password = bcrypt($request['password']);
         $client->api_token = Str::random(100);
-
-
-        // $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
-        // ->verifications
-        // ->create($validatedData['phone_number'], "sms");
+        $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
+        ->verifications
+        ->create($validatedData['phone_number'], "sms");
            $client->save();
         return redirect()->route('client.verify', ['client_id' =>$client->id]);
     }

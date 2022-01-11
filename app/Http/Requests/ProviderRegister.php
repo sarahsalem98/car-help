@@ -36,7 +36,7 @@ class ProviderRegister extends FormRequest
             'agreed'=>'required|in:1',
             'phone_number_without_country_code'=>'required',
             'country_code_name'=>'required',
-            'device_token'=>'required'
+            'device_token'=>'string'
         ];
     }
 }

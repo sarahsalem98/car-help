@@ -82,6 +82,10 @@ Route::prefix('provider')->group(function () {
     Route::get('register/{provider_id}/work/hours', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHoursPage')->name('provider.register.work_hours');
     Route::post('register/work/hours', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHours')->name('provider.register.work_hours.post');
 
+    
+    Route::get('verify/{provider_id}', 'App\Http\Controllers\website\provider\Auth\RegisterCompleteController@verifyPage')->name('provider.verify');
+    Route::post('verify', 'App\Http\Controllers\website\provider\Auth\RegisterCompleteController@verify')->name('provider.verify.post');
+
     Route::middleware(['auth:providerWeb'])->group(function () {
         Route::get('statistics', 'App\Http\Controllers\website\Provider\ProfileController@showStatistics')->name('provider.statistics');
 

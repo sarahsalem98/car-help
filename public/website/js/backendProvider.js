@@ -115,14 +115,14 @@ $("#cancel_form").on("submit", function(event) {
         enctype: 'multipart/form-data',
         data: new FormData(this),
         success: function(result) {
-            console.log('dfs');
+            // console.log('dfs');
             $('#cancelModal').modal("hide");
             $('#confirmModal').modal("show");
             $('#price_form').trigger("reset");
 
         },
         error: function(result) {
-            console.log('df555555s');
+            // console.log('df555555s');
             $('#cancelReasonError').text(result.responseJSON.errors.cancel_id);
             // console.log(result.responseJSON.errors);
         }
@@ -173,10 +173,7 @@ $('#confirmModal2').on('hidden.bs.modal', function() {
 
 
 $("#complete_form").on("submit", function(event) {
-
-
     event.preventDefault();
-
     console.log(new FormData(this));
     $.ajax({
 
@@ -187,20 +184,22 @@ $("#complete_form").on("submit", function(event) {
         enctype: 'multipart/form-data',
         data: new FormData(this),
         success: function(result) {
-            console.log('dfs');
-            setTimeout(function() { // wait for 5 secs(2)
-                window.location.href = "/provider/services"; // then reload the page.(3)
-            }, 5000);
+            // console.log('dfs');
+            // setTimeout(function() { // wait for 5 secs(2)
+            //     window.location.href = "/provider/services"; // then reload the page.(3)
+            // }, 5000);
             $('#completModal').modal("show");
         },
         error: function(result) {
-            console.log('df555555s');
+            // console.log('df555555s');
             alert(result.responseJSON.errors.details);
         }
     });
 })
 
-
+$('#completModal').on('hidden.bs.modal', function() {
+    window.location.href = "/provider/services";
+});
 
 $("#isDeliverdForm").on("submit", function(event) {
 
@@ -216,15 +215,18 @@ $("#isDeliverdForm").on("submit", function(event) {
         enctype: 'multipart/form-data',
         data: new FormData(this),
         success: function(result) {
-            console.log('dfs');
-            setTimeout(function() { // wait for 5 secs(2)
-                window.location.href = "/provider/orders"; // then reload the page.(3)
-            }, 5000);
+            // console.log('dfs');
+            // setTimeout(function() { // wait for 5 secs(2)
+            //     window.location.href = "/provider/orders"; // then reload the page.(3)
+            // }, 5000);
             $('#isDeliveredModal').modal("show");
         },
         error: function(result) {
-            console.log('df555555s');
+            // console.log('df555555s');
             alert(result.responseJSON.errors.details);
         }
     });
 })
+$('#isDeliveredModal').on('hidden.bs.modal', function() {
+    window.location.href = "/provider/orders";
+});

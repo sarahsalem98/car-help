@@ -103,7 +103,7 @@ class ProfileController extends Controller
 
     public function updateWorkHours(Request $request)
     {
-        $arabicDayes = array_reverse(['الجمعة','الخميس','الاربعاء','الثلاثاء', 'الاثتنين', 'الاحد', 'السبت','السبت']);
+        $arabicDayes = array_reverse(['الجمعة','الخميس','الاربعاء','الثلاثاء', 'الاثتنين', 'الاحد', 'السبت']);
         $englishDays=['saterday','sunday','monday','tuesday','wensday','thursday','friday'];
 
         $data = $request->validate([

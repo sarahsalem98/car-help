@@ -96,7 +96,7 @@
              <input type="hidden" name="order_id" value="{{$order->id}}">
                 <button type="submit" class="btn deliver_order" >تم تسليم الطلب</button>
             </form>
-            <a class="btn open_chat" href="chat.html"> <i class="fa fa-comments"></i> اجراء محادثة</a>
+            <!-- <a class="btn open_chat" href="chat.html"> <i class="fa fa-comments"></i> اجراء محادثة</a> -->
         </div>
 
 

@@ -66,30 +66,29 @@
             </div>
         </div>
         <div class="order_details">
-            <div class="order_table">
-                <h5 class="sections-title"> قيمة الطلب</h5>
-                <div class="order_row">
-                    <i class="Fa fa-money" aria-hidden="true"></i>
-                    <div class="order-name"> السعر </div>
-                    <div class="order-details"> {{$service->details}}</div>
+            <h5 class="sections-title"> قيمة الطلب</h5>
+            <div class="provider-media">
+                <div class="card-price">
+                    <i class="icon-money"></i>
+                    <span>
+                        <span>السعر : </span>
+                        <span>{{$service->price[0]->price}}</span>
+                    </span>
                 </div>
             </div>
         </div>
         @if(empty($service->comment->rate))
         <h5 class="sections-title color_danger">لم يعلق المستخدم بعد</h5>
         @else
-       
+
         <div class="order_details">
             <h5 class="sections-title">تعليق لمزود الخدمة</h5>
             <div class="rating_body p-10-16">
                 <div class="stars_wrapper">
-                    @for($i=0 ;$i < 5; $i++) 
-                    
-                    
-                    <i class="fa fa-star star-{{$rate[$i]}} {{$service->comment->rate<=$i?'':'rated-star'}}"></i>
-                   
+                    @for($i=0 ;$i < 5; $i++) <i class="fa fa-star star-{{$rate[$i]}} {{$service->comment->rate<=$i?'':'rated-star'}}"></i>
+
                         @endfor
-          
+
                 </div>
                 <p class="comment_des"> {{$service->comment->comment}}</p>
             </div>

@@ -2,11 +2,11 @@
 @section('provider.order.public.private.show')
 
 <div class="inner_pages_top">
-    <h3 class="inner-pages-title">تفاصيل الطلب</h3>
+    <h3 class="inner-pages-title"> </h3>
     <ol class="breadcrumb">
-        <li><a href="index.html"> <i class="flaticon-home"></i> الرئيسية</a></li>
-        <li><a href="provider_profile.html">الملف الشخصي</a></li>
-        <li class="active">تفاصيل الطلب</li>
+        <li><a href="index.html"> <i class="flaticon-home"></i> {{__('main')}}</a></li>
+        <li><a href="provider_profile.html"> {{__('profile')}}</a></li>
+        <li class="active"> {{__('order details')}}</li>
     </ol>
 </div>
 <!--start order details-->
@@ -14,36 +14,36 @@
     <div class="container">
         @include('website.alertSuccess')
         @include('website.more',['field'=>'price'])
-        <h5 class="sections-title b-0">تفاصيل الطلب</h5>
+        <h5 class="sections-title b-0"> {{__('order details')}}</h5>
         <div class="order_details">
-            <h5 class="sections-title">تفاصيل الطلب</h5>
+            <h5 class="sections-title">{{__('order details')}} </h5>
             <div class="order_table">
                 <div class="order_row">
-                    <div class="order-name">رقم الطلب</div>
+                    <div class="order-name"> {{__('order number')}}</div>
                     <div class="order-details">{{$service->id}}</div>
                 </div>
                 <div class="order_row">
-                    <div class="order-name"> تاريخ الطلب</div>
+                    <div class="order-name">  {{__('order date')}}</div>
                     <div class="order-details"> {{$service->created_at->toDateString()}}</div>
                 </div>
                 <div class="order_row">
-                    <div class="order-name">اسم السيارة </div>
+                    <div class="order-name"> {{__('car name')}} </div>
                     <div class="order-details">{{$service->car->name}}</div>
                 </div>
                 <div class="order_row">
-                    <div class="order-name">نوع السيارة </div>
+                    <div class="order-name"> {{__('car type')}} </div>
                     <div class="order-details"> {{$service->car->type}} </div>
                 </div>
                 <div class="order_row">
-                    <div class="order-name"> موديل السيارة</div>
+                    <div class="order-name"> {{__('car model')}}</div>
                     <div class="order-details">{{$service->car->carModel->name}} </div>
                 </div>
                 <div class="order_row">
-                    <div class="order-name"> رقم الهيكل</div>
+                    <div class="order-name"> {{__('chassis number')}}</div>
                     <div class="order-details">{{$service->car->chassis_number}}</div>
                 </div>
                 <div class="order_row">
-                    <div class="order-name"> تفاصيل الطلب </div>
+                    <div class="order-name">  {{__('order details')}} </div>
                     <div class="order-details"> {{$service->details}}</div>
                 </div>
             </div>

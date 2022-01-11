@@ -35,10 +35,10 @@
                     <i class="fa fa-map-marker map_icon"></i>
                 </div>
 
-                <input type="text" name="provider_id" value={{$provider_id}}>
+                <input type="hidden" name="provider_id" value={{$provider_id}}>
                 lat
-                <input type="text" name="lat" id="lat" value="76">
-                <input type="text" name="long" id="long" value="85">
+                <input type="hidden" name="lat" id="lat" value="lat">
+                <input type="hidden" name="long" id="long" value="long">
                 long
 
 
@@ -47,7 +47,7 @@
                 <div id="map"></div>
 
 
-                <button type="submit" class="btn main_btn moving_bk submit_btn">تأكيد</button>
+                <button type="submit" class="btn main_btn moving_bk submit_btn">التالى</button>
             </div>
         </form>
     </div>

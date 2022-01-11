@@ -1,5 +1,5 @@
 @extends('layouts.website')
-@section('verify')
+@section('client.verify')
 
   <div class="inner_pages_top">
         <h3 class="inner-pages-title">انشاء حساب</h3>
@@ -16,7 +16,7 @@
                 <h3 class="main-pages-title"> كود التحقق من رقمك</h3>
                 <p class="main-center-des">برجاء ادخال الكود المرسل اليك عبر رقم الجوال</p>
                 <div class="row code_inputs">
-                    <input type="tel" name="phone_number" value="{{$client->phone_number}}">
+                    <input type="hidden" name="phone_number" value="{{$client->phone_number}}">
                    <div class="col-xs-3">
                         <input type="text" name="verify_code[]" class="form-control" maxlength="1">
                    </div>

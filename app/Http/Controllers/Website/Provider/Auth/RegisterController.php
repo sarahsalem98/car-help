@@ -27,27 +27,27 @@ class RegisterController extends Controller
         return view('website.providerRegister.first');
     }
  
-    public function register(Request $request)
+    public function register(ProviderRegister $request)
     {
     //  dd($request);
-        //   $validatedData = $request->validated();
-        //   $provider = new Provider;
-        //   $provider->fill($validatedData);
-        //   $provider->password = bcrypt($request['password']);
-        //   $provider->api_token = Str::random(100);
-        //   $provider->next_step = $this->next_step[0];
-        //   if ($request->file('workshop_photo_path')) {
-        //     $photoName = $request->file('workshop_photo_path')->store('workshoph_Photos');
-        //     $provider->workshop_photo_path = $photoName;
-        //   }
-        //   if ($request->file('business_registeration_file')) {
-        //     $fileName = $request->file('business_registeration_file')->store('businessrRegisteration_Files');
-        //     $provider->business_registeration_file = $fileName;
-        //   }
-        //   if ($provider->save()) {
-            $provider=Provider::find(3);
+          $validatedData = $request->validated();
+          $provider = new Provider;
+          $provider->fill($validatedData);
+          $provider->password = bcrypt($request['password']);
+          $provider->api_token = Str::random(100);
+          $provider->next_step = $this->next_step[0];
+          if ($request->file('workshop_photo_path')) {
+            $photoName = $request->file('workshop_photo_path')->store('workshoph_Photos');
+            $provider->workshop_photo_path = $photoName;
+          }
+          if ($request->file('business_registeration_file')) {
+            $fileName = $request->file('business_registeration_file')->store('businessrRegisteration_Files');
+            $provider->business_registeration_file = $fileName;
+          }
+          $provider->save();
+            // $provider=Provider::find(3);
         return redirect()->route('provider.register.service.type',['provider_id'=>$provider]);
-        //   }
+        
     }
  
 }

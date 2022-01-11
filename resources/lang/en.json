@@ -56,7 +56,96 @@
     "tue": "tuesday",
     "wen": "wensday",
     "thu": "thursday",
-    "fri": "friday"
+    "fri": "friday",
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    "statistics": "statistics",
+    "edit my account": "edit my account",
+    "edit my address": "edit my address",
+    "my services": "my services",
+    "my orders": " my orders",
+    "offered services": "offered services",
+    "offered brands": "offerd brands",
+    "wallet": "wallet",
+    "logout": "logout",
+    "new orders": "new orders",
+    "current orders": "current orders",
+    "completed orders": "completed orders",
+    "cancelled orders": "cancelled orders",
+    "products quentity": "products quentity",
+    "update personal data": "update personal data",
+    "personal data": "personal data",
+    "work hours": "work hours",
+    "save changes": "save changes",
+    "change password": "change password",
+    "old pasword": "old pasword",
+    "new password": "new password",
+    "new password confirmation": "new password confirmation",
+    "order number": "order number",
+    "minutes": "minutes",
+    "order details": "order details",
+    "order date": "order date",
+    "car name": "car name",
+    "car type": "car type",
+    "car model": "car model",
+    "chassis number": "chassis number",
+    "client data": "client data",
+    "send price offer": "",
+    "order price ": "order price",
+    "notes": "notes",
+    "viewing price": "viewing price",
+    "send price": "send price",
+    "cancel order": "cancel order",
+    "please enter the reason of cancellation": "please enter the reason of cancellation",
+    "back": "back",
+    "finish order": "finish order",
+    "price": "price",
+    "comment for service provider": "comment for service provider",
+    "reason for cancellation from service provider": "reason for cancellation from service provider",
+    "reason for cancellation from client": "reason for cancellation from client",
+    "delivery address": "delivery address",
+    "payment method": "payment method",
+    "products": "products",
+    "quentity": "quentity",
+    "order summery": "order summery",
+    "products value": "products value",
+    "tax value": "tax value",
+    "accept order": "accept order",
+    "sum": "sum",
+    "order is prepared": "order is prepared",
+    "order is deliverd": "order is deliverd",
+    "no comment from the client yet": "no comment from the client yet",
+    "my products": "my products",
+    "add product": "add product",
+    "update": "update",
+    "delete": "delete",
+    "category type": "category type",
+    "product name": "product name",
+    "product price": "product price",
+    "product price after discount": "product price after discount",
+    "product details": "product details",
+    "confirm adding": "confirm adding",
+    "confirm updating": "confirm updating",
+    "profile": "profile",
+    "time": "time",
+    "closed": "closed",
+    "from": "from",
+    "to": "to",
+    "select": "select",
+    "please enter password": "please enter password"
 
 
 }
