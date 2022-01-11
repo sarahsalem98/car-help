@@ -55,15 +55,15 @@
                                 @foreach($productOrders as $productOrder)
                                 @if($productOrder->status==0 )
                                 <div class="media">
-                                    <a href="order_details.html" class="product-img">
+                                    <a href="{{route('client.product.orders.new.show',['order_id'=>$productOrder->id])}}" class="product-img">
                                         <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="order_details.html">
+                                        <a href="{{route('client.product.orders.new.show',['order_id'=>$productOrder->id])}}">
                                             <h5 class="product-title"> {{$productOrder->provider->enginner_name}} </h5>
                                         </a>
                                         <p class="order-number">رقم الطلب : {{$productOrder->id}}</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($productOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -76,17 +76,17 @@
 
                             <div class="products_wrapper tab-pane fade" role="tabpanel" id="product_two">
                                 @foreach($productOrders as $productOrder)
-                                @if($productOrder->status==1 ||$productOrder->status==2 )
+                                @if($productOrder->status==1 ||$productOrder->status==2 ||$productOrder->status==3 )
                                 <div class="media">
-                                    <a href="order_details.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.product.orders.now.show',['order_id'=>$productOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="order_details_processed.html">
-                                            <h5 class="product-title">2 خالد علي</h5>
+                                        <a href="{{route('client.product.orders.now.show',['order_id'=>$productOrder->id])}}">
+                                            <h5 class="product-title"> {{$productOrder->provider->enginner_name}} </h5>
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$productOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($productOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
 
@@ -96,17 +96,17 @@
                             </div>
                             <div class="products_wrapper tab-pane fade" role="tabpanel" id="product_three">
                                 @foreach($productOrders as $productOrder)
-                                @if($productOrder->status==3 ||$productOrder->status==4 )
+                                @if($productOrder->status==4 )
                                 <div class="media">
-                                    <a href="order_details_completed.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.product.orders.complete.show',['order_id'=>$productOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="order_details_completed.html">
-                                            <h5 class="product-title">3 خالد علي</h5>
+                                        <a href="{{route('client.product.orders.complete.show',['order_id'=>$productOrder->id])}}">
+                                            <h5 class="product-title"> {{$productOrder->provider->enginner_name}} </h5>
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$productOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($productOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
 
@@ -118,15 +118,15 @@
                                 @foreach($productOrders as $productOrder)
                                 @if($productOrder->status==5 )
                                 <div class="media">
-                                    <a href="order_details_deleted.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.product.orders.cancel.show',['order_id'=>$productOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="order_details_deleted.html">
-                                            <h5 class="product-title">4 خالد علي</h5>
+                                        <a href="{{route('client.product.orders.cancel.show',['order_id'=>$productOrder->id])}}">
+                                            <h5 class="product-title"> {{$productOrder->provider->enginner_name}} </h5>
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$productOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i> {{now()->diffInMinutes($productOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
 
@@ -165,15 +165,15 @@
                                 @foreach($privateOrders as $privateOrder)
                                 @if($privateOrder->status==0 )
                                 <div class="media">
-                                    <a href="special_order_details.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.new',['order_id'=>$privateOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="special_order_details.html">
-                                            <h5 class="product-title">1 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.new',['order_id'=>$privateOrder->id])}}">
+                                            <h5 class="product-title"> {{$privateOrder->provider->enginner_name}} </h5>
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$privateOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($privateOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -183,17 +183,17 @@
                             </div>
                             <div class="products_wrapper tab-pane fade" role="tabpanel" id="special_order_two">
                                 @foreach($privateOrders as $privateOrder)
-                                @if($privateOrder->status==1 )
+                                @if($privateOrder->status==1 || $privateOrder->status==3)
                                 <div class="media">
-                                    <a href="special_order_processed.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.now',['order_id'=>$privateOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="special_order_processed.html">
-                                            <h5 class="product-title">2 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.now',['order_id'=>$privateOrder->id])}}">
+                                            <h5 class="product-title"> {{$privateOrder->provider->enginner_name}} </h5>
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$privateOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($privateOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -204,15 +204,15 @@
                                 @foreach($privateOrders as $privateOrder)
                                 @if($privateOrder->status==4)
                                 <div class="media">
-                                    <a href="special_order_completed.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.complete',['order_id'=>$privateOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="special_order_completed.html">
-                                            <h5 class="product-title">3 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.complete',['order_id'=>$privateOrder->id])}}">
+                                            <h5 class="product-title"> {{$privateOrder->provider->enginner_name}} </h5>
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$privateOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($privateOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -222,15 +222,15 @@
                                 @foreach($privateOrders as $privateOrder)
                                 @if($privateOrder->status==5)
                                 <div class="media">
-                                    <a href="special_order_deleted.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.cancel',['order_id'=>$privateOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="special_order_deleted.html">
-                                            <h5 class="product-title">4 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.cancel',['order_id'=>$privateOrder->id])}}">
+                                            <h5 class="product-title"> {{$privateOrder->provider->enginner_name}} </h5>
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$privateOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($privateOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -266,18 +266,22 @@
                         </ul>
                         <div class="tab-content" id="myTabContentSpecial">
                             <div class="products_wrapper tab-pane fade in active" role="tabpanel" id="general_one">
-                                @foreach($publicOrders as $publicOrders)
-                                @if($publicOrders->status==0)
+                                @foreach($publicOrders as $publicOrder)
+                                @if($publicOrder->status==0)
                                 <div class="media">
-                                    <a href="general_order_details.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.new',['order_id'=>$publicOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="general_order_details.html">
-                                            <h5 class="product-title">1 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.new',['order_id'=>$publicOrder->id])}}">
+                                            @if(empty($publicOrder->provider->enginner_name))
+                                            <h5 class="product-title">طلب عام لجميع مقدمى الخدمة</h5>
+                                            @else
+                                            <h5 class="product-title"> {{$publicOrder->provider->enginner_name}} </h5>
+                                            @endif
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$publicOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($publicOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -287,18 +291,22 @@
 
                             </div>
                             <div class="products_wrapper tab-pane fade" role="tabpanel" id="general_two">
-                                @foreach($publicOrders as $publicOrders)
-                                @if($publicOrders->status==1)
+                                @foreach($publicOrders as $publicOrder)
+                                @if($publicOrder->status==1 || $publicOrder->status==3)
                                 <div class="media">
-                                    <a href="general_order_processed.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.now',['order_id'=>$publicOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="general_order_processed.html">
-                                            <h5 class="product-title">2 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.now',['order_id'=>$publicOrder->id])}}">
+                                        @if(empty($publicOrder->provider->enginner_name))
+                                            <h5 class="product-title">طلب عام لجميع مقدمى الخدمة</h5>
+                                            @else
+                                            <h5 class="product-title"> {{$publicOrder->provider->enginner_name}} </h5>
+                                            @endif
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$publicOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($publicOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -307,18 +315,22 @@
 
                             </div>
                             <div class="products_wrapper tab-pane fade" role="tabpanel" id="general_three">
-                                @foreach($publicOrders as $publicOrders)
-                                @if($publicOrders->status==4)
+                                @foreach($publicOrders as $publicOrder)
+                                @if($publicOrder->status==4)
                                 <div class="media">
-                                    <a href="general_order_completed.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.complete',['order_id'=>$publicOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="general_order_completed.html">
-                                            <h5 class="product-title">3 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.complete',['order_id'=>$publicOrder->id])}}">
+                                        @if(empty($publicOrder->provider->enginner_name))
+                                            <h5 class="product-title">طلب عام لجميع مقدمى الخدمة</h5>
+                                            @else
+                                            <h5 class="product-title"> {{$publicOrder->provider->enginner_name}} </h5>
+                                            @endif
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$publicOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($publicOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif
@@ -326,18 +338,22 @@
 
                             </div>
                             <div class="products_wrapper tab-pane fade" role="tabpanel" id="general_four">
-                                @foreach($publicOrders as $publicOrders)
-                                @if($publicOrders->status==5)
+                                @foreach($publicOrders as $publicOrder)
+                                @if($publicOrder->status==5)
                                 <div class="media">
-                                    <a href="general_order_deleted.html" class="product-img">
-                                        <img src="image/box.png">
+                                    <a href="{{route('client.private.public.orders.cancel',['order_id'=>$publicOrder->id])}}" class="product-img">
+                                        <img src="{{asset('website/image/box.png')}}">
                                     </a>
                                     <div class="media-body">
-                                        <a href="general_order_deleted.html">
-                                            <h5 class="product-title">4 خالد علي</h5>
+                                        <a href="{{route('client.private.public.orders.cancel',['order_id'=>$publicOrder->id])}}">
+                                        @if(empty($publicOrder->provider->enginner_name))
+                                            <h5 class="product-title">طلب عام لجميع مقدمى الخدمة</h5>
+                                            @else
+                                            <h5 class="product-title"> {{$publicOrder->provider->enginner_name}} </h5>
+                                            @endif
                                         </a>
-                                        <p class="order-number">رقم الطلب : 145666</p>
-                                        <span class="order-time"><i class="fa fa-clock-o"></i> منذ 5 دقائق</span>
+                                        <p class="order-number">رقم الطلب : {{$publicOrder->id}}</p>
+                                        <span class="order-time"><i class="fa fa-clock-o"></i>{{now()->diffInMinutes($publicOrder->created_at)}} دقائق</span>
                                     </div>
                                 </div>
                                 @endif

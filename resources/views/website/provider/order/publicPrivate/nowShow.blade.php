@@ -38,6 +38,10 @@
                     <div class="order-details">{{$service->car->carModel->name}} </div>
                 </div>
                 <div class="order_row">
+                    <div class="order-name"> رقم الهيكل</div>
+                    <div class="order-details">{{$service->car->chassis_number}}</div>
+                </div>
+                <div class="order_row">
                     <div class="order-name"> تفاصيل الطلب </div>
                     <div class="order-details"> {{$service->details}}</div>
                 </div>
@@ -61,16 +65,16 @@
                 </div>
             </div>
         </div>
-
+   
  
         <div class="orders_btns">
             <form action="{{route('provider.complete,service')}}" method="POST" id="complete_form">
                 @csrf
                 <input type="hidden" name="service_id" value="{{$service->id}}">
-                <button class="btn deliver_order">  اكتمال الطلب</button>
+                <button class="btn deliver_order">   الانتهاء من الطلب</button>
 
             </form>
-            <a class="btn open_chat" href="chat.html"> <i class="fa fa-comments"></i> اجراء محادثة</a>
+            <!-- <a class="btn open_chat" href="chat.html"> <i class="fa fa-comments"></i> اجراء محادثة</a> -->
         </div>
     </div>
 </div>

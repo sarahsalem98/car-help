@@ -10,6 +10,7 @@ class ProviderWorkHour extends Model
     use HasFactory;
     protected $fillable  = [
         'day',
+        'day_en',
         'from',
         'to',
         'closed'

@@ -132,4 +132,35 @@ return [
             'rule-name' => 'custom-message',
         ],
     ],
+
+
+    'attributes' => [
+        'enginner_name'=>' اسم المهندس ثلاثى',
+        'workshop_name'=>'اسم الورشة',
+        'workshop_photo_path'=>'صورة الورشة',
+        'business_registeration_file'=>'السجل التجارى',
+        'email'=>'البريد الالكترونى',
+        'password'=>'الرقم السرى',
+        'agreed'=>'موافق على الشروط والاحكام',
+        'phone_number'=>'رقم الجوال',
+        'whatsapp_number'=>' رقم الواتساب',
+
+
+
+
+        'old_password'=>'الرقم السرى القديم',
+        'new_password'=>'الرقم السرى الجديد',
+        'new_password_confirmation'=>'تأكييد الرقم السرى الجديد',
+
+           
+
+        'time.*.day'=>'اليوم',
+        'time.*.from'=>'وقت البداية',
+        'time.*.to'=>'وقت النهاية',
+        'time.*.closed'=>'مفلق ',
+
+        'price'=>'سعر',
+        'cancel_id'=>'السبب'
+    ],
+
 ];

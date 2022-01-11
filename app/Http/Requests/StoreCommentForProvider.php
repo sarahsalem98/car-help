@@ -26,7 +26,7 @@ class StoreCommentForProvider extends FormRequest
     {
         return [
             'rate'=>'numeric|max:5',
-            'comment'=>'max:255',
+            'comment'=>'max:255|required',
             'provider_id'=>'required|exists:providers,id',
              'order_id'=>'required|exists:orders,id'
         ];

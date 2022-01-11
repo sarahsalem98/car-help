@@ -56,5 +56,14 @@ class Client extends Model implements AuthenticatableContract
      
       return $this->favouriteProviders->contains($provider_id);
     }
+    public function order(){
+        return $this->hasMany(Order::class);
+    }
+    public function clientHasOrder($order_id){
+        return $this->order->contains($order_id);
+    }
+    public function notificationClientCount(){
+         return Notification::where('user_id',$this->id)->where('is_client',1)->count();
+    }
 
 }

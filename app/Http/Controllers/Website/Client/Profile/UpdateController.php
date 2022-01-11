@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website\Client\Profile;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Client;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -74,5 +75,12 @@ class UpdateController extends Controller
         } else {
             return redirect()->back()->with('message', trans('auth.password'));
         }
+    }
+
+    public function notifications(){
+        // dd('sdg');
+        $id=Auth::user()->id;
+        $notifications=Notification::where('user_id',$id)->where('is_client',1)->get();
+        return view('website.client.notifications',['notifications'=>$notifications]);
     }
 }

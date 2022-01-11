@@ -38,6 +38,10 @@
                     <div class="order-details">{{$service->car->carModel->name}} </div>
                 </div>
                 <div class="order_row">
+                    <div class="order-name"> رقم الهيكل</div>
+                    <div class="order-details">{{$service->car->chassis_number}}</div>
+                </div>
+                <div class="order_row">
                     <div class="order-name"> تفاصيل الطلب </div>
                     <div class="order-details"> {{$service->details}}</div>
                 </div>
@@ -71,7 +75,10 @@
                 </div>
             </div>
         </div>
-
+        @if(empty($service->comment->rate))
+        <h5 class="sections-title color_danger">لم يعلق المستخدم بعد</h5>
+        @else
+       
         <div class="order_details">
             <h5 class="sections-title">تعليق لمزود الخدمة</h5>
             <div class="rating_body p-10-16">
@@ -87,6 +94,8 @@
                 <p class="comment_des"> {{$service->comment->comment}}</p>
             </div>
         </div>
+
+        @endif
 
 
         <!-- <div class="orders_btns">

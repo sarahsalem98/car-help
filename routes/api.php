@@ -76,12 +76,12 @@ Route::middleware('checkLang')->group(function(){
         Route::post('login', 'App\Http\Controllers\Api\Provider\AuthController@login');
         
 
+        Route::post('forget/password', 'App\Http\Controllers\Api\Provider\AuthController@forgetPassword');
     
         Route::middleware(['auth:provider','SuspendProvider'])->group(function () {
             //provider
             Route::post('reset/password', 'App\Http\Controllers\Api\Provider\AuthController@resetPassword');
             Route::post('verify', 'App\Http\Controllers\Api\Provider\AuthController@verify');
-            Route::get('forget/password', 'App\Http\Controllers\Api\Provider\AuthController@forgetPassword');
             Route::post('change/password', 'App\Http\Controllers\Api\Provider\AuthController@changePassword');
     
             Route::post('subservice/register', 'App\Http\Controllers\Api\Provider\AuthController@registerServiceTypeForProvider');

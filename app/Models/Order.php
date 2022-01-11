@@ -82,11 +82,12 @@ class Order extends Model
     public function providerHasPrice($provider_id)
     {
 
-        return $this->price->contains($provider_id);
+        return $this->price()->where('provider_id', $provider_id)->exists();
     }
     public function providerHasCanceled($provider_id)
     {
 
         return $this->hasOne->contains($provider_id);
     }
+  
 }

@@ -24,12 +24,18 @@ class ProviderUpdate extends FormRequest
      */
     public function rules()
     {
+        
         return [
             'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
-            'phone_number'=>'numeric|unique:providers',
+            'phone_number'=>'unique:providers',
             'whatsapp_number'=>'numeric',
             'email'=>'email',
-            'business_registeration_file'=>'mimes:pdf,doc,docx'
+            'business_registeration_file'=>'mimes:pdf,doc,docx',
+            'enginner_name'=>'string',
+            'workshop_name'=>'string',
+            'password'=>'string',
+            'phone_number_without_country_code'=>'',
+            'country_code_name',
 
         ];
     }

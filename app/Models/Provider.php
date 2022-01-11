@@ -78,11 +78,22 @@ class Provider extends Model implements AuthenticatableContract
     {
         return $this->hasMany(Product::class);
     }
-    public function publicPrivateOrder()
+    public function order()
     {
-        return $this->hasMany(publicPrivateOrder::class);
+        return $this->hasMany(Order::class);
     }
-//    public function price(){
-//        return $this->belongsTo(OrderPrice::class);
-//    }
+    public function price(){
+        return $this->hasMany(OrderPrice::class,'provider_id','id');
+    }
+    public function providerHasOrder($order_id){
+        return $this->order->contains($order_id);
+    }
+
+    public function notificationProviderCount(){
+        return Notification::where('user_id',$this->id)->where('is_client',0)->count();
+   }
+
+   
+  
+
 }

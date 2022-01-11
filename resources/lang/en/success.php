@@ -12,7 +12,16 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-   'brand_update_success'=>'Brand types are updated successfully',
-   'service_update_success'=>'services are updated successfully'
+   'brand_update_success'=>'Brand types are updated successfully 😃' ,
+   'service_update_success'=>'services are updated successfully 😃',
+   'work_hour_updated'=>'work hours are updated succefully😃',
+   'provider_updated'=>'provider basic_information is updated successfully 😊',
+   'password_updated'=>' password is updated successfully😊'  ,
+    'price_sent'=>'price was sent successfully 😊'
+
+
+
+ 
+
 
 ];

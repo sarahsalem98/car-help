@@ -60,7 +60,7 @@
                         </div>
                         <div class="products_wrapper tab-pane fade" role="tabpanel" id="product_two">
                             @foreach($public_private_orders as $public_private_order)
-                            @if($public_private_order->status==1)
+                            @if($public_private_order->status==1 )
                             <div class="media">
                                 <a href="{{route('provider.service.now.show',['service_id'=>$public_private_order->id])}}" class="product-img">
                                 @if($public_private_order->firstImageUrl()==null)
@@ -85,7 +85,7 @@
 
                         <div class="products_wrapper tab-pane fade" role="tabpanel" id="product_three">
                             @foreach($public_private_orders as $public_private_order)
-                            @if($public_private_order->status==4)
+                            @if($public_private_order->status==4 || $public_private_order->status==3)
                             <div class="media">
                                 <a href="{{route('provider.service.complete.show',['service_id'=>$public_private_order->id])}}" class="product-img">
                                 @if($public_private_order->firstImageUrl()==null)

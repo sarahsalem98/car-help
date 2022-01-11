@@ -116,20 +116,22 @@ $("#cancel_form").on("submit", function(event) {
         data: new FormData(this),
         success: function(result) {
             console.log('dfs');
-            setTimeout(function() { // wait for 5 secs(2)
-                window.location.href = "/provider/services"; // then reload the page.(3)
-            }, 5000);
             $('#cancelModal').modal("hide");
             $('#confirmModal').modal("show");
             $('#price_form').trigger("reset");
-            // previewImages();
+
         },
         error: function(result) {
             console.log('df555555s');
-            alert(result.responseJSON.errors.details);
+            $('#cancelReasonError').text(result.responseJSON.errors.cancel_id);
+            // console.log(result.responseJSON.errors);
         }
     });
 })
+
+$('#confirmModal').on('hidden.bs.modal', function() {
+    window.location.href = "/provider/services";
+});
 
 
 
@@ -201,7 +203,6 @@ $("#complete_form").on("submit", function(event) {
 
 
 $("#isDeliverdForm").on("submit", function(event) {
-
 
     event.preventDefault();
 

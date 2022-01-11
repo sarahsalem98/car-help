@@ -134,15 +134,19 @@ class AuthController extends Controller
         $token = getenv("TWILIO_AUTH_TOKEN");
         $twilio_sid = getenv("TWILIO_SID");
         $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
-        $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '8c5400ed57ece1ab37fc17281d917562');
-
-
         $client = userClint::where('phone_number', $data['phone_number'])->first();
+        if($client){
+        $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '441e80692fe25d6c8473068ca9604bb5');
+
+
         $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
             ->verifications
             ->create($data['phone_number'], "sms");
         $client->update(['status' => 'forget_password']);
         return response()->json(['client' => $client], 200);
+        }else{
+            return response()->json(['error'=>'phone number not found'],404);
+        }
     }
 
     public function resetPassword(Request $request)

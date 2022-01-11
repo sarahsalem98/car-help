@@ -49,7 +49,7 @@
                         <a class="nav-link" href="{{route('contact.us')}}"> {{__('contact us')}} </a>
                     </li>
                 </ul>
-                <button class="search_btn" data-toggle="modal" data-target="#searchModal"> <i class="fa fa-search"></i> </button>
+                <!-- <button class="search_btn" data-toggle="modal" data-target="#searchModal"> <i class="fa fa-search"></i> </button> -->
             </div>
         </nav>
         <div class="mobile_wrapper_nav d-flex justify-content-between align-items-center">
@@ -66,12 +66,12 @@
                     <i class="fa @if(Route::current()->getName() == 'client.favourite.providers.show')fa-heart @else fa-heart-o @endif"></i>
                 </a>
               
-                <a href="{{route('client.car.show')}}" class="social-link rel_icon">
+                <a href="{{route('client.cart.show')}}" class="social-link rel_icon">
                     <span class="noti_num">3</span>
                     <img src="{{asset('website/image/shopping-cart.png')}}" alt="">
                 </a>
-                <a href="notifications.html" class="social-link rel_icon d_mob_none">
-                    <span class="noti_num">3</span>
+                <a href="{{route('client.notifications')}}" class="social-link rel_icon d_mob_none">
+                    <span class="noti_num">{{Auth::guard('clientWeb')->user()->notificationClientCount()}}</span>
                     <i class="fa fa-bell-o"></i>
                 </a>
                 <span class="divider_span d_mob_none"></span>
@@ -87,8 +87,8 @@
 
             @if(Auth::guard('providerWeb')->check())
             <div class="after_login_wrapper d-flex align-items-center">
-                <a href="notifications.html" class="social-link rel_icon d_mob_none">
-                    <span class="noti_num">3</span>
+                <a href="{{route('provider.notifications')}}" class="social-link rel_icon d_mob_none">
+                    <span class="noti_num">{{Auth::guard('providerWeb')->user()->notificationProviderCount()}}</span>
                     <i class="fa fa-bell-o"></i>
                 </a>
                 <span class="divider_span d_mob_none"></span>

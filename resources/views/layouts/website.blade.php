@@ -335,6 +335,16 @@
     @yield('client.favourite.providers')
     @yield('client.public.order')
     @yield('client.cart')
+    @yield('client.profile.orders.product.new')
+    @yield('client.profile.orders.product.now')
+    @yield('client.profile.orders.product.complete')
+    @yield('client.profile.orders.product.cancel')
+    @yield('client.profile.orders.public.private.new')
+    @yield('client.profile.orders.public.private.now')
+    @yield('client.profile.orders.public.private.complete')
+    @yield('client.profile.orders.public.private.cancel')
+    @yield('client.notifications')
+    @yield('provider.notifications')
     <!--start top section-->
 
     <!--Start footer -->
@@ -476,7 +486,9 @@
     <script src="{{asset('website/js/bootstrap-3.min.js')}}"></script>
     <script src="{{asset('website/js/main.js')}}"></script>
     <script src="{{asset('website/js/wow.min.js')}}"></script>
-    <script src="{{asset('website/js/backend.js')}}"></script>
+    <script src="{{asset('website/js/backendProvider.js')}}"></script>
+    <script src="{{asset('website/js/backendClient.js')}}"></script>
+
 
 
     <script>

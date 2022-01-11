@@ -14,6 +14,7 @@
                     <h3 class="main-start-title">حدد الماركات المقدمة</h3>
                     <p class="main-start-des">هذا النص هو مثال لنص يمكن ان يستبدل بنص اخر</p>
                      @include('website.alertSuccess')
+                     @include('website.AllErrors')
                     <div class="row">
                     @foreach($brandTypes as $brandType)
                     <div class="col-xs-12 checkbox service_checkbox">

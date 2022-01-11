@@ -117,7 +117,7 @@ class AuthController extends Controller
 
   public function registerWorkHoursForProvider(Request $request)
   {
-    $arabicDayes = ['','الجمعة','الخميس','الاربعاء','الثلاثاء', 'الاثتنين', 'الاحد', 'السبت'];
+    $arabicDayes = array_reverse(['الجمعة','الخميس','الاربعاء','الثلاثاء', 'الاثتنين', 'الاحد', 'السبت','السبت']);
     $englishDays=['','saterday','sunday','monday','tuesday','wensday','thursday','friday'];
     $times = $request['time'];
     $id = Auth::user()->id;
@@ -199,14 +199,14 @@ class AuthController extends Controller
   {
     $validatedData = $request->validated();
     $provider = Provider::where('phone_number', $validatedData['phone_number'])->with('subServices', 'address.city', 'brandTypes', 'workHour', 'product.category')->first();
-    if ($provider) {
+    if (!empty($provider)) {
       if (Hash::check($validatedData['password'], $provider->password)) {
         return response()->json(['provider' => $provider], 200);
       } else {
         return response()->json(['errors' => 'password mismach'], 401);
       }
     } else {
-      return response()->json(['errors' => 'client does not exist'], 204);
+      return response()->json(['errors' => 'client does not exist'], 404);
     }
   }
 
@@ -220,17 +220,22 @@ class AuthController extends Controller
     $twilio_sid = getenv("TWILIO_SID");
     $twilio_verify_sid = getenv("TWILIO_VERIFY_SID");
     // $twilio = new Client($twilio_sid, $token);
-    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '8c5400ed57ece1ab37fc17281d917562');
-    if (Auth::user()->phone_number == $data['phone_number']) {
-      $provider = Provider::where('phone_number', $data['phone_number'])->first();
+    $provider = Provider::where('phone_number', $data['phone_number'])->first();
+    if($provider){
+    $twilio = new Client('AC060466ed6ae6732d8dfe766b525cf879', '441e80692fe25d6c8473068ca9604bb5');
+    
       $twilio->verify->v2->services('VA8b9553f392c59fd6e9c99eb728304651')
-        ->verifications
-        ->create($data['phone_number'], "sms");
-      $provider->update(['status' => 'forget_password']);
-      return response()->json(['provider' => $provider], 200);
-    } else {
-      return response()->json(['errors' => 'the number you entered is not correct'], 400);
+          ->verifications
+          ->create($data['phone_number'], "sms");
+  
+          $provider->update(['status' => 'forget_password']);
+        return response()->json(['provider' => $provider], 200);
+
+    }else{
+
+      return response()->json(['error'=>'number not found'],404);
     }
+   
   }
 
   
@@ -279,12 +284,39 @@ class AuthController extends Controller
 
 
 
-  public function updateProvider(ProviderUpdate $request)
+  public function updateProvider(Request $request)
   {
-    $validatedData = $request->validated();
     $id = Auth::user()->id;
-    $name = Auth::user()->enginner_name;
     $provider = Provider::find($id);
+    if($provider->phone_number!=$request->phone_number){
+    $validatedData = $request->validate([
+      'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+      'phone_number'=>'unique:providers',
+      'whatsapp_number'=>'numeric',
+      'email'=>'email',
+      'business_registeration_file'=>'mimes:pdf,doc,docx',
+      'enginner_name'=>'string',
+      'workshop_name'=>'string',
+      'password'=>'string',
+      'phone_number_without_country_code'=>'numeric',
+      'country_code_name'=>'min:4',
+    ]);
+  }else{
+    $validatedData = $request->validate([
+      'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
+      'phone_number'=>'string',
+      'whatsapp_number'=>'numeric',
+      'email'=>'email',
+      'business_registeration_file'=>'mimes:pdf,doc,docx',
+      'enginner_name'=>'string',
+      'workshop_name'=>'string',
+      'password'=>'string',
+      'phone_number_without_country_code'=>'numeric',
+      'country_code_name'=>'min:4',
+    ]);
+  }
+
+    $name = Auth::user()->enginner_name;
     $fileName = $provider->workshop_photo_path;
     $photoName = $provider->business_registeration_file;
 

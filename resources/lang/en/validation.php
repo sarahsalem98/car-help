@@ -153,6 +153,19 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'enginner_name'=>'Engineer name',
+        'workshop_name'=>'work shop name',
+        'workshop_photo_path'=>'picture of work shop',
+
+
+          
+   'time.*.day'=>'day',
+   'time.*.from'=>'from ',
+   'time.*.to'=>'to',
+   'time.*.closed'=>' closed',
+   'cancel_id'=>'reason'
+        
+    ],
 
 ];

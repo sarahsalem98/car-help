@@ -11,8 +11,9 @@
 </div>
 <!--start order details-->
 <div class="profile-section">
-    @include('website.alertSuccess')
     <div class="container">
+        @include('website.alertSuccess')
+        @include('website.more',['field'=>'price'])
         <h5 class="sections-title b-0">تفاصيل الطلب</h5>
         <div class="order_details">
             <h5 class="sections-title">تفاصيل الطلب</h5>
@@ -38,6 +39,10 @@
                     <div class="order-details">{{$service->car->carModel->name}} </div>
                 </div>
                 <div class="order_row">
+                    <div class="order-name"> رقم الهيكل</div>
+                    <div class="order-details">{{$service->car->chassis_number}}</div>
+                </div>
+                <div class="order_row">
                     <div class="order-name"> تفاصيل الطلب </div>
                     <div class="order-details"> {{$service->details}}</div>
                 </div>
@@ -61,16 +66,12 @@
                 </div>
             </div>
         </div>
-  
-        @if($service->providerHasPrice(Auth::user()->id))
 
-        <div class="sent__price__offer">
+        @if($service->providerHasPrice(Auth::user()->id))
+            
+        <div class="sections-title color_danger">
             <h1 center>   لقد ارسلت سعر بالفعل</h1>
         </div>
-
-
- 
-
         @else
         <div class="sent__price__offer">
             <h5 class="sections-title">ارسال عرض سعر</h5>
@@ -83,6 +84,8 @@
                     <div class="form-group col-xs-12 col-lg-8">
                         <label for="proprice">سعر الطلب</label>
                         <input type="text" name="price" class="form-control" id="proprice" placeholder="الرجاء ادخال السعر">
+                        @include('website.more',['field'=>'price'])
+
                     </div>
                     <div class="form-group col-xs-12 col-lg-8">
                         <label for="productdetails">ملاحظات</label>
@@ -125,6 +128,7 @@
         <div class="modal-content">
             <h2 class="modal-bold-title">برجاء ادخال سبب رفض الطلب</h2>
             <form action="{{route('provider.cancellation.reasons.post')}}" method="POST" id="cancel_form" class="modal-body">
+                <div id="cancelReasonError" class="alert-danger"> </div>
                  @csrf
                  <input type="hidden" name="provider_id" value="{{Auth::user()->id}}">
                  <input type="hidden" name="order_id" value="{{$service->id}}">

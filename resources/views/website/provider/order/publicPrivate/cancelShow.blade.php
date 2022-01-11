@@ -14,9 +14,13 @@
     <div class="container">
         <h5 class="sections-title b-0">تفاصيل الطلب</h5>
         <div class="order_details">
-            <h5 class="sections-title color_danger">سبب الالغاء</h5>
+            @if(empty($service->clientCancel->reason->name))
+            <h5 class="sections-title color_danger"> سبب الالغاء من قبل مقدم الخدمة</h5>
+            @else
+            <h5 class="sections-title color_danger"> سبب الالغاء من قبل العميل</h5>
+            @endif
             <div class="delete_body px-16 pb-16">
-                <p>{{$service->clientCancel->reason->name}}  </p>
+            <p>{{empty($service->clientCancel->reason->name) ? $service->providerCancel->reason->name :$service->clientCancel->reason->name }}  </p>
             </div>
         </div>
 
@@ -42,6 +46,10 @@
                 <div class="order_row">
                     <div class="order-name"> موديل السيارة</div>
                     <div class="order-details">{{$service->car->carModel->name}} </div>
+                </div>
+                <div class="order_row">
+                    <div class="order-name"> رقم الهيكل</div>
+                    <div class="order-details">{{$service->car->chassis_number}}</div>
                 </div>
                 <div class="order_row">
                     <div class="order-name"> تفاصيل الطلب </div>

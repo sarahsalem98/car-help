@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Website\Provider;
 
 use App\Http\Controllers\Controller;
 use App\Models\BrandType;
+use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Provider;
@@ -44,7 +45,8 @@ class ProfileController extends Controller
     public function updateProfile(Request $request)
     {
 
-        dd($request);
+    //  ($request);
+        // dd(str_replace(" ", "", $request->phone_number_without_country_code));
         $AuthProvider = Provider::find(Auth::user()->id);
         //  dd($AuthProvider);
         $photoName = $AuthProvider->workshop_photo_path;
@@ -57,6 +59,8 @@ class ProfileController extends Controller
                 'workshop_name' => 'string',
                 'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
                 'phone_number' => 'numeric|unique:providers',
+                'phone_number_without_country_code'=>'numeric',
+                'country_code_name'=>'string|max:4',
                 'whatsapp_number' => 'numeric',
                 'email' => 'email',
                 'business_registeration_file' => 'mimes:pdf,doc,docx'
@@ -67,6 +71,7 @@ class ProfileController extends Controller
                 'workshop_name' => 'string',
                 'workshop_photo_path.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
                 'whatsapp_number' => 'numeric',
+                'country_code_name'=>'string|max:4',
                 'email' => 'email',
                 'business_registeration_file' => 'mimes:pdf,doc,docx'
             ]);
@@ -90,13 +95,17 @@ class ProfileController extends Controller
         $AuthProvider->fill($data);
         $AuthProvider->workshop_photo_path = $photoName;
         $AuthProvider->business_registeration_file = $fileName;
+        // $AuthProvider->phone_number_without_country_code=str_replace(" ", "", $data['phone_number_without_country_code']);
         $AuthProvider->save();
         // dd('df');
-        return redirect()->back()->with('message', 'the provider basic information was updated succeesfully😊');
+        return redirect()->back()->with('message', trans('success.provider_updated'));
     }
 
     public function updateWorkHours(Request $request)
     {
+        $arabicDayes = array_reverse(['الجمعة','الخميس','الاربعاء','الثلاثاء', 'الاثتنين', 'الاحد', 'السبت','السبت']);
+        $englishDays=['saterday','sunday','monday','tuesday','wensday','thursday','friday'];
+
         $data = $request->validate([
             'time.*.day' => 'string',
             'time.*.from' => 'nullable|before:time.*.to',
@@ -104,19 +113,21 @@ class ProfileController extends Controller
             'time.*.closed' => 'required'
         ]);
 
-        $times = $request['time'];
+        $times = $data['time'];
+        // dd($times);
         $id = Auth::user()->id;
         $provider = Provider::find($id);
         ProviderWorkHour::where('provider_id',$id)->delete();
-        foreach ($times as $time) {
+        foreach ($times as $key=>$time) {
             $provider->workHour()->create([
-                'day' => $time['day'],
+                'day' => strval($arabicDayes[$key]),
+                'day_en'=>strval( $englishDays[$key]),
                 'from' => $time['from'] ,
                 'to' =>  $time['to'] ,
                 'closed' =>  $time['closed']
             ]);
         }
-        return redirect()->back()->with('message'.'work hour is updated');
+        return redirect()->back()->with('message',trans('success.work_hour_updated'));
     }
 
     public function updatePasswordPage()
@@ -137,9 +148,9 @@ class ProfileController extends Controller
         if (Hash::check($data['old_password'], $provider->password)) {
             $provider->password = bcrypt($data['new_password']);
             $provider->save();
-            return redirect()->back()->with('message', trans('auth.password_change'));
+            return redirect()->back()->with('message', trans('success.password_updated'));
         } else {
-            return redirect()->back()->with('message', trans('auth.password'));
+            return redirect()->back()->with('error', trans('auth.password_not_correct'));
         }
     }
 
@@ -184,5 +195,10 @@ class ProfileController extends Controller
         $provider = Provider::find($id);
         $provider->brandTypes()->sync(BrandType::find($data['brandType']));
         return redirect()->back()->with('message', trans('success.brand_update_success'));
+    }
+    public function notifications(){
+        $id=Auth::user()->id;
+        $notifications=Notification::where('user_id',$id)->where('is_client',0)->get();
+        return view('website.provider.notifications',['notifications'=>$notifications]);
     }
 }
