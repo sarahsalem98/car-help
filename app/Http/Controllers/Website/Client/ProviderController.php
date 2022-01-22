@@ -26,11 +26,12 @@ class ProviderController extends Controller
         if ($add == 1) {
 
             $client->favouriteProviders()->syncWithoutDetaching([$providerId => ['mainService_id' => $mainService_id]]);
-            return redirect()->route('client.favourite.providers.show');
+            return redirect()->back();
         } else {
             $client->favouriteProviders()->detach($providerId);
             return redirect()->back();
         }
 
     }
+    
 }

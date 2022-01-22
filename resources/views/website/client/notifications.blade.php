@@ -41,7 +41,7 @@
                                 @elseif($notification->order->status==1 ||$notification->order->status==3)
                                 <a href="{{route('client.product.orders.now.show',['order_id'=>$notification->order_id])}}" class="notification_media">
                                     @elseif($notification->order->status==4 )
-                                    <a href="{{route('client.product.orders.complete.show',['order_id'=>$notification->order_id])}}" class="notification_media">
+                                    <a href="{{route('client.product.orders.complete.show',['order_id'=>$notification->order_id])}} " class="notification_media">
                                         @else
                                         <a href="{{route('client.product.orders.cancel.show',['order_id'=>$notification->order_id])}}" class="notification_media">
                                             @endif

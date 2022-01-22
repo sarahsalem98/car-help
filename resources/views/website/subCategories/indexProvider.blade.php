@@ -63,14 +63,19 @@
             <div class="row">
                 @foreach($providers as $provider)
                 <div class="col-xs-12 col-sm-6 col-md-3">
-                  
-             @include('website.layoutProvider')
+
+                    @include('website.layoutProvider')
                 </div>
                 @endforeach
             </div>
         </div>
         <div class="map_wrapper tab-pane fade" role="tabpanel" id="map_wrapper">
+            @foreach($addresses as $index=>$address)
+            <input type="text" id="lat_{{$index}}" value="{{$address->lat}}" />
+            <input type="text" id="long_{{$index}}" value="{{$address->long}}" />
+            @endforeach
 
+            <input type="text" id="total" value="{{$addressesCount}}"/>
             <div class="check_wrapper">
                 <div class="checkbox service_checkbox">
                     <label>
@@ -101,7 +106,8 @@
                     </label>
                 </div>
             </div>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.650859370141!2d46.64176368475698!3d24.738863956212338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee36823527cdb%3A0x67b0574b6b8f0d27!2sMCIT!5e0!3m2!1sar!2seg!4v1632406153544!5m2!1sar!2seg" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3623.650859370141!2d46.64176368475698!3d24.738863956212338!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2ee36823527cdb%3A0x67b0574b6b8f0d27!2sMCIT!5e0!3m2!1sar!2seg!4v1632406153544!5m2!1sar!2seg" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe> -->
+            <div id="map2"></div>
         </div>
     </div>
 </div>

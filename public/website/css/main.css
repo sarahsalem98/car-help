@@ -4922,3 +4922,20 @@ wallet_wrapper .all_price {
 allet_wrapper .all_price {
     margin-bottom: 40px;
 }
+
+.next-btn {
+    width: 100%;
+}
+
+.add_fav_btn {
+    border: none;
+    border-radius: 50%;
+}
+
+.view-pdf {
+    margin-inline-start: 20px;
+}
+
+.view-pdf i {
+    margin-inline-end: 6px;
+}

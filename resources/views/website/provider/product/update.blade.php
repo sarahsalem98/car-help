@@ -60,7 +60,7 @@
                                 @include('website.more',['field'=>'details'])
                             </div>
                             <div class="form-group col-xs-12">
-                                <!-- <div class="dropzone__wrapper">
+                                <div class="dropzone__wrapper">
                                     <div class="upload__thumb">
                                         <img src="image/cloud-computing.png" alt="" class="upload__img">
                                         <span class="upload__des">ارفاق صور</span>
@@ -69,12 +69,12 @@
                                     
                                     </div>
                                 </div>    
-                                                      -->
-                                                      <input type="file" multiple name="images[]" value="{{$product->images ?  json_decode($product->images)[0] :old('images')}}"  >
+                                                     
+                                                      <!-- <input type="file" multiple name="images[]" value="{{$product->images ?  json_decode($product->images)[0] :old('images')}}"  > -->
                                                     <!-- <img src="{{Storage::url(json_decode($product->images)[0])}}" alt="">
                                                     <img src="{{Storage::url(json_decode($product->images)[1])}}" alt="">
                                                     <img src="{{Storage::url(json_decode($product->images)[2])}}" alt=""> -->
-                                                      @include('website.more',['field'=>'images'])
+                                                      <!-- @include('website.more',['field'=>'images']) -->
                             </div>
                             <div class="col-xs-12">
                                 <button type="submit" class="btn main_btn moving_bk submit_btn" >تأكيد التعديل</button>

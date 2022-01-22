@@ -51,7 +51,8 @@ class RegisterController extends Controller
         if ($verification->valid) {
             $client = userClint::where('phone_number', $data['phone_number'])->first();
             // dd($client);
-            $client->update(['status' => 'verified']);
+            $client->status = 'verified';
+            $client->save();
             Auth::guard('clientWeb')->login($client);
             return redirect()->route('main');
         }

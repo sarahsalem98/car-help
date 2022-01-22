@@ -78,7 +78,10 @@
                         <div class="one-service"> <img src="{{$brandType->photoUrl()}}" alt=""> {{$brandType->name}} </div>
                         @endforeach
                     </div>
+
                 </div>
+
+
                 <!-- <div class="col-xs-12 col-lg-8 work-times">
                     <h5 class="sections-title">الجنسيات</h5>
                     <div class="services-wrapper">
@@ -102,6 +105,63 @@
                     </ul>
                     <div class="tab-content" id="myTabContentwrapper">
                         <div class="products_wrapper tab-pane fade in active" role="tabpanel" id="products_wrapper">
+                            @if($productOfProviderInCart==1 || $cart==0)
+                            <form action="{{route('client.cart.add')}}" method="POST">
+                                @csrf
+                                <ul class="nav nav-pills products-pills">
+                                    @foreach($productCategories as $key=> $productCategory)
+                                    <li class="nav-item @if($key==0) active @endif">
+                                        <a class="nav-link" href="#product_{{$key+1}}" data-toggle="tab">
+                                            {{$productCategory->name}}
+                                        </a>
+                                    </li>
+                                    @endforeach
+
+                                </ul>
+                                <div class="tab-content" id="myTabContentproducts">
+                                    @foreach($productCategories as $key=> $productCategory)
+                                    <div class="products_wrapper tab-pane fade in @if($key==0) active @endif" role="tabpanel" id="product_{{$key+1}}">
+                                        @foreach($providerProducts as $providerProduct)
+                                        @if($providerProduct->category_id ==$key+1)
+                                        <div class="media">
+                                            <a href="{{route('client.product.show',['product_id'=>$providerProduct->id,'mainCategory_id'=>$mainCategory->id,'provider_id'=>$provider->id])}}" class="product-img">
+                                                <img src="{{$providerProduct->firstImageUrl()}}">
+                                            </a>
+                                            <div class="media-body">
+
+                                                <a href="{{route('client.product.show',['product_id'=>$providerProduct->id,'mainCategory_id'=>$mainCategory->id,'provider_id'=>$provider->id])}}">
+                                                    <h5 class="product-title"> {{$providerProduct->name}}</h5>
+                                                </a>
+
+                                                <p class="product-des">{{$providerProduct->details}}</p>
+                                                <span class="price">{{$providerProduct->price}}رس</span>
+                                                <input type="hidden" name="product_id[]" value="{{$providerProduct->id}}">
+                                                <div class="number-spinner">
+                                                    <span class="ns-btn">
+                                                        <a data-dir="dwn">
+                                                            <i class="fa fa-minus"></i>
+                                                        </a>
+                                                    </span>
+                                                    <input type="text" name="qty[]" class="pl-ns-value" value="0" maxlength=2>
+                                                    <span class="ns-btn">
+                                                        <a data-dir="up">
+                                                            <i class="fa fa-plus"></i>
+                                                        </a>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
+                                        @endforeach
+
+                                    </div>
+
+                                    @endforeach
+                                </div>
+                                <button type="submit" class="btn main_btn moving_bk next-btn"> التالى </button>
+                            </form>
+                            @elseif($productOfProviderInCart==null)
+                         
                             <ul class="nav nav-pills products-pills">
                                 @foreach($productCategories as $key=> $productCategory)
                                 <li class="nav-item @if($key==0) active @endif">
@@ -122,20 +182,21 @@
                                             <img src="{{$providerProduct->firstImageUrl()}}">
                                         </a>
                                         <div class="media-body">
-                                   
+
                                             <a href="{{route('client.product.show',['product_id'=>$providerProduct->id,'mainCategory_id'=>$mainCategory->id,'provider_id'=>$provider->id])}}">
                                                 <h5 class="product-title"> {{$providerProduct->name}}</h5>
                                             </a>
-                                            
+
                                             <p class="product-des">{{$providerProduct->details}}</p>
                                             <span class="price">{{$providerProduct->price}}رس</span>
+                                            <input type="hidden" name="product_id[]" value="{{$providerProduct->id}}">
                                             <div class="number-spinner">
                                                 <span class="ns-btn">
                                                     <a data-dir="dwn">
                                                         <i class="fa fa-minus"></i>
                                                     </a>
                                                 </span>
-                                                <input type="text" class="pl-ns-value" value="1" maxlength=2>
+                                                <input type="text" name="qty[]" class="pl-ns-value" value="0" maxlength=2>
                                                 <span class="ns-btn">
                                                     <a data-dir="up">
                                                         <i class="fa fa-plus"></i>
@@ -151,6 +212,12 @@
 
                                 @endforeach
                             </div>
+                            <a data-toggle="modal" data-target="#cart" class="btn main_btn moving_bk next-btn"> التالى </a>
+                            <!-- <a class="remove__wrap" href="" data-toggle="modal" data-target="#deleteConfirmModal">
+                                            <i class="fa fa-trash"></i>
+                                            <span>حذف</span>
+                                        </a> -->
+                            @endif
 
                         </div>
                         <div class="orders_wrapper tab-pane fade" role="tabpanel" id="orders_wrapper">
@@ -271,6 +338,10 @@
                                         </div>
                                     </div>
                                 </div>
+
+
+
+
                             </div>
                         </div>
                     </div>
@@ -279,6 +350,35 @@
         </div>
     </div>
 </div>
+
+<div class="modal ordersentModal fade text-center" id="cart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <i class="fa fa-times"></i>
+    </button>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{{route('client.cart.provider.delete')}}" method="POST">
+              @csrf
+
+
+              <div class="modal-body padding-30">
+                  <img src="{{asset('website/image/ask.png')}}" alt="">
+  
+                  <h2 class="order-title">    يوجد فى السلة منتجات لمقدم خدمة اخر هل تريد حذفها قبل اضافةاخر؟</h2>
+        <!-- <input type="hidden" name="qty" value="5"> -->
+                  <div class="btns_wrapper">
+  
+                      <button type="submit" class="btn main_btn moving_bk w-40" >نعم</button>
+                      <button class="btn btn-default w-40" data-dismiss="modal" aria-label="Close">تراجع</button>
+                  </div>
+  
+              </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
 @push('modal')
 <script>
     function SelectChange() {

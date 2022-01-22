@@ -3,11 +3,14 @@
 namespace App\Http\Controllers\Website\Provider;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProviderAddress;
 use App\Models\BrandType;
+use App\Models\City;
 use App\Models\Notification;
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\Provider;
+use App\Models\providerAddress;
 use App\Models\ProviderWorkHour;
 use App\Models\Service;
 use App\Models\SubServices;
@@ -200,5 +203,19 @@ class ProfileController extends Controller
         $id=Auth::user()->id;
         $notifications=Notification::where('user_id',$id)->where('is_client',0)->get();
         return view('website.provider.notifications',['notifications'=>$notifications]);
+    }
+
+    public function updateAddress(){
+        $cities=City::all();
+        $id=Auth::user()->id;
+        $address=providerAddress::where('provider_id',$id)->first();
+        return view('website.provider.update.address',['cities'=>$cities,'address'=>$address]);
+    }
+    public function updatePostAddress(StoreProviderAddress $request,providerAddress $address_id){
+        //  dd($request);
+        $data=$request->validated();
+        $address_id->fill($data);
+        $address_id->save();
+        return redirect()->back()->with('message','address is updated successfully');
     }
 }

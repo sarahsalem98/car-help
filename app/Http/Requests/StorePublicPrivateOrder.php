@@ -28,7 +28,7 @@ class StorePublicPrivateOrder extends FormRequest
     public function rules()
     {
         return [
-            'provider_id'=>'exists:providers,id',
+            'provider_id'=>'nullable',
             'address_id'=>'string|exists:clients_addresses,id',
             'car_id'=>'required|exists:cars,id',
             'details'=>'required',

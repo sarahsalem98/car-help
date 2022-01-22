@@ -17,7 +17,7 @@
                 <h3 class="main-pages-title"> مرحبا بعودتك مرة أخري</h3>
                 <p class="main-center-des">هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة</p>
                 @include('website.alertDanger')
-                @include('website.allErrors')
+                <!-- @include('website.allErrors') -->
                 <div class="row">
                     <div class="form-group col-xs-12">
                         <label for="phoneNumber">رقم الجوال</label>

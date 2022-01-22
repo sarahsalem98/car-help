@@ -40,4 +40,7 @@ class Product extends Model
         public function provider(){
             return $this->belongsTo(Provider::class);
         }
+        public function cartExists($cart_id){
+            return $this->cart->contains($cart_id);
+        }
 }

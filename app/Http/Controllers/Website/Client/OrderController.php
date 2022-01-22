@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Website\Client;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePublicPrivateOrder;
 use App\Models\Car;
+use App\Models\CarModel;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,11 +14,13 @@ class OrderController extends Controller
 {
     public function makeOrder(StorePublicPrivateOrder $request){
         $validateData = $request->validated();
-        // dd($validateData['images']);
-        if ( $validateData['order_type'] == 1) {
+
+        //  dd($validateData['provider_id']);
+        if ( $validateData['order_type'] == 1 || $validateData['order_type'] == 0 ) {
             $order = new Order;
             $order->fill($validateData);
             $order->client_id = Auth::user()->id;
+            // $order->provider_id = $validateData['provider_id'] ;
             if ($request->hasfile('images')) {
 
                 foreach ($request->file('images') as $image) {
@@ -26,7 +29,7 @@ class OrderController extends Controller
                 }
                 $order->images = json_encode($data);
             }
-            // $order->save();
+             $order->save();
 
             return response()->json(['status' => true, 'result' => 'Success']);
 
@@ -45,7 +48,7 @@ class OrderController extends Controller
              'details'=>'required',
              'images'=>'required',
              'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg',
-             'provider_id'=>'required',
+             'provider_id'=>'nullable',
              'order_type'=>'required'
 
          ]);
@@ -77,7 +80,10 @@ class OrderController extends Controller
 
     }
     public function publicOrder(){
-       return view('website.client.publicOrder'); 
+        $id=Auth::user()->id;
+        $clientCars=Car::where('client_id',$id)->get();
+        $carModels=CarModel::all();
+       return view('website.client.publicOrder',['clientCars'=>$clientCars,'carModels'=>$carModels]); 
     }
 
     public function makePublicOrder(){

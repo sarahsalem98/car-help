@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title> car help</title>
-    <link rel="shortcut icon" href="{{asset('websit/image/logo.png')}}" type="image/png" sizes="16x16">
+    <link rel="shortcut icon" href="{{asset('website/image/logo.png')}}" type="image/png" sizes="16x16">
     <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgZES0EP9ET5sdaCdVLI2HvP-2ee9JwWo&libraries=places&callback=initMap&solution_channel=GMP_QB_addressselection_v1_cABC"></script>
     <link href="{{asset('website/css/animate.min.css')}}" rel="stylesheet" />
     <link href="{{asset('website/css/hover.css')}}" rel="stylesheet">
@@ -30,12 +31,15 @@
     <link href="{{asset('website/css/style-ar.css')}}" rel="stylesheet">
     @elseif(app()->getLocale()=='en')
     <link href="{{asset('website/css/style-en.css')}}" rel="stylesheet">
-
     @endif
     <style>
         #map {
             height: 350px;
-            width: 610px;
+            width: 100%;
+        }
+        #map2 {
+            height: 500px;
+            width: 100%;
         }
     </style>
 
@@ -54,19 +58,19 @@
     <div class="mob-overlay"></div>
     <div class="sidebar-wrapper">
         <div class="m-head">
-            <form action="" class="search-form mb-3" autocomplete="off">
+            <!-- <form action="" class="search-form mb-3" autocomplete="off">
                 <div class="input-group">
                     <button type="submit" class="search_btn"> <i class="fa fa-search"></i> </button>
                     <input type="search" class="form-control" id="searchInput" placeholder="كلمة بحثك ...">
                 </div>
-            </form>
+            </form> -->
 
-            <a href="#" class="btn shop_btn">الدخول أو التسجيل من هنا</a>
+            <!-- <a href="#" class="btn shop_btn">الدخول أو التسجيل من هنا</a> -->
         </div>
         <div id="burgerBtn"></div>
         <ul class="mobile-store-nav">
             <li class="nav-item">
-                <a class="nav-link" href="index.html">
+                <a class="nav-link" href="{{route('main')}}">
                     <i class="fa fa-home"></i>
                     <span>الرئيسية</span>
                 </a>
@@ -346,6 +350,9 @@
     @yield('client.profile.orders.public.private.cancel')
     @yield('client.notifications')
     @yield('provider.notifications')
+    @yield('provider.address.update')
+    @yield('client.profile.address.edit')
+    @yield('client.profile.address.add')
     <!--start top section-->
 
     <!--Start footer -->
@@ -392,9 +399,9 @@
                         <li class="menu-item ">
                             <a href="{{route('about.us')}}" class="menu-link">{{__('who we are')}} </a>
                         </li>
-                        <li class="menu-item ">
+                        <!-- <li class="menu-item ">
                             <a href="#" class="menu-link">{{__('our features')}}</a>
-                        </li>
+                        </li> -->
                         <li class="menu-item">
                             <a href="{{route('contact.us')}}" class="menu-link">{{__('contact us')}}</a>
                         </li>
@@ -407,10 +414,10 @@
                             <a href="{{route('categories')}}" class="menu-link">{{__('categories')}}</a>
                         </li>
                         <li class="menu-item ">
-                            <a href="#" class="menu-link">{{__('download app')}}</a>
+                            <a href="{{route('main')}}/#download-app" class="menu-link">{{__('download app')}}</a>
                         </li>
                         <li class="menu-item ">
-                            <a href="#" class="menu-link">{{__('terms and conditions')}}</a>
+                            <a href="{{route('main')}}" class="menu-link">{{__('terms and conditions')}}</a>
                         </li>
                     </ul>
                 </div>

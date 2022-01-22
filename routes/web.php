@@ -53,162 +53,172 @@ Route::get('/cache-clear', function () {
 
 
 
-Route::get('language/{locale}', 'App\Http\Controllers\website\MainController@setLocale')->name('change.lang');
-Route::get('/', 'App\Http\Controllers\website\MainController@getMainPage')->name('main');
+Route::get('language/{locale}', 'App\Http\Controllers\Website\MainController@setLocale')->name('change.lang');
+Route::get('/', 'App\Http\Controllers\Website\MainController@getMainPage')->name('main');
 
-Route::get('about/us', 'App\Http\Controllers\website\MainController@getWhoWeArePage')->name('about.us');
-Route::get('/categories', 'App\Http\Controllers\website\MainController@getCategoryPage')->name('categories');
-Route::get('contact/us', 'App\Http\Controllers\website\MainController@getContactUsPage')->name('contact.us');
-Route::post('contact/us', 'App\Http\Controllers\website\MainController@storeContactUs')->name('contact.us.post');
+Route::get('about/us', 'App\Http\Controllers\Website\MainController@getWhoWeArePage')->name('about.us');
+Route::get('/categories', 'App\Http\Controllers\Website\MainController@getCategoryPage')->name('categories');
+Route::get('contact/us', 'App\Http\Controllers\Website\MainController@getContactUsPage')->name('contact.us');
+Route::post('contact/us', 'App\Http\Controllers\Website\MainController@storeContactUs')->name('contact.us.post');
 
 Route::prefix('provider')->group(function () {
-    Route::get('logout', 'App\Http\Controllers\website\Provider\Auth\LoginController@logout')->name('provider.logout');
-    Route::get('login', 'App\Http\Controllers\website\Provider\Auth\LoginController@loginPage')->name('provider.login.page');
-    Route::post('login', 'App\Http\Controllers\website\Provider\Auth\LoginController@login')->name('provider.login.page.post');
+    Route::get('logout', 'App\Http\Controllers\Website\Provider\Auth\LoginController@logout')->name('provider.logout');
+    Route::get('login', 'App\Http\Controllers\Website\Provider\Auth\LoginController@loginPage')->name('provider.login.page');
+    Route::post('login', 'App\Http\Controllers\Website\Provider\Auth\LoginController@login')->name('provider.login.page.post');
 
-    Route::post('register', 'App\Http\Controllers\website\Provider\Auth\RegisterController@register')->name('provider.register.first.page.post');
-    Route::get('register', 'App\Http\Controllers\website\Provider\Auth\RegisterController@registerFirstPage')->name('provider.register.first.page');
+    Route::post('register', 'App\Http\Controllers\Website\Provider\Auth\RegisterController@register')->name('provider.register.first.page.post');
+    Route::get('register', 'App\Http\Controllers\Website\Provider\Auth\RegisterController@registerFirstPage')->name('provider.register.first.page');
 
-    Route::get('register/{provider_id}/service/types', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerServiceTypesPage')->name('provider.register.service.type');
-    Route::post('register/service/types', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerServiceTypeForProvider')->name('provider.register.service.type.post');
+    Route::get('register/{provider_id}/service/types', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerServiceTypesPage')->name('provider.register.service.type');
+    Route::post('register/service/types', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerServiceTypeForProvider')->name('provider.register.service.type.post');
 
-    Route::get('register/{provider_id}/brand/types', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerBrandTypesPage')->name('provider.register.brand.type');
-    Route::post('register/brand/types', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerBrandTypes')->name('provider.register.brand.type.post');
+    Route::get('register/{provider_id}/brand/types', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerBrandTypesPage')->name('provider.register.brand.type');
+    Route::post('register/brand/types', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerBrandTypes')->name('provider.register.brand.type.post');
 
-    Route::get('register/{provider_id}/address', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerAddressPage')->name('provider.register.address');
-    Route::post('register/address', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerAddress')->name('provider.register.address.post');
+    Route::get('register/{provider_id}/address', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerAddressPage')->name('provider.register.address');
+    Route::post('register/address', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerAddress')->name('provider.register.address.post');
 
 
-    Route::get('register/{provider_id}/work/hours', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHoursPage')->name('provider.register.work_hours');
-    Route::post('register/work/hours', 'App\Http\Controllers\website\Provider\Auth\RegisterCompleteController@registerWorkHours')->name('provider.register.work_hours.post');
+    Route::get('register/{provider_id}/work/hours', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerWorkHoursPage')->name('provider.register.work_hours');
+    Route::post('register/work/hours', 'App\Http\Controllers\Website\Provider\Auth\RegisterCompleteController@registerWorkHours')->name('provider.register.work_hours.post');
 
-    
-    Route::get('verify/{provider_id}', 'App\Http\Controllers\website\provider\Auth\RegisterCompleteController@verifyPage')->name('provider.verify');
-    Route::post('verify', 'App\Http\Controllers\website\provider\Auth\RegisterCompleteController@verify')->name('provider.verify.post');
+
+    Route::get('verify/{provider_id}', 'App\Http\Controllers\Website\provider\Auth\RegisterCompleteController@verifyPage')->name('provider.verify');
+    Route::post('verify', 'App\Http\Controllers\Website\provider\Auth\RegisterCompleteController@verify')->name('provider.verify.post');
 
     Route::middleware(['auth:providerWeb'])->group(function () {
-        Route::get('statistics', 'App\Http\Controllers\website\Provider\ProfileController@showStatistics')->name('provider.statistics');
+        Route::get('statistics', 'App\Http\Controllers\Website\Provider\ProfileController@showStatistics')->name('provider.statistics');
 
 
-        Route::get('profile/update', 'App\Http\Controllers\website\Provider\ProfileController@updateProfilePage')->name('provider.profile.update');
-        Route::post('profile/update', 'App\Http\Controllers\website\Provider\ProfileController@updateProfile')->name('provider.profile.update.post');
-        Route::post('work/hours/update', 'App\Http\Controllers\website\Provider\ProfileController@updateWorkHours')->name('provider.work.hour.update.post');
+        Route::get('profile/update', 'App\Http\Controllers\Website\Provider\ProfileController@updateProfilePage')->name('provider.profile.update');
+        Route::post('profile/update', 'App\Http\Controllers\Website\Provider\ProfileController@updateProfile')->name('provider.profile.update.post');
+        Route::post('work/hours/update', 'App\Http\Controllers\Website\Provider\ProfileController@updateWorkHours')->name('provider.work.hour.update.post');
 
-        Route::get('password/update', 'App\Http\Controllers\website\Provider\ProfileController@updatePasswordPage')->name('provider.password.update');
-        Route::post('password/update', 'App\Http\Controllers\website\Provider\ProfileController@updatePassword')->name('provider.password.update.post');
-
-        Route::get('service/types/update', 'App\Http\Controllers\website\Provider\ProfileController@updateServicesPage')->name('provider.services.update');
-        Route::Post('service/types/update', 'App\Http\Controllers\website\Provider\ProfileController@updateServices')->name('provider.services.update.post');
-
-        Route::get('brand/types/update', 'App\Http\Controllers\website\Provider\ProfileController@updateBrandsPage')->name('provider.brands.update');
-        Route::post('brand/types/update', 'App\Http\Controllers\website\Provider\ProfileController@updateBrands')->name('provider.brands.update.post');
-
-        Route::get('services', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicePrivateOrders')->name('provider.services');
-        Route::get('new/service/{service_id}', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateNewOrder')->name('provider.service.show');
-        Route::get('now/service/{service_id}', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateNowOrder')->name('provider.service.now.show');
-        Route::get('completed/service/{service_id}', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateCompleteOrder')->name('provider.service.complete.show');
-        Route::get('canceled/service/{service_id}', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@showPublicPrivateCancelOrder')->name('provider.service.cancel.show');
+        Route::get('address/update','App\Http\Controllers\Website\Provider\ProfileController@updateAddress')->name('provider.address.update');
+        Route::put('address/{address_id}/update','App\Http\Controllers\Website\Provider\ProfileController@updatePostAddress')->name('provider.address.update.post');
 
 
+        Route::get('password/update', 'App\Http\Controllers\Website\Provider\ProfileController@updatePasswordPage')->name('provider.password.update');
+        Route::post('password/update', 'App\Http\Controllers\Website\Provider\ProfileController@updatePassword')->name('provider.password.update.post');
+
+        Route::get('service/types/update', 'App\Http\Controllers\Website\Provider\ProfileController@updateServicesPage')->name('provider.services.update');
+        Route::Post('service/types/update', 'App\Http\Controllers\Website\Provider\ProfileController@updateServices')->name('provider.services.update.post');
+
+        Route::get('brand/types/update', 'App\Http\Controllers\Website\Provider\ProfileController@updateBrandsPage')->name('provider.brands.update');
+        Route::post('brand/types/update', 'App\Http\Controllers\Website\Provider\ProfileController@updateBrands')->name('provider.brands.update.post');
+
+        Route::get('services', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@showPublicePrivateOrders')->name('provider.services');
+        Route::get('new/service/{service_id}', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@showPublicPrivateNewOrder')->name('provider.service.show');
+        Route::get('now/service/{service_id}', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@showPublicPrivateNowOrder')->name('provider.service.now.show');
+        Route::get('completed/service/{service_id}', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@showPublicPrivateCompleteOrder')->name('provider.service.complete.show');
+        Route::get('canceled/service/{service_id}', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@showPublicPrivateCancelOrder')->name('provider.service.cancel.show');
 
 
 
-        Route::post('complete/service', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@acceptService')->name('provider.complete,service');
-        Route::post('servic/send/price', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@sendPrice')->name('provider.price.send');
-        Route::post('service/send/cancel/reasons', 'App\Http\Controllers\website\Provider\Order\PublicPrivateController@sendCancelReasons')->name('provider.cancellation.reasons.post');
 
-        Route::get('orders', 'App\Http\Controllers\website\Provider\Order\ProductController@showProducteOrders')->name('provider.orders');
-        Route::get('new/order/{order_id}', 'App\Http\Controllers\website\Provider\Order\ProductController@showProductNewOrder')->name('provider.order.new.show');
-        Route::get('accepted/order/{order_id}', 'App\Http\Controllers\website\Provider\Order\ProductController@showIsAccepted')->name('provider.order.is.accepted.show');
-        Route::post('accepted/order/{order_id}', 'App\Http\Controllers\website\Provider\Order\ProductController@acceptOrder')->name('provider.order.is.accepted.show.post');
 
-        Route::get('prepared/order/{order_id}', 'App\Http\Controllers\website\Provider\Order\ProductController@showIsPrepared')->name('provider.order.is.prepared.show');
-        Route::post('prepared/order/{order_id}', 'App\Http\Controllers\website\Provider\Order\ProductController@prepareOrder')->name('provider.order.is.prepared.show.post');
+        Route::post('complete/service', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@acceptService')->name('provider.complete,service');
+        Route::post('servic/send/price', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@sendPrice')->name('provider.price.send');
+        Route::post('service/send/cancel/reasons', 'App\Http\Controllers\Website\Provider\Order\PublicPrivateController@sendCancelReasons')->name('provider.cancellation.reasons.post');
 
-        Route::post('deliverd/order', 'App\Http\Controllers\website\Provider\Order\ProductController@delivereOrder')->name('provider.order.is.delivered.show.post');
+        Route::get('orders', 'App\Http\Controllers\Website\Provider\Order\ProductController@showProducteOrders')->name('provider.orders');
+        Route::get('new/order/{order_id}', 'App\Http\Controllers\Website\Provider\Order\ProductController@showProductNewOrder')->name('provider.order.new.show');
+        Route::get('accepted/order/{order_id}', 'App\Http\Controllers\Website\Provider\Order\ProductController@showIsAccepted')->name('provider.order.is.accepted.show');
+        Route::post('accepted/order/{order_id}', 'App\Http\Controllers\Website\Provider\Order\ProductController@acceptOrder')->name('provider.order.is.accepted.show.post');
 
-        Route::get('completed/order/{order_id}', 'App\Http\Controllers\website\Provider\Order\ProductController@showComplete')->name('provider.order.is.complete.show');
-        Route::get('canceled/order/{order_id}', 'App\Http\Controllers\website\Provider\Order\ProductController@showCancel')->name('provider.order.is.canceled.show');
+        Route::get('prepared/order/{order_id}', 'App\Http\Controllers\Website\Provider\Order\ProductController@showIsPrepared')->name('provider.order.is.prepared.show');
+        Route::post('prepared/order/{order_id}', 'App\Http\Controllers\Website\Provider\Order\ProductController@prepareOrder')->name('provider.order.is.prepared.show.post');
+
+        Route::post('deliverd/order', 'App\Http\Controllers\Website\Provider\Order\ProductController@delivereOrder')->name('provider.order.is.delivered.show.post');
+
+        Route::get('completed/order/{order_id}', 'App\Http\Controllers\Website\Provider\Order\ProductController@showComplete')->name('provider.order.is.complete.show');
+        Route::get('canceled/order/{order_id}', 'App\Http\Controllers\Website\Provider\Order\ProductController@showCancel')->name('provider.order.is.canceled.show');
         //products
 
         Route::resource('yield', ProductController::class);
 
-        Route::get('notifications','App\Http\Controllers\website\Provider\ProfileController@notifications')->name('provider.notifications');
+        Route::get('notifications', 'App\Http\Controllers\Website\Provider\ProfileController@notifications')->name('provider.notifications');
     });
 });
 Route::prefix('client')->group(function () {
-    Route::get('register', 'App\Http\Controllers\website\Client\Auth\RegisterController@registerPage')->name('client.register');
-    Route::post('register', 'App\Http\Controllers\website\Client\Auth\RegisterController@register')->name('client.register.post');
+    Route::get('register', 'App\Http\Controllers\Website\Client\Auth\RegisterController@registerPage')->name('client.register');
+    Route::post('register', 'App\Http\Controllers\Website\Client\Auth\RegisterController@register')->name('client.register.post');
 
 
-    Route::get('verify/{client_id}', 'App\Http\Controllers\website\Client\Auth\RegisterController@verifyPage')->name('client.verify');
-    Route::post('verify', 'App\Http\Controllers\website\Client\Auth\RegisterController@verify')->name('client.verify.post');
+    Route::get('verify/{client_id}', 'App\Http\Controllers\Website\Client\Auth\RegisterController@verifyPage')->name('client.verify');
+    Route::post('verify', 'App\Http\Controllers\Website\Client\Auth\RegisterController@verify')->name('client.verify.post');
 
 
-    Route::get('login', 'App\Http\Controllers\website\Client\Auth\LoginController@loginPage')->name('client.login');
-    Route::post('login', 'App\Http\Controllers\website\Client\Auth\LoginController@login')->name('client.login.post');
+    Route::get('login', 'App\Http\Controllers\Website\Client\Auth\LoginController@loginPage')->name('client.login');
+    Route::post('login', 'App\Http\Controllers\Website\Client\Auth\LoginController@login')->name('client.login.post');
 
-    Route::get('logout', 'App\Http\Controllers\website\Client\Auth\LoginController@logout')->name('client.logout');
+    Route::get('logout', 'App\Http\Controllers\Website\Client\Auth\LoginController@logout')->name('client.logout');
     Route::middleware(['auth:clientWeb'])->group(function () {
 
-        Route::get('profile/update', 'App\Http\Controllers\website\Client\Profile\UpdateController@updateProfilePage')->name('client.profile.update');
-        Route::post('profile/update', 'App\Http\Controllers\website\Client\Profile\UpdateController@updateProfile')->name('client.profile.update.post');
+        Route::get('profile/update', 'App\Http\Controllers\Website\Client\Profile\UpdateController@updateProfilePage')->name('client.profile.update');
+        Route::post('profile/update', 'App\Http\Controllers\Website\Client\Profile\UpdateController@updateProfile')->name('client.profile.update.post');
 
-        Route::get('password/update', 'App\Http\Controllers\website\Client\Profile\UpdateController@updatePasswordPage')->name('client.password.update');
-        Route::post('password/update', 'App\Http\Controllers\website\Client\Profile\UpdateController@updatePassword')->name('client.password.update.post');
+        Route::get('password/update', 'App\Http\Controllers\Website\Client\Profile\UpdateController@updatePasswordPage')->name('client.password.update');
+        Route::post('password/update', 'App\Http\Controllers\Website\Client\Profile\UpdateController@updatePassword')->name('client.password.update.post');
 
-        Route::get('profile/orders', 'App\Http\Controllers\website\Client\Profile\OrderController@orderIndex')->name('client.orders');
+        Route::get('profile/orders', 'App\Http\Controllers\Website\Client\Profile\OrderController@orderIndex')->name('client.orders');
 
 
-        Route::get('addresses', 'App\Http\Controllers\website\Client\Profile\AddressController@addressIndex')->name('client.address');
-
+        Route::get('addresses', 'App\Http\Controllers\Website\Client\Profile\AddressController@addressIndex')->name('client.address');
+        Route::get('address/{address_id}/edit','App\Http\Controllers\Website\Client\Profile\AddressController@edit')->name('client.address.edit');
+        Route::put('address/{address_id}/update','App\Http\Controllers\Website\Client\Profile\AddressController@update')->name('client.address.update');
+        Route::post('address/add','App\Http\Controllers\Website\Client\Profile\AddressController@add')->name('client.address.add.post');
+        Route::get('address/add','App\Http\Controllers\Website\Client\Profile\AddressController@showAdd')->name('client.address.add');
+        Route::delete('address/{address_id}/delete','App\Http\Controllers\Website\Client\Profile\AddressController@delete')->name('client.address.delete');
 
         Route::resource('cars', CarController::class);
 
-        Route::get('sub/categories/{mainCategoryId}', 'App\Http\Controllers\website\SubCategories\ShowController@indexProvider')->name('subCategories.index');
-        Route::get('sub/categories/{mainCategory_id}/provider/{provider_id}', 'App\Http\Controllers\website\SubCategories\ShowController@showProvider')->name('subCategories.provider.show');
+        Route::get('sub/categories/{mainCategoryId}', 'App\Http\Controllers\Website\SubCategories\ShowController@indexProvider')->name('subCategories.index');
+        Route::get('sub/categories/{mainCategory_id}/provider/{provider_id}', 'App\Http\Controllers\Website\SubCategories\ShowController@showProvider')->name('subCategories.provider.show');
 
 
         //order
-        Route::post('order', 'App\Http\Controllers\website\Client\OrderController@makeOrder')->name('public.private.order.post');
-        Route::post('car/order', 'App\Http\Controllers\website\Client\OrderController@makeOrderCar')->name('public.private.car.order.post');
+        Route::post('order', 'App\Http\Controllers\Website\Client\OrderController@makeOrder')->name('public.private.order.post');
+        Route::post('car/order', 'App\Http\Controllers\Website\Client\OrderController@makeOrderCar')->name('public.private.car.order.post');
 
-        Route::get('public/order', 'App\Http\Controllers\website\Client\OrderController@publicOrder')->name('public.order');
-        Route::post('public/order', 'App\Http\Controllers\website\Client\OrderController@makePublicOrder')->name('public.order.post');
+        Route::get('public/order', 'App\Http\Controllers\Website\Client\OrderController@publicOrder')->name('public.order');
+        Route::post('public/order', 'App\Http\Controllers\Website\Client\OrderController@makePublicOrder')->name('public.order.post');
 
         //cart
-        Route::get('cart', 'App\Http\Controllers\website\Client\CartController@showCart')->name('client.cart.show');
+        Route::get('cart', 'App\Http\Controllers\Website\Client\CartController@showCart')->name('client.cart.show');
+        Route::post('cart', 'App\Http\Controllers\Website\Client\CartController@updateCart')->name('client.cart.post');
+        Route::post('add/to/cart','App\Http\Controllers\Website\Client\CartController@postCart')->name('client.cart.add');
+        Route::post('delete/provider/cart','App\Http\Controllers\Website\Client\CartController@deleteProviderCart')->name('client.cart.provider.delete');
+        Route::post('add/to /cart/product','App\Http\Controllers\Website\Client\CartController@postProducrCart')->name('client.product.cart.add');
 
 
         //product
-        Route::get('product/{mainCategory_id}/{provider_id}/{product_id}', 'App\Http\Controllers\website\Client\ProductController@showProduct')->name('client.product.show');
+        Route::get('product/{mainCategory_id}/{provider_id}/{product_id}', 'App\Http\Controllers\Website\Client\ProductController@showProduct')->name('client.product.show');
         //favouriteProviders
-        Route::get('favourite/providers', 'App\Http\Controllers\website\Client\ProviderController@showFavouriteProviders')->name('client.favourite.providers.show');
-        Route::post('favourite/providers/{mainService_id}/{providerId}/{add}', 'App\Http\Controllers\website\Client\ProviderController@addProviderToFavourites')->name('client.favourite.providers.show.post');
+        Route::get('favourite/providers', 'App\Http\Controllers\Website\Client\ProviderController@showFavouriteProviders')->name('client.favourite.providers.show');
+        Route::post('favourite/providers/{mainService_id}/{providerId}/{add}', 'App\Http\Controllers\Website\Client\ProviderController@addProviderToFavourites')->name('client.favourite.providers.show.post');
 
         //orders
-        Route::get('profile/product/orders/new/{order_id}', 'App\Http\Controllers\website\Client\Profile\OrderController@showProductOrderNew')->name('client.product.orders.new.show');
-        Route::get('profile/product/orders/now/{order_id}', 'App\Http\Controllers\website\Client\Profile\OrderController@showProductOrderNow')->name('client.product.orders.now.show');
-        Route::post('profile/product/orders/add/comment', 'App\Http\Controllers\website\Client\Profile\OrderController@addCommentToProvider')->name('client.add.comment.rate');
-        Route::get('profile/product/orders/complete/{order_id}', 'App\Http\Controllers\website\Client\Profile\OrderController@showProductOrderComplete')->name('client.product.orders.complete.show');
-        Route::get('profile/product/orders/cancel/{order_id}', 'App\Http\Controllers\website\Client\Profile\OrderController@showProductOrderCancel')->name('client.product.orders.cancel.show');
-        Route::post('profile/cancel/product/orders/new', 'App\Http\Controllers\website\Client\Profile\OrderController@postClientCancel')->name('client.cancellation.reasons.post');
+        Route::get('profile/product/orders/new/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showProductOrderNew')->name('client.product.orders.new.show');
+        Route::get('profile/product/orders/now/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showProductOrderNow')->name('client.product.orders.now.show');
+        Route::post('profile/product/orders/add/comment', 'App\Http\Controllers\Website\Client\Profile\OrderController@addCommentToProvider')->name('client.add.comment.rate');
+        Route::get('profile/product/orders/complete/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showProductOrderComplete')->name('client.product.orders.complete.show');
+        Route::get('profile/product/orders/cancel/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showProductOrderCancel')->name('client.product.orders.cancel.show');
+        Route::post('profile/cancel/product/orders/new', 'App\Http\Controllers\Website\Client\Profile\OrderController@postClientCancel')->name('client.cancellation.reasons.post');
 
 
-        Route::get('profile/orders/new/{order_id}', 'App\Http\Controllers\website\Client\Profile\OrderController@showPrivatePublicOrderNew')->name('client.private.public.orders.new');
-        Route::post('order/accept/price', 'App\Http\Controllers\website\Client\Profile\OrderController@acceptPrice')->name('client.order.accept.price');
-        Route::post('order/refuse/price', 'App\Http\Controllers\website\Client\Profile\OrderController@refusePrice')->name('client.order.refuse.price');
+        Route::get('profile/orders/new/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showPrivatePublicOrderNew')->name('client.private.public.orders.new');
+        Route::post('order/accept/price', 'App\Http\Controllers\Website\Client\Profile\OrderController@acceptPrice')->name('client.order.accept.price');
+        Route::post('order/refuse/price', 'App\Http\Controllers\Website\Client\Profile\OrderController@refusePrice')->name('client.order.refuse.price');
 
 
-        Route::get('profile/orders/now/{order_id}','App\Http\Controllers\website\Client\Profile\OrderController@showPrivatePublicOrderNow')->name('client.private.public.orders.now');
-        Route::get('profile/orders/complete/{order_id}','App\Http\Controllers\website\Client\Profile\OrderController@showPrivatePublicOrderComplete')->name('client.private.public.orders.complete');
-        Route::get('profile/orders/canceled/{order_id}','App\Http\Controllers\website\Client\Profile\OrderController@showPrivatePublicOrderCancel')->name('client.private.public.orders.cancel');
+        Route::get('profile/orders/now/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showPrivatePublicOrderNow')->name('client.private.public.orders.now');
+        Route::get('profile/orders/complete/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showPrivatePublicOrderComplete')->name('client.private.public.orders.complete');
+        Route::get('profile/orders/canceled/{order_id}', 'App\Http\Controllers\Website\Client\Profile\OrderController@showPrivatePublicOrderCancel')->name('client.private.public.orders.cancel');
 
 
         //notifications
-        Route::get('notifications','App\Http\Controllers\website\Client\Profile\UpdateController@notifications')->name('client.notifications');
-
-
+        Route::get('notifications', 'App\Http\Controllers\Website\Client\Profile\UpdateController@notifications')->name('client.notifications');
     });
 });
 

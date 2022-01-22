@@ -323,7 +323,7 @@ var numberSpinner = (function() {
             if (oldValue > 1) {
                 newVal = parseInt(oldValue) - 1;
             } else {
-                newVal = 1;
+                newVal = 0;
             }
         }
         btn.closest('.number-spinner').find('input').val(newVal);

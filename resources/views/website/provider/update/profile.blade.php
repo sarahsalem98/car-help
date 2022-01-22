@@ -92,7 +92,7 @@
                     </div> -->
                             <div class="form-group ">
 
-                                <label for="yourCommercial"> {{__('registeration file')}} <a href="{{$provider->registerationUrl()}}" class="fa fa-download">رؤية</a></label>
+                                <label for="yourCommercial"> {{__('registeration file')}} <a class="view-pdf" href="{{$provider->registerationUrl()}}" > <i  class="fa fa-download"></i> رؤية</a></label>
                                 <input type="text" class="form-control" id="yourCommercial" value="{{$provider->business_registeration_file}}">
                                 <input type="file" name="business_registeration_file" class="Commercial_record">
                                 <i class="fa fa-upload upload_icon"></i>

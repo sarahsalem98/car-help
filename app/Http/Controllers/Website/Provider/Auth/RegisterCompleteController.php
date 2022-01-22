@@ -48,7 +48,8 @@ class RegisterCompleteController extends Controller
         if ($verification->valid) {
             $provider = Provider::where('phone_number', $data['phone_number'])->first();
             // dd($client);
-            $provider->update(['status' => 'verified']);
+            $provider->status= 'verified';
+            $provider->save();
             Auth::guard('providerWeb')->login($provider);
             return redirect()->route('main');
         }

@@ -30,7 +30,7 @@ class LoginController extends Controller
             return redirect()->route('main');
           }
           else{
-           return redirect()->back()->with('message',trans('auth.failed'));
+           return redirect()->back()->with('error',trans('auth.failed'));
           }
       }
 

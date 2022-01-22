@@ -36,10 +36,10 @@
                 </div>
 
                 <input type="hidden" name="provider_id" value={{$provider_id}}>
-                lat
+              
                 <input type="hidden" name="lat" id="lat" value="lat">
                 <input type="hidden" name="long" id="long" value="long">
-                long
+             
 
 
                 </script>
@@ -47,7 +47,7 @@
                 <div id="map"></div>
 
 
-                <button type="submit" class="btn main_btn moving_bk submit_btn">التالى</button>
+                <button type="submit" class="btn main_btn moving_bk submit_btn mt-2">التالى</button>
             </div>
         </form>
     </div>

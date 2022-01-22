@@ -67,7 +67,7 @@
                 </a>
               
                 <a href="{{route('client.cart.show')}}" class="social-link rel_icon">
-                    <span class="noti_num">3</span>
+                    <span class="noti_num"> {{Auth::guard('clientWeb')->user()->cartCount()}}</span>
                     <img src="{{asset('website/image/shopping-cart.png')}}" alt="">
                 </a>
                 <a href="{{route('client.notifications')}}" class="social-link rel_icon d_mob_none">

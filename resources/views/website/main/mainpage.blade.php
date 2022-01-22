@@ -59,7 +59,7 @@
 @include('website.main.mainservices')
 
 <!--banner section-->
-<div class="banner-section">
+<div class="banner-section" id="download-app">
     <div class="container">
         <div class="row">
             <div class="col-xs-12 col-sm-6">

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -14,9 +15,9 @@ class Client extends Model implements AuthenticatableContract
     use Authenticatable;
     use HasFactory;
     use HasApiTokens;
-    protected $guard ='clientWeb';
+    protected $guard = 'clientWeb';
 
-    protected $fillable=[
+    protected $fillable = [
 
         'name',
         'password',
@@ -25,45 +26,60 @@ class Client extends Model implements AuthenticatableContract
         'profile_photo_path',
         'status',
         'phone_number_without_country_code',
-    'country_code_name',
-    'device_token'
+        'country_code_name',
+        'device_token'
     ];
 
-    protected $hidden=[
-        'password','pivot'
+    protected $hidden = [
+        'password', 'pivot'
     ];
-    public function photoUrl(){
-        if($this->profile_photo_path==null){
+    public function photoUrl()
+    {
+        if ($this->profile_photo_path == null) {
             return null;
-        }else{
+        } else {
 
             return Storage::url($this->profile_photo_path);
         }
     }
-    public function city(){
-      return  $this->belongsTo(City::class,'city_id','id');
+    public function city()
+    {
+        return  $this->belongsTo(City::class, 'city_id', 'id');
     }
-    public function address(){
-        return $this->hasMany(ClientsAddress::class,'client_id','id');
+    public function address()
+    {
+        return $this->hasMany(ClientsAddress::class, 'client_id', 'id');
     }
-    public function car(){
-     return   $this->hasMany(Car::class,'client_id','id');
+    public function car()
+    {
+        return   $this->hasMany(Car::class, 'client_id', 'id');
     }
-    public function favouriteProviders(){
-    return $this->belongsToMany(Provider::class,'user_favourite_providers','client_id','provider_id')->withPivot('mainService_id')->withTimestamps();
+    public function favouriteProviders()
+    {
+        return $this->belongsToMany(Provider::class, 'user_favourite_providers', 'client_id', 'provider_id')->withPivot('mainService_id')->withTimestamps();
     }
-    public function hasFavouriteProviders($provider_id){
-     
-      return $this->favouriteProviders->contains($provider_id);
+    public function hasFavouriteProviders($provider_id)
+    {
+
+        return $this->favouriteProviders->contains($provider_id);
     }
-    public function order(){
+    public function order()
+    {
         return $this->hasMany(Order::class);
     }
-    public function clientHasOrder($order_id){
+    public function clientHasOrder($order_id)
+    {
         return $this->order->contains($order_id);
     }
-    public function notificationClientCount(){
-         return Notification::where('user_id',$this->id)->where('is_client',1)->count();
+    public function notificationClientCount()
+    {
+        return Notification::where('user_id', $this->id)->where('is_client', 1)->count();
     }
-
+    public function cartCount()
+    {
+        return Cart::where('client_id', $this->id)->count();
+    }
+    public function cart(){
+        return $this->hasMany(Cart::class,'client_id','id');
+    }
 }
